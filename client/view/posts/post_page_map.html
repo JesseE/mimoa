@@ -1,0 +1,17 @@
+<template name="postPageMap">
+        <div class="post-content">
+            <img class="post-content__thumb-image--full-width" src="{{image1}}">
+            <div class="post-content__text--full-width">
+                <ul class="post-content__title-list">
+                    <li class="post-content__title-item"><a href="#"><h4>Photos</h4></a></li>
+                    <li class="post-content__title-item"><a href="{{pathFor 'postPage'}}"><h4>MainPage</h4></a></li>
+                    <li class="post-content__title-item"><a href="{{website}}" target="_blank"><h4>Website</h4></a></li>
+                </ul>
+                <div class="post-content__block-item">
+                    <div class="map-container">
+                        {{> googleMap name="exampleMap" options=exampleMapOptions}}
+                    </div>
+                </div>
+            </div>
+        </div>
+</template>
