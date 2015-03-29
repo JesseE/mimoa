@@ -1,29 +1,14 @@
-newLocalCollection = new Meteor.Collection( null );
-Template.postsList.events ({
-    'click .nearby-button': function() {
-        console.log('click');
-
-    }
-});
 Template.postsList.helpers({
     posts: function() {
-        var onlineCollection = proxyDB.mimoaCollection.find();
-        return onlineCollection;
+        return proxyDB.mimoaCollection.find({},{sort:{title:1}});
     }
 });
-//sessions
-
-//$near?
-
-//max distance
-//min distance
 
 Template.postsList.rendered = function() {
-    Meteor.setInterval(function () {
-        $('a.post-item').tsort('div.post', {data: "distance"});
-    }, 500);
+    //Meteor.setInterval(function () {
+    //    $('a.post-item').tsort('div.post', {data: "distance"});
+    //}, 5000);
 };
-
 //    var city = [];
 //// in wich city am I?
 //    if(here) {

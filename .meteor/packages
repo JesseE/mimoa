@@ -10,13 +10,14 @@ mrt:dbproxy
 less
 webapp
 meteorhacks:kadira
-http
 dburles:google-maps
 iron:router
 accounts-ui
 percolate:paginated-subscription
 ground:db
-bootstrap
-mrt:googlemaps
 mdg:geolocation
 dburles:jquery-tinysort
+fezvrasta:bootstrap-material-design
+http
+msavin:mongol
+meteorhacks:search-source

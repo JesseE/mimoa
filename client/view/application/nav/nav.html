@@ -1,0 +1,12 @@
+<template name="nav">
+    <header>
+        <div class="nav-container">
+            <ul class="nav">
+                <li><a href="/"><h4>Home</h4></a></li>
+                <li><a class="brand" href="{{pathFor 'postsList'}}"><h4>Nearby</h4></a></li>
+                <li><a href="{{pathFor 'projectsMap'}}"><h4>Map</h4></a></li>
+                <!--{{#if currentUser}}<li><a href="{{pathFor 'postSubmit'}}">New</a></li>{{/if}}-->
+            </ul>
+        </div>
+    </header>
+</template>
