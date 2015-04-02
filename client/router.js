@@ -1,7 +1,7 @@
 Router.configure({
     layoutTemplate: 'layout',
     loadingTemplate: 'loading',
-        waitOn: function() { return [  Meteor.subscribeWithPagination('mimoacollection',25)];
+        waitOn: function() { return [  Meteor.subscribeWithPagination('mimoacollection', 50)];
     }
 });
 Router.map(function(){
@@ -16,13 +16,20 @@ Router.map(function(){
         path:'/map',
         template: 'projectsMap',
         data: function(){
-            return proxyDB.mimoaCollection.find({city:'Amsterdam'});
+            return proxyDB.mimoaCollection.find({city:'Amsterdam'},{sort:{title: 1}});
         }
     });
     this.route('postPage', {
         path: '/posts/:id',
         data: function() {
             return proxyDB.mimoaCollection.findOne({id: this.params.id});
+        }
+    });
+    this.route('addNewProject', {
+        path: '/newpost',
+        template: 'addNewProject',
+        data: function() {
+
         }
     });
     this.route('postPageMap', {
@@ -54,6 +61,6 @@ var requireLogin = function () {
 Router.onBeforeAction(function() {
     GoogleMaps.load({v:'3', key:'AIzaSyCHm1lpUrl8t-6qHQ-16X39ZTNt1ocHmkM', libraries: 'geometry'});
     this.next();
-}, { only: ['postsList', 'postPageMap','projectsMap'] });
+}, { only: ['postsList', 'postPageMap','projectsMap', 'addNewProject'] });
 Router.onBeforeAction('dataNotFound', {only: 'postPage'});
 Router.onBeforeAction(requireLogin, {only: 'postSubmit'});

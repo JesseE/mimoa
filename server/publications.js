@@ -14,16 +14,8 @@
 Meteor.publish('mimoacollection', function(limit){
     // current user location?
     // limit the amount of data loaded?
-    return proxyDB.mimoaCollection.find({city:'Amsterdam'},{limit:limit});
-});
-
-
-Meteor.methods({
-    'updateRating': function(selectedDoc, ratingValue){
-        proxyDB.mimoaCollection.update({ _id: selectedDoc }, { $set : { freeint1 : {0 : { _ : ratingValue } } } });
-    },
-    'searchProject': function(projectTitle){
-        console.log(projectTitle);
-        proxyDB.mimoaCollection.find({title: projecttitle});
-    }
+    return proxyDB.mimoaCollection.find({
+        city:'Amsterdam',
+        country:'Netherlands'
+    },{limit:limit});
 });

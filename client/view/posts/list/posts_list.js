@@ -2,6 +2,14 @@ Template.postsList.helpers({
     posts: function() {
         return proxyDB.mimoaCollection.find({},{sort:{title:1}});
     }
+    //getProjects: function() {
+    //    return ProjectSearch.getData({
+    //        transform: function(matchText, regExp) {
+    //            return matchText.replace(regExp, "<b>$&</b>")
+    //        },
+    //        sort: {title: 1}
+    //    });
+    //}
 });
 
 Template.postsList.rendered = function() {

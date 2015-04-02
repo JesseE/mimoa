@@ -3,6 +3,15 @@
  */
 var ratingValue = [];
 Template.postItemPage.events({
+    'click button.remove-project': function() {
+        var thisPost = this;
+        Meteor.call('removeProject', thisPost, function(err, result) {
+            if(result) {
+                console.log(result);
+                Router.go('postsList');
+            }
+        });
+    },
     'click .rating-icon-1' : function() {
         ratingValue = [];
         $('div#rating').removeClass();
