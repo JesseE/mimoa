@@ -10,20 +10,19 @@ Template.projectsMap.helpers({
         var here = Geolocation.currentLocation();
         if(GoogleMaps.loaded()) {
             if (here.coords != null) {
-                proxyDB.mimoaCollection.find({city: 'Amsterdam'}).forEach(function (project) {
-                    GoogleMaps.ready('map', function (map) {
+                GoogleMaps.ready('map', function (map) {
+                    proxyDB.mimoaCollection.find().forEach(function (project) {
                         // Add a marker to the map once it's ready
                         var marker;
-                        marker = new google.maps.Marker({
-                            position: new google.maps.LatLng(here.coords.latitude, here.coords.longitude),
-                            map: map.instance
-                        });
-                        //for(var x=0, len=locations.length; x < len; x++){
                         marker = new google.maps.Marker({
                             position: new google.maps.LatLng(project.lat, project.lon),
                             map: map.instance
                         });
-                        //}
+                    });
+                    var myLocationMarker;
+                    myLocationMarker = new google.maps.Marker({
+                        position: new google.maps.LatLng(here.coords.latitude, here.coords.longitude),
+                        map: map.instance
                     });
                 });
             }

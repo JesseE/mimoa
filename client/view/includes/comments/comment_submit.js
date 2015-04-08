@@ -7,12 +7,11 @@ Template.commentSubmit.events({
 
         var $body = $(e.target).find('[name="body"]');
 
-        var comment = {
+        var commentAttributes = {
             body : $body.val(),
-            postId : template.data._id
+            postId : this.id
         };
-
-        Meteor.call('comments', comment, function(error, commentId){
+        Meteor.call('comments', commentAttributes, function(error, commentId){
             if(error){
                 throwError(error.reason);
             }else{

@@ -9,8 +9,8 @@ window.onscroll = function(ev) {
         handle.loadNextPage();
 
         if(handle.loadNextPage){
-
             $('a.post-item').tsort('div.post', {data: "distance"});
         }
+
     }
 };

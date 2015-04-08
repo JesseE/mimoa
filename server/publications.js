@@ -13,9 +13,10 @@
 
 Meteor.publish('mimoacollection', function(limit){
     // current user location?
-    // limit the amount of data loaded?
-    return proxyDB.mimoaCollection.find({
-        city:'Amsterdam',
-        country:'Netherlands'
-    },{limit:limit});
+    //return proxyDB.mimoaCollection.find({city:'Amsterdam',country:'Netherlands'},
+    //    {limit:limit});
+    return proxyDB.mimoaCollection.find({city: 'Amsterdam'},{limit:limit});
+});
+Meteor.publish('mimoaCommentsCollection', function(){
+    return proxyDB.mimoaCommentsCollection.find();
 });

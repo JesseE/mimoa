@@ -1,7 +1,7 @@
 Router.configure({
     layoutTemplate: 'layout',
     loadingTemplate: 'loading',
-        waitOn: function() { return [  Meteor.subscribeWithPagination('mimoacollection', 50)];
+        waitOn: function() { return [  Meteor.subscribe('mimoaCommentsCollection'),Meteor.subscribeWithPagination('mimoacollection',20)];
     }
 });
 Router.map(function(){
@@ -9,19 +9,20 @@ Router.map(function(){
         path:'/',
         template: 'postsList',
         data: function(){
-            return proxyDB.mimoaCollection.find({city:'Amsterdam'},{sort:{title: 1}});
+            return proxyDB.mimoaCollection.find({},{sort:{title: 1}});
         }
     });
     this.route('projectsMap', {
         path:'/map',
         template: 'projectsMap',
         data: function(){
-            return proxyDB.mimoaCollection.find({city:'Amsterdam'},{sort:{title: 1}});
+            return proxyDB.mimoaCollection.find({},{sort:{title: 1}});
         }
     });
     this.route('postPage', {
         path: '/posts/:id',
         data: function() {
+            //proxyDB.mimoaCommentsCollection.find({postId:this.params.id});
             return proxyDB.mimoaCollection.findOne({id: this.params.id});
         }
     });
@@ -58,9 +59,8 @@ var requireLogin = function () {
         this.next();
     }
 };
+//Router.onBeforeAction(requireLogin, {only: 'postSubmit'});
 Router.onBeforeAction(function() {
     GoogleMaps.load({v:'3', key:'AIzaSyCHm1lpUrl8t-6qHQ-16X39ZTNt1ocHmkM', libraries: 'geometry'});
     this.next();
 }, { only: ['postsList', 'postPageMap','projectsMap', 'addNewProject'] });
-Router.onBeforeAction('dataNotFound', {only: 'postPage'});
-Router.onBeforeAction(requireLogin, {only: 'postSubmit'});

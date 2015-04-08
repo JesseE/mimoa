@@ -19,7 +19,6 @@ Template.addNewProject.events({
             country: ['Netherlands'],
             city: ['Amsterdam']
         };
-       console.log(post);
        //return Meteor.call('addNewProject', post, function(err, result){
        //     if(result){
        //         console.log(result);

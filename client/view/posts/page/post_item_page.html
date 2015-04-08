@@ -11,10 +11,10 @@
                     <div class="post-content__title">
                         <h5>{{title}}</h5>
                         <h6>{{freetext8.[0]._}}</h6>
-                        <button class="remove-project">remove</button>
+                        <!--<button class="remove-project">remove</button>-->
                     </div>
                     <div class="rating-container">
-                        <div class="rating-image">
+                        <div class="rating-image--project-page">
                             <div class="rating-icon-1"></div>
                             <div class="rating-icon-2"></div>
                             <div class="rating-icon-3"></div>
@@ -23,6 +23,19 @@
                             <div id="rating" class="rating-{{freeint1.[0]._}}"></div>
                         </div>
                     </div>
+                    <!--<div class="comments-goto">-->
+                        <!--<ul>-->
+                            <!--<li><a href="#">comments</a></li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                </div>
+                <div class="share">
+                    <ul class="share-list">
+                        <li class="share-list__item">{{> shareit_pinterest}}</li>
+                        <li class="share-list__item">{{> shareit_facebook}}</li>
+                        <li class="share-list__item">{{> shareit_twitter}}</li>
+                        <li class="share-list__item">{{> shareit_googleplus}}</li>
+                    </ul>
                 </div>
                 <div class="post-content__block-item">
                     <ul class="post-content__sub-list">
@@ -61,6 +74,8 @@
                         <li class="post-content__sub-item"><p>architect: {{freetext8.[0]._}}</p></li>
                     </ul>
                 </div>
+                {{> comment}}
+                {{> commentSubmit}}
             </div>
         </div>
 </template>

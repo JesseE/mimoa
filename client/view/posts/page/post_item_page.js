@@ -2,6 +2,15 @@
  * Created by jesse on 13/03/15.
  */
 var ratingValue = [];
+Template.postItemPage.helpers({
+    shareData: function() {
+        return {
+            title: this.title,
+            summary: this.summary,
+            url : this.url
+        }
+    }
+});
 Template.postItemPage.events({
     'click button.remove-project': function() {
         var thisPost = this;
@@ -81,5 +90,4 @@ Template.postItemPage.events({
 });
 Template.postItemPage.rendered = function() {
     window.scrollTo(0,0);
-
 };

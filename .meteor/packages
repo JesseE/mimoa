@@ -13,11 +13,13 @@ dburles:google-maps
 iron:router
 percolate:paginated-subscription
 ground:db
-mdg:geolocation
 dburles:jquery-tinysort
 fezvrasta:bootstrap-material-design
 http
 meteorhacks:search-source
 fastclick
 sacha:spin
-mdg:camera
+webapp
+mdg:geolocation
+joshowens:shareit
+fortawesome:fontawesome

@@ -1,9 +1,8 @@
 <template name="comment">
-    <li class="comment">
-        <h4>
-            <span class="author">{{author}}</span>
-            <span class="date">{{submittedText}}</span>
-        </h4>
+    {{#each submittedText}}
+    <li class="comment" id="comment">
+        <button class="remove-button">remove comment</button>
         <p>{{body}}</p>
     </li>
+    {{/each}}
 </template>
