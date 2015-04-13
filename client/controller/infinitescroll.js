@@ -1,7 +1,7 @@
 /**
  * Created by jesse on 16/03/15.
  */
-var handle = Meteor.subscribeWithPagination('mimoacollection', 50);
+var handle = Meteor.subscribeWithPagination('mimoacollection', 15);
 
 window.onscroll = function(ev) {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
@@ -12,5 +12,9 @@ window.onscroll = function(ev) {
             $('a.post-item').tsort('div.post', {data: "distance"});
         }
 
+        handle.ready();
+        if(handle.ready()){
+            handle.stop();
+        }
     }
 };

@@ -1,4 +1,4 @@
-Template.shareit_googleplus.rendered = function() {
+Template.shareit__googleplus.rendered = function() {
     if (!this.data) {
         return;
     }
@@ -45,7 +45,7 @@ Template.shareit_googleplus.rendered = function() {
     });
 };
 
-Template.shareit_googleplus.helpers(ShareIt.helpers);
+Template.shareit__googleplus.helpers();
 /**
  * Created by jesseeikema on 4/8/15.
  */

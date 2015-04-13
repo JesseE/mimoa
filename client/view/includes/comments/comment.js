@@ -4,8 +4,10 @@
 Template.comment.helpers({
     submittedText: function() {
         var Id = this.id;
-        return proxyDB.mimoaCommentsCollection.find({postId:Id});
-        //return new Date(this.submitted).toString();
+        return proxyDB.mimoaCommentsCollection.find({postId:Id},{sort:{submittedDate:-1}});
+    },
+    submittedDate: function(){
+        return new Date(this.submittedDate).toString();
     }
 });
 Template.comment.events({

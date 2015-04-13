@@ -1,66 +1,59 @@
+
+Meteor.subscribe('mimoaCommentsCollection');
+//Meteor.subscribeWithPagination('mimoacollection',40);
 Router.configure({
     layoutTemplate: 'layout',
     loadingTemplate: 'loading',
-        waitOn: function() { return [  Meteor.subscribe('mimoaCommentsCollection'),Meteor.subscribeWithPagination('mimoacollection',20)];
-    }
+        waitOn: function() { return [ Meteor.subscribeWithPagination('mimoacollection',10)];
+   }
 });
 Router.map(function(){
     this.route('postsList', {
         path:'/',
         template: 'postsList',
-        data: function(){
-            return proxyDB.mimoaCollection.find({},{sort:{title: 1}});
+        data: function(limit){
+            return proxyDB.mimoaCollection.find({},{limit:limit});
         }
     });
     this.route('projectsMap', {
         path:'/map',
         template: 'projectsMap',
-        data: function(){
-            return proxyDB.mimoaCollection.find({},{sort:{title: 1}});
+        data: function(limit){
+            return proxyDB.mimoaCollection.find({},{limit:limit});
         }
     });
     this.route('postPage', {
         path: '/posts/:id',
-        data: function() {
-            //proxyDB.mimoaCommentsCollection.find({postId:this.params.id});
-            return proxyDB.mimoaCollection.findOne({id: this.params.id});
+        data: function(limit) {
+            return proxyDB.mimoaCollection.findOne({id: this.params.id},{limit:limit});
         }
     });
     this.route('addNewProject', {
         path: '/newpost',
         template: 'addNewProject',
-        data: function() {
-
-        }
+        data: function() {}
     });
     this.route('postPageMap', {
         path: '/posts/map/:id',
-        template:'postPageMap',
-        data: function() {
-            return proxyDB.mimoaCollection.findOne({id: this.params.id});
+        template: 'postPageMap',
+        data: function (limit) {
+            return proxyDB.mimoaCollection.findOne({id: this.params.id},{limit:limit});
         }
-    });
-    this.route('postEdit', {
-        path: '/posts/:_id/edit',
-        data: function() {return Posts.findOne(this.params._id); }
-    });
-    this.route('postSubmit', {
-        path: '/submit'
     });
 });
-var requireLogin = function () {
-    if (!Meteor.user()) {
-        if (Meteor.loggingIn()) {
-            this.render(this.loadingTemplate);
-        } else {
-            this.render('accessDenied');
-        }
-    } else {
-        this.next();
-    }
-};
+//var requireLogin = function () {
+//    if (!Meteor.user()) {
+//        if (Meteor.loggingIn()) {
+//            this.render(this.loadingTemplate);
+//        } else {
+//            this.render('accessDenied');
+//        }
+//    } else {
+//        this.next();
+//    }
+//};
 //Router.onBeforeAction(requireLogin, {only: 'postSubmit'});
 Router.onBeforeAction(function() {
-    GoogleMaps.load({v:'3', key:'AIzaSyCHm1lpUrl8t-6qHQ-16X39ZTNt1ocHmkM', libraries: 'geometry'});
+    GoogleMaps.load({v:'3', key:'AIzaSyCHm1lpUrl8t-6qHQ-16X39ZTNt1ocHmkM', libraries: ['geometry','directions']});
     this.next();
-}, { only: ['postsList', 'postPageMap','projectsMap', 'addNewProject'] });
+}, { only: ['postsList','projectsMap','postPageMap', 'addNewProject'] });

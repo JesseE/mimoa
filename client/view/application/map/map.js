@@ -1,47 +1,59 @@
 /**
  * Created by jesseeikema on 3/26/15.
  */
-Markers = new Mongo.Collection('markers');
-
-var locations = [];
+var marker;
+var projectDescription;
+var myLocationMarker;
+var infowindow;
 
 Template.projectsMap.helpers({
     mapOptions: function() {
-        var here = Geolocation.currentLocation();
         if(GoogleMaps.loaded()) {
-            if (here.coords != null) {
-                GoogleMaps.ready('map', function (map) {
-                    proxyDB.mimoaCollection.find().forEach(function (project) {
-                        // Add a marker to the map once it's ready
-                        var marker;
-                        marker = new google.maps.Marker({
-                            position: new google.maps.LatLng(project.lat, project.lon),
-                            map: map.instance
-                        });
-                    });
-                    var myLocationMarker;
-                    myLocationMarker = new google.maps.Marker({
-                        position: new google.maps.LatLng(here.coords.latitude, here.coords.longitude),
+            var here = Geolocation.currentLocation();
+            var mimoaIcon = 'http://mimoa.eu/map/img/focus1.png';
+            GoogleMaps.ready('map', function (map, limit) {
+
+                proxyDB.mimoaCollection.find({},{limit:limit}).forEach(function (project, marker, infowindow) {
+                    // Add a marker to the map once it's ready
+
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(project.lat, project.lon),
+                        icon: mimoaIcon,
                         map: map.instance
                     });
+
+                    projectDescription = "<div><p>"+project.title+"</p><br><p>"+project.summary+"</p><br><a href="+'/posts/'+project.id+">this project</a></div>";
+
+                    infowindow = new google.maps.InfoWindow({
+                        content: projectDescription
+                    });
+
+                    google.maps.event.addListener(marker,'click', function(){
+                        if(infowindow.getMap() != null){
+                            infowindow.close();
+                        }
+                        infowindow.open(map.instance, marker);
+                    });
+
                 });
-            }
-        }
-      // // Make sure the maps API has loaded
-        var here = Geolocation.currentLocation();
-        if(GoogleMaps.loaded()){
-            if(here.coords != null){
+                if(here.coords != null){
+                    myLocationMarker = new google.maps.Marker({
+                        position: new google.maps.LatLng(here.coords.latitude, here.coords.longitude),
+                        icon: mimoaIcon,
+                        map: map.instance
+                    });
+                }
+            });
             // Map initialization options
+            if(here.coords != null) {
                 return {
                     center: new google.maps.LatLng(here.coords.latitude, here.coords.longitude),
                     zoom: 13,
-                    draggable: true
+                    icon: mimoaIcon,
+                    draggable: true,
+                    disableDefaultUI: true
                 };
             }
         }
     }
 });
-Template.projectsMap.onCreated = function() {
-
-
-};

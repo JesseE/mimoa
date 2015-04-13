@@ -1,7 +1,7 @@
 /**
  * Created by jesseeikema on 4/8/15.
  */
-Template.shareit_twitter.rendered = function() {
+Template.shareit__twitter.rendered = function() {
     if (!this.data) {
         return;
     }
@@ -61,4 +61,4 @@ Template.shareit_twitter.rendered = function() {
     });
 };
 
-Template.shareit_twitter.helpers(ShareIt.helpers);
+Template.shareit__twitter.helpers();

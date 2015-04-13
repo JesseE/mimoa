@@ -15,11 +15,8 @@ percolate:paginated-subscription
 ground:db
 dburles:jquery-tinysort
 fezvrasta:bootstrap-material-design
-http
 meteorhacks:search-source
-fastclick
 sacha:spin
-webapp
 mdg:geolocation
-joshowens:shareit
 fortawesome:fontawesome
+fastclick

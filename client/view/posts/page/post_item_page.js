@@ -7,7 +7,7 @@ Template.postItemPage.helpers({
         return {
             title: this.title,
             summary: this.summary,
-            url : this.url
+            image : this.image1
         }
     }
 });

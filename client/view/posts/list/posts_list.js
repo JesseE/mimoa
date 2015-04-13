@@ -1,6 +1,6 @@
 Template.postsList.helpers({
-    posts: function() {
-        return proxyDB.mimoaCollection.find({},{sort:{title:1}});
+    posts: function(limit) {
+        return proxyDB.mimoaCollection.find({},{limit:limit});
     }
     //getProjects: function() {
     //    return ProjectSearch.getData({
