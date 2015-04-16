@@ -16,8 +16,8 @@ Template.carousel.rendered = function(){
     $('div.item').first().addClass('active');
 };
 Template.carousel.events({
-    'click #myCarousel': function() {
-        var elem = document.getElementById("myCarousel");
+    'click #myCarouselImage': function() {
+        var elem = document.getElementById("myCarouselImage");
         console.log(elem.requestFullscreen);
         if (elem.requestFullscreen) {
             elem.requestFullscreen();
