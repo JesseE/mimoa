@@ -1,5 +1,5 @@
-<template name="carousel">
-    {{#if carousel}}
+<template name="carouselFull">
+    {{#if carouselFull}}
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -7,10 +7,10 @@
                 <li data-target="#myCarousel" data-slide-to="2" class=""></li>
             </ol>
             <div class="carousel-inner" role="listbox" >
-                {{#each carousel}}
-                        <div class="item">
-                            <img src="{{.}}" alt=""/>
-                        </div>
+                {{#each carouselFull}}
+                    <div class="item">
+                        <img src="{{.}}" alt=""/>
+                    </div>
                 {{/each}}
             </div>
             <a id="myElement" class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"></a>

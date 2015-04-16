@@ -7,11 +7,9 @@ window.onscroll = function(ev) {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
         //load next page
         handle.loadNextPage();
-
         if(handle.loadNextPage){
-            $('a.post-item').tsort('div.post', {data: "distance"});
+            //  $('a.post-item').tsort('div.post', {data: "distance"});
         }
-
         handle.ready();
         if(handle.ready()){
             handle.stop();

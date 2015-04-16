@@ -7,6 +7,7 @@ Router.configure({
         waitOn: function() { return [ Meteor.subscribeWithPagination('mimoacollection',10)];
    }
 });
+
 Router.map(function(){
     this.route('postsList', {
         path:'/',
@@ -19,11 +20,19 @@ Router.map(function(){
         path:'/map',
         template: 'projectsMap',
         data: function(limit){
+            here = Geolocation.currentLocation();
             return proxyDB.mimoaCollection.find({},{limit:limit});
         }
     });
     this.route('postPage', {
         path: '/posts/:id',
+        data: function(limit) {
+            return proxyDB.mimoaCollection.findOne({id: this.params.id},{limit:limit});
+        }
+    });
+    this.route('postPageCarousel', {
+        path:'/posts/carousel/:id',
+        layoutTemplate:'postPageCarousel',
         data: function(limit) {
             return proxyDB.mimoaCollection.findOne({id: this.params.id},{limit:limit});
         }
@@ -35,7 +44,7 @@ Router.map(function(){
     });
     this.route('postPageMap', {
         path: '/posts/map/:id',
-        template: 'postPageMap',
+        layoutTemplate: 'postPageMap',
         data: function (limit) {
             return proxyDB.mimoaCollection.findOne({id: this.params.id},{limit:limit});
         }

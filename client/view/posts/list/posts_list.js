@@ -1,7 +1,8 @@
 Template.postsList.helpers({
     posts: function(limit) {
         return proxyDB.mimoaCollection.find({},{limit:limit});
-    }
+    },
+    sort: function(){orderByDistance();}
     //getProjects: function() {
     //    return ProjectSearch.getData({
     //        transform: function(matchText, regExp) {
@@ -12,11 +13,12 @@ Template.postsList.helpers({
     //}
 });
 
-Template.postsList.rendered = function() {
+//Template.postsList.rendered = function() {
+
     //Meteor.setInterval(function () {
-    //    $('a.post-item').tsort('div.post', {data: "distance"});
+        //$('a.post-item').tsort('div.post', {data: "distance"});
     //}, 5000);
-};
+//};
 //    var city = [];
 //// in wich city am I?
 //    if(here) {
