@@ -1,22 +1,22 @@
 /**
  * Created by jesse on 19/02/15.
  */
+var currentLocation;
+var objectLocation;
+var distanceToLocation;
 Template.postItem.helpers({
     currentDistance: function() {
-        var hereBrowser = Geolocation.currentLocation();
+       var hereBrowser = Geolocation.currentLocation();
         if(hereBrowser != null){
             if(GoogleMaps.loaded()){
-                var currentLocation = new google.maps.LatLng(hereBrowser.coords.latitude, hereBrowser.coords.longitude);
-                var objectLocation = new google.maps.LatLng(this.lat[0],this.lon[0]);
-                var distanceToLocation = JSON.parse((google.maps.geometry.spherical.computeDistanceBetween(currentLocation, objectLocation)).toFixed(0));
-                orderByDistance();
+                currentLocation = new google.maps.LatLng(hereBrowser.coords.latitude, hereBrowser.coords.longitude);
+                objectLocation = new google.maps.LatLng(this.lat[0],this.lon[0]);
+                distanceToLocation = JSON.parse((google.maps.geometry.spherical.computeDistanceBetween(currentLocation, objectLocation)).toFixed(0));
                 return distanceToLocation;
             }
         }
+    },
+    order:function() {
+        return $('a.post-item').tsort('div.post', {data: 'distance'});
     }
 });
-function orderByDistance () {
-    Meteor.setTimeout(function () {
-        $('a.post-item').tsort('div.post', {data: 'distance'});
-    }, 500);
-}

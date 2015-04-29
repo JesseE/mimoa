@@ -7,14 +7,17 @@ Template.carousel.helpers({
         return item;
     },
     description: function() {
-        var description = this.imagedescription[0].split(',');
+        var description = this.imagedescription;
+        console.log(description);
         return description;
     }
 });
 
 Template.carousel.rendered = function(){
     $('div.item').first().addClass('active');
+    bucket = $('.item');
 };
+
 Template.carousel.events({
     'click #myCarouselImage': function() {
         var elem = document.getElementById("myCarouselImage");
@@ -38,6 +41,37 @@ Template.carousel.events({
         e.preventDefault();
         console.log('right');
         //Do cool stuff here
+    }
+});
+var bucket = [];
+var index = 0;
+
+Template.carousel.gestures({
+    'swipeleft #myCarousel': function (event, template) {
+        console.log('swipeleft');
+        index++;
+        if(index == bucket.length){
+            index = 0;
+            bucket.next().addClass('active');
+        } else {
+            bucket.prev().removeClass('active');
+        }
+        console.log(index);
+
+    },
+    'swiperight #myCarousel': function (event, template) {
+        index--;
+
+        if(index == 0){
+            index = bucket.length;
+            bucket.next().addClass('active');
+        } else {
+            bucket.prev().removeClass('active');
+        }
+        console.log(index);
+        bucket.siblings().next().addClass('active');
+        bucket.siblings().prev().removeClass('active');
+        console.log('swiperight');
     }
 });
 

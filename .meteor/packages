@@ -4,21 +4,21 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-platform
 insecure
 mrt:dbproxy
 less
-meteorhacks:kadira
 dburles:google-maps
 iron:router
 percolate:paginated-subscription
 ground:db
 dburles:jquery-tinysort
 fezvrasta:bootstrap-material-design
-meteorhacks:search-source
 sacha:spin
-mdg:geolocation
 fortawesome:fontawesome
 fastclick
-hammer:hammer
 webapp
+http
+meteor-platform
+chriswessels:hammer
+meteorhacks:kadira
+mdg:geolocation

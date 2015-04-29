@@ -1,32 +1,45 @@
-/**
- * Created by jesseeikema on 3/26/15.
- */
 var marker;
 var projectDescription;
 var myLocationMarker;
 var infowindow;
+var map;
+var currentLocation;
+var mimoaIcon = 'http://mimoa.eu/map/img/focus1.png';
 
-
+var myCurrentCountry;
+var myCurrentCity;
+var currentLat;
+var currentLng;
+Meteor.startup(function(){
+    function success(pos) {
+        var crd = pos.coords;
+        currentLat = crd.latitude;
+        currentLng = crd.longitude;
+        console.log(currentLat);
+    }
+    function error(err) {
+        console.log(err);
+        //console.warn('ERROR(' + err.code + '): ' + err.message);
+    }
+    navigator.geolocation.getCurrentPosition(success, error);
+});
 Template.projectsMap.helpers({
     mapOptions: function() {
-        if(GoogleMaps.loaded()) {
-        var mimoaIcon = 'http://mimoa.eu/map/img/focus1.png';
-        // Map initialization options
-            if(here.coords != null) {
+            if(GoogleMaps.loaded()) {
+                // Map initialization options;
                 return {
-                    center: new google.maps.LatLng(here.coords.latitude, here.coords.longitude),
+                    center: new google.maps.LatLng(currentLat,currentLng),
                     zoom: 13,
                     icon: mimoaIcon,
                     draggable: true,
                     disableDefaultUI: true
                 };
             }
-        }
+
     }
 });
-Template.projectsMap.onRendered(function(){
+Template.projectsMap.onCreated(function(){
     GoogleMaps.ready('map', function (map, limit) {
-        var mimoaIcon = 'http://mimoa.eu/map/img/focus1.png';
         proxyDB.mimoaCollection.find({}, {limit: limit}).forEach(function (project, marker, infowindow) {
             // Add a marker to the map once it's ready
 
@@ -50,12 +63,10 @@ Template.projectsMap.onRendered(function(){
             });
 
         });
-        if (here.coords != null) {
-            myLocationMarker = new google.maps.Marker({
-                position: new google.maps.LatLng(here.coords.latitude, here.coords.longitude),
-                icon: mimoaIcon,
-                map: map.instance
-            });
-        }
+        myLocationMarker = new google.maps.Marker({
+            position: new google.maps.LatLng(currentLat,currentLng),
+            icon: mimoaIcon,
+            map: map.instance
+        });
     });
 });

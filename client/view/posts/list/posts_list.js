@@ -1,30 +1,28 @@
-Template.postsList.helpers({
-    posts: function(limit) {
-        return proxyDB.mimoaCollection.find({},{limit:limit});
-    },
-    sort: function(){orderByDistance();}
-    //getProjects: function() {
-    //    return ProjectSearch.getData({
-    //        transform: function(matchText, regExp) {
-    //            return matchText.replace(regExp, "<b>$&</b>")
-    //        },
-    //        sort: {title: 1}
-    //    });
-    //}
+$(window).scroll(function() {
+    if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+        $('.loadbutton').show();
+    } else {
+        $('.loadbutton').hide();
+    }
 });
-
-//Template.postsList.rendered = function() {
-
+var currentLat;
+var currentLng;
+var myCurrentCountry;
+var myCurrentCity;
+Template.postsList.helpers({
+    posts: function() {
+       // return proxyDB.mimoaCollection.find({},{fields: {id:1,title:1,thumb:1,freetext2:1,freeint1:1,lon:1,lat:1}});
+        return proxyDB.mimoaCollection.find({});
+    }
+});
+Template.postsList.events({
+   'click button.loadbutton':function(){
+       return subHandle.loadNextPage();
+   }
+});
+Template.postsList.rendered = function() {
     //Meteor.setInterval(function () {
         //$('a.post-item').tsort('div.post', {data: "distance"});
     //}, 5000);
-//};
-//    var city = [];
-//// in wich city am I?
-//    if(here) {
-//        HTTP.call('GET', 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + here.coords.latitude + ',' + here.coords.longitude + '&key=' + apiKey + '', function (err, res) {
-//            var result = JSON.stringify(res.data.results[0].address_components[3].long_name);
-//            console.log(result);
-//            city.push(result);
-//        });
-//    }
+
+};

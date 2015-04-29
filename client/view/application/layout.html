@@ -1,20 +1,7 @@
-
 <template name="layout">
-    <head>
-        <meta charset="UTF-8">
-        <title>MIMOA</title>
-        <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;" />
-    </head>
-    <body>
-    {{>nav}}
-    {{>errors}}
-        <div class="container">
+    <div class="container">
             <div id="main" class="row-fluid">
-                {{>yield}}
+                {{>postsList}}
             </div>
         </div>
-    {{>footer}}
-    </body>
 </template>
