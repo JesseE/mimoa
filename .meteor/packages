@@ -9,7 +9,6 @@ mrt:dbproxy
 less
 dburles:google-maps
 iron:router
-percolate:paginated-subscription
 ground:db
 dburles:jquery-tinysort
 fezvrasta:bootstrap-material-design
@@ -22,3 +21,4 @@ meteor-platform
 chriswessels:hammer
 meteorhacks:kadira
 mdg:geolocation
+percolate:paginated-subscription

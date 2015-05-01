@@ -5,10 +5,6 @@ $(window).scroll(function() {
         $('.loadbutton').hide();
     }
 });
-var currentLat;
-var currentLng;
-var myCurrentCountry;
-var myCurrentCity;
 Template.postsList.helpers({
     posts: function() {
        // return proxyDB.mimoaCollection.find({},{fields: {id:1,title:1,thumb:1,freetext2:1,freeint1:1,lon:1,lat:1}});
@@ -24,5 +20,4 @@ Template.postsList.rendered = function() {
     //Meteor.setInterval(function () {
         //$('a.post-item').tsort('div.post', {data: "distance"});
     //}, 5000);
-
 };

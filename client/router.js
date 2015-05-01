@@ -3,10 +3,6 @@ var myCurrentCountry;
 var apiKey;
 var crd;
 //Meteor.subscribe('mimoaCommentsCollection');
-Router.configure({
-    layoutTemplate: 'index',
-    loadingTemplate: 'loading'
-});
 //window.onscroll = function(ev) {
 //    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
 //        Meteor.setTimeout(function() {
@@ -14,6 +10,18 @@ Router.configure({
 //        },1000);
 //    }
 //};
+Router.configure({
+    layoutTemplate: 'index',
+    loadingTemplate: 'loading',
+    waitOn: function() {
+        if(Session.get('myCurrentCountry') != undefined) {
+            subHandle = Meteor.subscribeWithPagination('mimoacollection', Session.get('myCurrentCountry'), Session.get('myCurrentCity'), 15);
+            //     } else{
+            //         subHandle = Meteor.subscribeWithPagination('mimoacollection', 'Netherlands', 'Amsterdam', 15);
+            ////   }
+        }
+    }
+});
 Router.map(function(){
     this.route('postsList', {
         path:'/',
@@ -62,38 +70,33 @@ Router.onBeforeAction(function() {
 }, { only: ['postPageMap','projectsMap', 'postsList'] });
 
 Meteor.startup(function(){
+    var options = {enableHighAccuracy: true};
     function success(position) {
-
-        apiKey = 'AIzaSyCHm1lpUrl8t-6qHQ-16X39ZTNt1ocHmkM';
-        crd = position.coords;
-        currentLat = crd.latitude;
-        currentLng = crd.longitude;
-
-        if(currentLat != null){
-            HTTP.call('GET', 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + currentLat + ',' + currentLng + '&key=' + apiKey + '', function (err, res) {
-                myCurrentCity = res.data.results[0].address_components[3].long_name;
-                myCurrentCountry = res.data.results[0].address_components[6].long_name;
-                subHandle = Meteor.subscribeWithPagination('mimoacollection', myCurrentCountry, myCurrentCity, 15);
-                return subHandle;
-            });
-        } else {
-            myCurrentCity = 'Amsterdam';
-            myCurrentCountry = 'Netherlands';
-            subHandle = Meteor.subscribeWithPagination('mimoacollection', myCurrentCountry, myCurrentCity, 15);
-            return subHandle;
-        }
+            console.log(position);
+            apiKey = 'AIzaSyCHm1lpUrl8t-6qHQ-16X39ZTNt1ocHmkM';
+            crd = position.coords;
+            currentLat = crd.latitude;
+            currentLng = crd.longitude;
+            console.log('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + currentLat + ',' + currentLng + '&key=' + apiKey + '');
+        HTTP.call('GET', 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + currentLat + ',' + currentLng + '&key=' + apiKey + '', function (err, res) {
+            myCurrentCity = res.data.results[0].address_components[3].long_name;
+            myCurrentCountry = res.data.results[0].address_components[6].long_name;
+            console.log(myCurrentCity,myCurrentCountry);
+            Session.set('myCurrentCity',myCurrentCity);
+            Session.set('myCurrentCountry',myCurrentCountry);
+        });
     }
-
     function error(err) {
         console.warn('ERROR(' + err.code + '): ' + err.message);
-        myCurrentCity = 'Amsterdam';
-        myCurrentCountry = 'Netherlands';
-        subHandle = Meteor.subscribeWithPagination('mimoacollection', myCurrentCountry, myCurrentCity, 15);
-        return subHandle;
+        //myCurrentCity = 'Amsterdam';
+        //myCurrentCountry = 'Netherlands';
+        //subHandle = Meteor.subscribeWithPagination('mimoacollection', myCurrentCountry, myCurrentCity, 15);
+        //return subHandle;
     }
-
-    navigator.geolocation.getCurrentPosition(success, error);
-
+    if(navigator.geolocation){
+        console.log('geo detected');
+        return navigator.geolocation.getCurrentPosition(success, error, options);
+    }
     function onDeviceReady() {
         return navigator.geolocation.getCurrentPosition(success, error);
     }
