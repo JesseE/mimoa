@@ -18,6 +18,6 @@ App.launchScreens({'android_ldpi_portrait': 'public/images/launchscreen.png',
     'android_xhdpi_landscape': 'public/images/launchscreen.png'
 });
 App.accessRule('*');
-//App.accessRule('*.google.com/*');
-//App.accessRule('*.googleapis.com/*');
-//App.accessRule('*.gstatic.com/*');
+App.accessRule('*.google.com/*');
+App.accessRule('*.googleapis.com/*');
+App.accessRule('*.gstatic.com/*');

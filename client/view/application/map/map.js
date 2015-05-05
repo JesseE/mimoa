@@ -10,6 +10,7 @@ var myCurrentCountry;
 var myCurrentCity;
 var currentLat;
 var currentLng;
+
 Meteor.startup(function(){
     function success(pos) {
         var crd = pos.coords;
@@ -23,6 +24,7 @@ Meteor.startup(function(){
     }
     navigator.geolocation.getCurrentPosition(success, error);
 });
+
 Template.projectsMap.helpers({
     mapOptions: function() {
             if(GoogleMaps.loaded()) {
@@ -48,8 +50,10 @@ Template.projectsMap.onCreated(function(){
                 icon: mimoaIcon,
                 map: map.instance
             });
+            var projectSummary = project.summary;
+            var pS = projectSummary[0].substring(10);
 
-            projectDescription = "<div><p>" + project.title + "</p><br><p>" + project.summary + "</p><br><a href=" + '/posts/' + project.id + ">this project</a></div>";
+            projectDescription = "<div><p>" + project.title + "</p><br><p>" +  pS  + "</p><br><a href=" + '/posts/' + project.id + ">this project</a></div>";
 
             infowindow = new google.maps.InfoWindow({
                 content: projectDescription

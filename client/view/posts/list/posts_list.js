@@ -20,4 +20,5 @@ Template.postsList.rendered = function() {
     //Meteor.setInterval(function () {
         //$('a.post-item').tsort('div.post', {data: "distance"});
     //}, 5000);
+
 };

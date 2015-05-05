@@ -10,10 +10,8 @@ less
 dburles:google-maps
 iron:router
 ground:db
-dburles:jquery-tinysort
 fezvrasta:bootstrap-material-design
 sacha:spin
-fortawesome:fontawesome
 fastclick
 webapp
 http
@@ -22,3 +20,4 @@ chriswessels:hammer
 meteorhacks:kadira
 mdg:geolocation
 percolate:paginated-subscription
+fortawesome:fontawesome

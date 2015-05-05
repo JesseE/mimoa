@@ -2,6 +2,8 @@ var myCurrentCity;
 var myCurrentCountry;
 var apiKey;
 var crd;
+var currentCoords;
+var subHandle;
 //Meteor.subscribe('mimoaCommentsCollection');
 //window.onscroll = function(ev) {
 //    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
@@ -14,12 +16,7 @@ Router.configure({
     layoutTemplate: 'index',
     loadingTemplate: 'loading',
     waitOn: function() {
-        if(Session.get('myCurrentCountry') != undefined) {
-            subHandle = Meteor.subscribeWithPagination('mimoacollection', Session.get('myCurrentCountry'), Session.get('myCurrentCity'), 15);
-            //     } else{
-            //         subHandle = Meteor.subscribeWithPagination('mimoacollection', 'Netherlands', 'Amsterdam', 15);
-            ////   }
-        }
+       return subHandle;
     }
 });
 Router.map(function(){
@@ -77,13 +74,20 @@ Meteor.startup(function(){
             crd = position.coords;
             currentLat = crd.latitude;
             currentLng = crd.longitude;
-            console.log('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + currentLat + ',' + currentLng + '&key=' + apiKey + '');
+            currentCoords = [currentLng,currentLat];
+            //Meteor.call('getCurrentCoords',currentLat, currentLng, function(err, res) {
+            //    if(err){console.log(err)}else{console.log('currrent loc send to server');}
+            //    console.log(currentLat,currentLng);
+            //});
+        subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng);
+        console.log('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + currentLat + ',' + currentLng + '&key=' + apiKey + '');
         HTTP.call('GET', 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + currentLat + ',' + currentLng + '&key=' + apiKey + '', function (err, res) {
             myCurrentCity = res.data.results[0].address_components[3].long_name;
             myCurrentCountry = res.data.results[0].address_components[6].long_name;
             console.log(myCurrentCity,myCurrentCountry);
             Session.set('myCurrentCity',myCurrentCity);
             Session.set('myCurrentCountry',myCurrentCountry);
+
         });
     }
     function error(err) {

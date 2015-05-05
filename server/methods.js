@@ -20,4 +20,15 @@ Meteor.methods({
     comments: function(commentAttributes) {
         return proxyDB.mimoaCommentsCollection.insert(commentAttributes);
     }
+    //'getCurrentCoords': function(currentLat, currentLng){
+    //    //Meteor.publish('mimoacollection', function(currentCoords){
+    //    console.log(currentLng,currentLat);
+    //        return proxyDB.mimoaCollection.find({
+    //            coordinates: {$near:
+    //            {$geometry:
+    //            {type: "Point",coordinates:[currentLng, currentLat]},
+    //                $maxDistance:4000}}}    );
+    //   // });
+    //}
+
 });
