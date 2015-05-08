@@ -21,7 +21,7 @@ Meteor.startup(function(){
         //    if(err){console.log(err)}else{console.log('currrent loc send to server');}
         //    console.log(currentLat,currentLng);
         //});
-        subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, 45);
+        subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, 25);
         //console.log('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + currentLat + ',' + currentLng + '&key=' + apiKey + '');
         HTTP.call('GET', 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + currentLat + ',' + currentLng + '&key=' + apiKey + '', function (err, res) {
             myCurrentCity = res.data.results[0].address_components[3].long_name;

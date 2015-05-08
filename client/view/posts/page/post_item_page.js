@@ -19,6 +19,33 @@ Template.postItemPage.helpers({
     }
 });
 Template.postItemPage.events({
+    'click .post-content__title-photo-item': function() {
+        var elem = document.getElementById("myCarousel");
+        console.log(elem.requestFullscreen);
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+            elem.msRequestFullscreen();
+        } else if (elem.mozRequestFullScreen) {
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) {
+            elem.webkitRequestFullscreen();
+        }
+    },
+    'tap .post-content__title-photo-item': function() {
+        var elem = document.getElementById("myCarousel");
+        console.log(elem.requestFullscreen);
+        console.log('tapped that');
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.msRequestFullscreen) {
+            elem.msRequestFullscreen();
+        } else if (elem.mozRequestFullScreen) {
+            elem.mozRequestFullScreen();
+        } else if (elem.webkitRequestFullscreen) {
+            elem.webkitRequestFullscreen();
+        }
+    },
     'click button.remove-project': function() {
         var thisPost = this;
         Meteor.call('removeProject', thisPost, function(err, result) {

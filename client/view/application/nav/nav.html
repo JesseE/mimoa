@@ -2,9 +2,25 @@
     <header>
         <div class="nav-container">
             <ul class="nav">
-                <!--<li><a class="nav-home" href="{{pathFor 'postsList'}}"><h4>Home</h4></a></li>-->
-                <li class="nearby-button"><a class="brand" href="{{pathFor 'postsList'}}"><h4>Nearby</h4></a></li>
-                <li><a href="{{pathFor 'projectsMap'}}"><h4>Map</h4></a></li>
+                {{#if postPage}}
+                    <li><a class="brand" href="{{pathFor 'postsList'}}"><h4><i class="large mdi-navigation-chevron-left"></i>Back</h4></a></li>
+                    <li class="nearby-button"><a class="brand" href="#"><h4>Details</h4></a></li>
+                    <li class="map-button"><a href="{{pathFor 'projectsMap'}}"><h4>Map</h4></a></li>
+                {{/if}}
+                {{#if mapPage}}
+                    <li class="back-button"><a class="brand" href="#"><h4><i class="large mdi-navigation-chevron-left"></i>Back</h4></a></li>
+                    <li class="map-button"><a href="{{pathFor 'projectsMap'}}"><h4>Map</h4></a></li>
+                {{/if}}
+                {{#if postList}}
+                    <li class="nearby-button"><a class="brand" href="#"><h4><i class="large mdi-maps-navigation"></i></h4></a></li>
+                    <li class="nearby-button"><a class="brand" href="#"><h4>Nearby</h4></a></li>
+                    <li class="map-button"><a href="{{pathFor 'projectsMap'}}"><h4>Map</h4></a></li>
+                {{/if}}
+                {{#if postPageMap}}
+                    <li class="back-button"><a class="brand" href="#"><h4><i class="large mdi-navigation-chevron-left"></i>Back</h4></a></li>
+                    <li class="nearby-button"><a class="brand" href="{{pathFor 'postsList'}}"><h4>Nearby</h4></a></li>
+                    <li class="map-button"><a href="{{pathFor 'projectsMap'}}"><h4>Map</h4></a></li>
+                {{/if}}
                 <!--{{#if currentUser}}<li><a href="{{pathFor 'postSubmit'}}">New</a></li>{{/if}}-->
             </ul>
         </div>

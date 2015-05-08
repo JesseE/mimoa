@@ -52,9 +52,9 @@ Router.map(function(){
     });
     this.route('postPageMap', {
         path: '/posts/map/:id',
-        layoutTemplate: 'postPageMap',
+        template: 'postPageMap',
         data: function () {
-            return proxyDB.mimoaCollection.findOne({id: this.params.id},{lon:1,lat:1,title:1,summary:1});
+            return proxyDB.mimoaCollection.findOne({id: this.params.id},{lon:1,lat:1,title:1,summary:1,thumb:1});
         }
     });
 });

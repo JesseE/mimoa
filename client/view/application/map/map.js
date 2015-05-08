@@ -48,11 +48,10 @@ Template.projectsMap.onCreated(function(){
                 icon: mimoaIcon,
                 map: map.instance
             });
-            var projectSummary = project.summary;
-            var pS = projectSummary[0].substr(0, 150);
-
-            projectDescription = "<div><p>" + project.title + "</p><br><p>" +  pS + '...'  + "</p><br><a href=" + '/posts/' + project.id + ">this project</a></div>";
-
+            //var projectSummary = project.summary;
+            //var pS = projectSummary[0].substr(0, 150);
+            //projectDescription = "<div><p>" + project.title + "</p><br><p>" +  pS + '...'  + "</p><br><a href=" + '/posts/' + project.id + ">this project</a></div>";
+            projectDescription = "<div><a href=" + '/posts/' + project.id +"><h4>"+ project.title +"</h4></a><img src="+''+project.thumb[0]+"></div>";
             infowindow = new google.maps.InfoWindow({
                 content: projectDescription
             });
