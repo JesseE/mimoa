@@ -4,14 +4,9 @@ var apiKey;
 var crd;
 var currentCoords;
 var subHandle;
+var currentLat;
+var currentLng;
 //Meteor.subscribe('mimoaCommentsCollection');
-//window.onscroll = function(ev) {
-//    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-//        Meteor.setTimeout(function() {
-//            return subHandle.loadNextPage();
-//        },1000);
-//    }
-//};
 Router.configure({
     layoutTemplate: 'index',
     loadingTemplate: 'loading',
@@ -24,28 +19,30 @@ Router.map(function(){
         path:'/',
         template: 'layout',
         data: function(){
-            return proxyDB.mimoaCollection.find({});
+            return proxyDB.mimoaCollection.find({},{thumb:1,lon:1,lat:1,freetext2:1,freeint1:1,title:1});
         }
     });
     this.route('projectsMap', {
         path:'/map',
         template: 'projectsMap',
         data: function(){
-           return proxyDB.mimoaCollection.find({});
+           return proxyDB.mimoaCollection.find({},{lat:1,lon:1,summary:1,title:1,id:1});
         }
     });
     this.route('postPage', {
         path: '/posts/:id',
         template:'postItemPage',
         data: function() {
-            return proxyDB.mimoaCollection.findOne({id: this.params.id});
+            return proxyDB.mimoaCollection.findOne({id: this.params.id}, {
+                id:1,title:1,address:1,website:1,freeint1:1,freetext2:1,freetext3:1,freetext8:1,freetext9:1,lon:1,lat:1,thumb:1,image1:1,imageset:1,imagedescription:1,summary:1
+            });
         }
     });
     this.route('postPageCarousel', {
         path:'/posts/carousel/:id',
         layoutTemplate:'postPageCarousel',
         data: function() {
-            return proxyDB.mimoaCollection.findOne({id: this.params.id});
+            return proxyDB.mimoaCollection.findOne({id: this.params.id},{imageset:1,imagedescription:1});
         }
     });
     this.route('addNewProject', {
@@ -57,7 +54,7 @@ Router.map(function(){
         path: '/posts/map/:id',
         layoutTemplate: 'postPageMap',
         data: function () {
-            return proxyDB.mimoaCollection.findOne({id: this.params.id});
+            return proxyDB.mimoaCollection.findOne({id: this.params.id},{lon:1,lat:1,title:1,summary:1});
         }
     });
 });
@@ -66,45 +63,3 @@ Router.onBeforeAction(function() {
     this.next();
 }, { only: ['postPageMap','projectsMap', 'postsList'] });
 
-Meteor.startup(function(){
-    var options = {enableHighAccuracy: true};
-    function success(position) {
-            console.log(position);
-            apiKey = 'AIzaSyCHm1lpUrl8t-6qHQ-16X39ZTNt1ocHmkM';
-            crd = position.coords;
-            currentLat = crd.latitude;
-            currentLng = crd.longitude;
-            currentCoords = [currentLng,currentLat];
-            //Meteor.call('getCurrentCoords',currentLat, currentLng, function(err, res) {
-            //    if(err){console.log(err)}else{console.log('currrent loc send to server');}
-            //    console.log(currentLat,currentLng);
-            //});
-        subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng);
-        console.log('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + currentLat + ',' + currentLng + '&key=' + apiKey + '');
-        HTTP.call('GET', 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + currentLat + ',' + currentLng + '&key=' + apiKey + '', function (err, res) {
-            myCurrentCity = res.data.results[0].address_components[3].long_name;
-            myCurrentCountry = res.data.results[0].address_components[6].long_name;
-            console.log(myCurrentCity,myCurrentCountry);
-            Session.set('myCurrentCity',myCurrentCity);
-            Session.set('myCurrentCountry',myCurrentCountry);
-
-        });
-    }
-    function error(err) {
-        console.warn('ERROR(' + err.code + '): ' + err.message);
-        //myCurrentCity = 'Amsterdam';
-        //myCurrentCountry = 'Netherlands';
-        //subHandle = Meteor.subscribeWithPagination('mimoacollection', myCurrentCountry, myCurrentCity, 15);
-        //return subHandle;
-    }
-    if(navigator.geolocation){
-        console.log('geo detected');
-        return navigator.geolocation.getCurrentPosition(success, error, options);
-    }
-    function onDeviceReady() {
-        return navigator.geolocation.getCurrentPosition(success, error);
-    }
-    $(function(){
-        document.addEventListener("deviceready", onDeviceReady, true);
-    });
-});

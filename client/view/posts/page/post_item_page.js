@@ -9,6 +9,13 @@ Template.postItemPage.helpers({
             summary: this.summary,
             image : this.image1
         }
+    },
+    website: function(){
+        if(this.website[0] == ""){
+            return false;
+        } else{
+            return this.website;
+        }
     }
 });
 Template.postItemPage.events({

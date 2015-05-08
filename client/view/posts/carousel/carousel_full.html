@@ -1,6 +1,8 @@
 <template name="carouselFull">
+   {{>nav}}
     {{#if carouselFull}}
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <i class="icon icon-material-favorite"></i>
+        <div id="myCarouselFull" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                 <li data-target="#myCarousel" data-slide-to="1" class=""></li>
@@ -15,6 +17,8 @@
             </div>
             <a id="myElement" class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"></a>
             <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"></a>
+
         </div>
+        {{>back}}
     {{/if}}
 </template>

@@ -39,7 +39,8 @@ Template.postPageMap.helpers({
                     return {
                         center: new google.maps.LatLng(currentLat, currentLng),
                         zoom: 13,
-                        draggable: false
+                        draggable: true,
+                        disableDefaultUI: true
                     };
 
                 }

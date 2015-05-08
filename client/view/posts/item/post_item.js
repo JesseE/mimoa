@@ -6,7 +6,6 @@ var objectLocation;
 var distanceToLocation;
 Template.postItem.helpers({
     currentDistance: function() {
-        //$('a.post-item').tsort('div.post', {data: 'distance'});
            var hereBrowser = Geolocation.currentLocation();
             if(hereBrowser != null){
                 if(GoogleMaps.loaded()){

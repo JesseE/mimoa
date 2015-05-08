@@ -5,7 +5,7 @@
                 <ul class="post-content__title-list">
                     <li class="post-content__title-item"><a href="{{pathFor 'postPageCarousel'}}"><h4>Photos</h4></a></li>
                     <li class="post-content__title-item"><a href="{{pathFor 'postPageMap'}}"><h4>Route</h4></a></li>
-                    <li class="post-content__title-item"><a href="{{website}}" target="_blank"><h4>Website</h4></a></li>
+                    {{#if website}}<li class="post-content__title-item"><a href="{{website}}" target="_blank"><h4>Website</h4></a></li>{{/if}}
                 </ul>
                 <div class="post-content__block-item--rating">
                     <div class="post-content__title">

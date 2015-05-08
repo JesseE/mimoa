@@ -20,7 +20,6 @@ Meteor.startup(function(){
     }
     function error(err) {
         console.log(err);
-        //console.warn('ERROR(' + err.code + '): ' + err.message);
     }
     navigator.geolocation.getCurrentPosition(success, error);
 });
@@ -44,16 +43,15 @@ Template.projectsMap.onCreated(function(){
     GoogleMaps.ready('map', function (map, limit) {
         proxyDB.mimoaCollection.find({}, {limit: limit}).forEach(function (project, marker, infowindow) {
             // Add a marker to the map once it's ready
-
             marker = new google.maps.Marker({
                 position: new google.maps.LatLng(project.lat, project.lon),
                 icon: mimoaIcon,
                 map: map.instance
             });
             var projectSummary = project.summary;
-            var pS = projectSummary[0].substring(10);
+            var pS = projectSummary[0].substr(0, 150);
 
-            projectDescription = "<div><p>" + project.title + "</p><br><p>" +  pS  + "</p><br><a href=" + '/posts/' + project.id + ">this project</a></div>";
+            projectDescription = "<div><p>" + project.title + "</p><br><p>" +  pS + '...'  + "</p><br><a href=" + '/posts/' + project.id + ">this project</a></div>";
 
             infowindow = new google.maps.InfoWindow({
                 content: projectDescription
