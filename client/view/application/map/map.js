@@ -27,6 +27,7 @@ Meteor.startup(function(){
 Template.projectsMap.helpers({
     mapOptions: function() {
             if(GoogleMaps.loaded()) {
+
                 // Map initialization options;
                 return {
                     center: new google.maps.LatLng(currentLat,currentLng),
@@ -36,8 +37,15 @@ Template.projectsMap.helpers({
                     disableDefaultUI: true
                 };
             }
-
+    },
+    lat: function(){
+        var newLat = myLocationMarker.getPosition().lat();
+        console.log(newLat);
     }
+
+
+//var newlng = myLocationMarker.getPosition().lng();
+
 });
 Template.projectsMap.onCreated(function(){
     GoogleMaps.ready('map', function (map, limit) {
@@ -67,7 +75,9 @@ Template.projectsMap.onCreated(function(){
         myLocationMarker = new google.maps.Marker({
             position: new google.maps.LatLng(currentLat,currentLng),
             icon: mimoaIcon,
-            map: map.instance
+            map: map.instance,
+            draggable: true
         });
+
     });
 });

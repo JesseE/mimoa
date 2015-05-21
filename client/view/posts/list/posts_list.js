@@ -19,7 +19,7 @@ Meteor.startup(function(){
         currentCoords = [currentLng,currentLat];
         //Meteor.call('getCurrentCoords',currentLat, currentLng, function(err, res) {
         //    if(err){console.log(err)}else{console.log('currrent loc send to server');}
-        //    console.log(currentLat,currentLng);
+        //    console.log(currentLat,currentLng);hero
         //});
         subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, 25);
         //console.log('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + currentLat + ',' + currentLng + '&key=' + apiKey + '');
@@ -58,7 +58,10 @@ Meteor.startup(function(){
 //};
 Template.postsList.helpers({
     posts: function() {
-        return proxyDB.mimoaCollection.find({},{thumb:1,lon:1,lat:1,freetext2:1,freeint1:1,title:1});
+        var here = Geolocation.latLng();
+        console.log(here.lat, here.lng);
+        subHandle = Meteor.subscribeWithPagination('mimoacollection', here.lat, here.lng, 25);
+        return proxyDB.mimoaCollection.find({},{thumb:1,lon:1,lat:1,freetext2:1,freeint1:1,title:1}).fetch();
     }
 });
 Template.postsList.events({
