@@ -1,7 +1,6 @@
 Template.nav.helpers({
     postPage: function(){
         var hereInApp = Router.current().route.getName();
-        console.log(hereInApp);
         if(hereInApp == 'postPage'){
             return true;
         } else {
@@ -26,16 +25,24 @@ Template.nav.helpers({
     },
     postPageMap:function(){
         var hereInApp = Router.current().route.getName();
-        console.log(hereInApp);
         if(hereInApp == 'postPageMap'){
             return true;
         } else {
             return false;
         }
+    },
+    favoritesPage:function(){
+    var hereInApp = Router.current().route.getName();
+    if(hereInApp == 'myFavorites'){
+        return true;
+    } else {
+        return false;
     }
+}
 });
 Template.nav.events({
-    'click .back-button': function() {
+    'click .back-button': function(e) {
+        e.preventDefault();
         window.history.back();
     }
 });

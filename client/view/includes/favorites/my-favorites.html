@@ -1,0 +1,32 @@
+<template name="myFavorites">
+    {{>nav}}
+    <div id="post-list" class="post-list">
+      {{#with posts}}
+        {{#each posts}}
+            <div class="post" data-distance="{{currentDistance}}">
+                <div class="post-content">
+                    <a class="post-item" href="/posts/{{project.id}}">
+                        <div class="post-content__thumb-image">
+                            <img class="post-list__image-container" src="{{project.thumb}}">
+                        </div>
+                        <div class="post-content__text">
+                            <h3>{{project.name}}{{project.username}}</h3>
+                            <p class="author">
+                              {{project.freetext2.[0]._}}
+                            </p>
+                            <div class="rating-container">
+                                <div class="rating-image">
+                                    <div class="rating-{{project.freeint1.[0]._}}"></div>
+                                </div>
+                            </div>
+                            <p class="distance">
+                              {{currentDistance}} m
+                            </p>
+                        </div></a>
+                    <div class="minus-icon"><i class="fa fa-minus"></i></div>
+                </div>
+            </div>
+        {{/each}}
+      {{/with}}
+    </div>
+</template>

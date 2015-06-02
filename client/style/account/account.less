@@ -6,4 +6,9 @@
     right: 20px;
   }
 }
-
+li.account-info{ float:left; display: inline-block;  color: white; width: 19.3%;height: 40px;margin:10px 0;}
+.account-info__username{
+  &:extend(li.account-info);
+  width:60%;
+}
+.account{  position: fixed; z-index: 2;bottom:0; max-width:500px; width: 100%;  height: 50px;  background: #65D500;  padding:0;  border-top: white 1px solid;}

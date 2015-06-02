@@ -1,7 +1,9 @@
 <template name="layout">
+    {{>nav}}
     <div class="container">
-            <div id="main" class="row-fluid">
-                {{>postsList}}
-            </div>
+        <div id="main" class="row-fluid">
+            {{>postsList}}
         </div>
+        {{>navFooter}}
+    </div>
 </template>

@@ -19,8 +19,9 @@ Template.carousel.rendered = function(){
     $('div.item').first().addClass('active');
     bucket = $('.item');
     $('#myCarousel').hammer({
-        drag_min_distance:1,
-        swipe_velocity:0.1
+        drag_min_distance:0.5,
+        threshold:5,
+        swipe_velocity:0.5
     });
     $('#myCarousel').hammer().on('swipeleft', function(){
         $(this).carousel('next');

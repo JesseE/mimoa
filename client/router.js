@@ -6,34 +6,73 @@ var currentCoords;
 var subHandle;
 var currentLat;
 var currentLng;
+var initializing;
+
+myFavorites = new Mongo.Collection('myfavorites');
+AccountSystem = new Mongo.Collection('mimoausers');
+
 //Meteor.subscribe('mimoaCommentsCollection');
 Router.configure({
     layoutTemplate: 'index',
     loadingTemplate: 'loading',
     waitOn: function() {
-       return subHandle;
+        if(Router.current().route.getName() == 'myFavorites'){
+            return Meteor.subscribe('mimoausersfavoritescollection', Meteor.userId());
+        }
+        return subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, 25);
     }
 });
 Router.map(function(){
-    this.route('postsList', {
+    this.route('introduction', {
         path:'/',
+        template:'intro',
+        data: function () {
+            if (! Meteor.user()) {
+                if (Meteor.loggingIn()) {
+                    var currentUserId = Meteor.userId();
+                     Meteor.call('signUp',currentUserId, function(err,results){
+                         console.log('add to user to remote db');
+                         if(err){console.log(err);}else{console.log(results);}
+                     });
+                     Router.go('postsList');
+                }
+                else
+                    Router.go('introduction');
+            }
+        }
+    });
+    this.route('postsList', {
+        path:'/nearby',
         template: 'layout',
         data: function(){
+            Meteor.subscribe('mimoauserscollection');
+            proxyDB.mimoaUsersCollection.find();
             return proxyDB.mimoaCollection.find({},{thumb:1,lon:1,lat:1,freetext2:1,freeint1:1,title:1});
+        }
+    });
+    this.route('myFavorites', {
+        path:'/favorites',
+        template:'myFavorites',
+        data:function(){
+
+            //something with the matcher still doesnt work
+
+            proxyDB.mimoaCollection.find({},{thumb:1,lon:1,lat:1,freetext2:1,freeint1:1,title:1});
+            return proxyDB.mimoaUsersFavoritesCollection.find({userID: Meteor.userId()});
         }
     });
     this.route('projectsMap', {
         path:'/map',
         template: 'projectsMap',
         data: function(){
-           return proxyDB.mimoaCollection.find({},{lat:1,lon:1,summary:1,title:1,id:1});
+            return proxyDB.mimoaCollection.find({},{lat:1,lon:1,summary:1,title:1,id:1,thumb:1});
         }
     });
     this.route('postPage', {
         path: '/posts/:id',
-        template:'postItemPage',
+        template:'postPage',
         data: function() {
-            return proxyDB.mimoaCollection.findOne({id: this.params.id}, {
+            return proxyDB.mimoaCollection.findOne({id:this.params.id}, {
                 id:1,title:1,address:1,website:1,freeint1:1,freetext2:1,freetext3:1,freetext8:1,freetext9:1,lon:1,lat:1,thumb:1,image1:1,imageset:1,imagedescription:1,summary:1
             });
         }

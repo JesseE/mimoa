@@ -1,25 +1,31 @@
 <template name="nav">
         <div class="nav-container">
             <ul class="nav">
+                    <li class="back-button"><h4><i class="large mdi-navigation-chevron-left"></i></h4></li>
+                <!--<li class="nearby-button"><a class="brand" href="{{pathFor 'postsList'}}"><h4>Nearby</h4></a></li>-->
+
                 {{#if postPage}}
-                    <li><a class="brand" href="{{pathFor 'postsList'}}"><h4><i class="large mdi-navigation-chevron-left"></i>Back</h4></a></li>
                     <li class="nearby-button"><a class="brand" href="#"><h4>Details</h4></a></li>
                     <li class="map-button"><a href="{{pathFor 'projectsMap'}}"><h4>Map</h4></a></li>
                 {{/if}}
                 {{#if mapPage}}
-                    <li class="back-button"><a class="brand" href="#"><h4><i class="large mdi-navigation-chevron-left"></i>Back</h4></a></li>
                     <li class="map-button"><a href="{{pathFor 'projectsMap'}}"><h4>Map</h4></a></li>
                 {{/if}}
                 {{#if postList}}
-                    <li class="nearby-button"><a class="brand" href="#"><h4><i class="large mdi-maps-navigation"></i></h4></a></li>
-                    <li class="nearby-button"><a class="brand" href="#"><h4>Nearby</h4></a></li>
+                    <li class="nearby-button"><a class="brand" href="{{pathFor 'postsList'}}"><h4>Nearby</h4></a></li>
+
+                    <!--<li class="nearby-button"><a class="brand" href="#"><h4><i class="large mdi-maps-navigation"></i></h4></a></li>-->
+                    <!--<li class="nearby-button"><a class="brand" href="#"><h4>Nearby</h4></a></li>-->
                     <li class="map-button"><a href="{{pathFor 'projectsMap'}}"><h4>Map</h4></a></li>
                 {{/if}}
                 {{#if postPageMap}}
-                    <li class="back-button"><a class="brand" href="#"><h4><i class="large mdi-navigation-chevron-left"></i>Back</h4></a></li>
-                    <li class="nearby-button"><a class="brand" href="{{pathFor 'postsList'}}"><h4>Nearby</h4></a></li>
+                    <li class="nearby-button"><a class="brand" href="#"><h4>Route</h4></a></li>
                     <li class="map-button"><a href="{{pathFor 'projectsMap'}}"><h4>Map</h4></a></li>
                 {{/if}}
+                {{#if favoritesPage}}
+                    <li class="map-button"><a href="{{pathFor 'projectsMap'}}"><h4>Map</h4></a></li>
+                {{/if}}
+
                 <!--{{#if currentUser}}<li><a href="{{pathFor 'postSubmit'}}">New</a></li>{{/if}}-->
             </ul>
         </div>

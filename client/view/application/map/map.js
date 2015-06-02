@@ -16,7 +16,6 @@ Meteor.startup(function(){
         var crd = pos.coords;
         currentLat = crd.latitude;
         currentLng = crd.longitude;
-        console.log(currentLat);
     }
     function error(err) {
         console.log(err);
@@ -27,7 +26,6 @@ Meteor.startup(function(){
 Template.projectsMap.helpers({
     mapOptions: function() {
             if(GoogleMaps.loaded()) {
-
                 // Map initialization options;
                 return {
                     center: new google.maps.LatLng(currentLat,currentLng),
@@ -37,15 +35,7 @@ Template.projectsMap.helpers({
                     disableDefaultUI: true
                 };
             }
-    },
-    lat: function(){
-        var newLat = myLocationMarker.getPosition().lat();
-        console.log(newLat);
     }
-
-
-//var newlng = myLocationMarker.getPosition().lng();
-
 });
 Template.projectsMap.onCreated(function(){
     GoogleMaps.ready('map', function (map, limit) {
@@ -56,19 +46,17 @@ Template.projectsMap.onCreated(function(){
                 icon: mimoaIcon,
                 map: map.instance
             });
-            //var projectSummary = project.summary;
-            //var pS = projectSummary[0].substr(0, 150);
-            //projectDescription = "<div><p>" + project.title + "</p><br><p>" +  pS + '...'  + "</p><br><a href=" + '/posts/' + project.id + ">this project</a></div>";
             projectDescription = "<div><a href=" + '/posts/' + project.id +"><h4>"+ project.title +"</h4></a><img src="+''+project.thumb[0]+"></div>";
+
             infowindow = new google.maps.InfoWindow({
                 content: projectDescription
             });
-
             google.maps.event.addListener(marker, 'click', function () {
                 if (infowindow.getMap() != null) {
                     infowindow.close();
                 }
                 infowindow.open(map.instance, marker);
+
             });
 
         });
@@ -78,6 +66,10 @@ Template.projectsMap.onCreated(function(){
             map: map.instance,
             draggable: true
         });
-
+        google.maps.event.addListener(myLocationMarker, 'dragend', function(evt) {
+            currentLat = evt.latLng.lat().toFixed(3);
+            currentLng = evt.latLng.lng().toFixed(3);
+            subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, 25);
+        });
     });
 });

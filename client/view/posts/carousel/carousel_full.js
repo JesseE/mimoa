@@ -31,7 +31,6 @@ Template.carouselFull.rendered = function(){
 Template.carouselFull.events({
     'click #myCarouselImage': function() {
         var elem = document.getElementById("myCarousel");
-        console.log(elem.requestFullscreen);
         if (elem.requestFullscreen) {
             elem.requestFullscreen();
         } else if (elem.msRequestFullscreen) {

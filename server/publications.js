@@ -1,17 +1,27 @@
 /**
  * Created by jesse on 18/02/15.
  */
-Meteor.publish('mimoacollection', function(currentLat,currentLng, limit){
+myFavorites = new Mongo.Collection('myfavorites');
+
+Meteor.reactivePublish('mimoacollection', function(currentLat,currentLng, limit){
     return proxyDB.mimoaCollection.find({coordinates:
         {$near:
             {$geometry:
                 {type: "Point",coordinates:[currentLng, currentLat]}
-                    //$maxDistance:4000
             }
         }
-    },{limit:limit});
+    },{limit:limit}, {reactive:true});
 });
-//
+Meteor.publish('myfavorites', function(){
+    return myFavorites.find();
+});
+Meteor.publish('mimoauserscollection', function(currentUserId) {
+    return proxyDB.mimoaUsersCollection.find({userID: currentUserId});
+});
+Meteor.publish('mimoausersfavoritescollection', function(currentUserId){
+   return proxyDB.mimoaUsersFavoritesCollection.find({userID:currentUserId});
+});
+
 //Meteor.publish('mimoacollection', function(country, city, limit){
 //    return proxyDB.mimoaCollection.find({country:country,city:city});
 //});
