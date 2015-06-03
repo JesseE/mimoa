@@ -21,7 +21,6 @@ Meteor.publish('mimoauserscollection', function(currentUserId) {
 Meteor.publish('mimoausersfavoritescollection', function(currentUserId){
    return proxyDB.mimoaUsersFavoritesCollection.find({userID:currentUserId});
 });
-
 //Meteor.publish('mimoacollection', function(country, city, limit){
 //    return proxyDB.mimoaCollection.find({country:country,city:city});
 //});
