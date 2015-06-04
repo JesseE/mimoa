@@ -7,19 +7,29 @@ var subHandle;
 var currentLat;
 var currentLng;
 var initializing;
-
+var paginationNumber = 25;
 myFavorites = new Mongo.Collection('myfavorites');
 AccountSystem = new Mongo.Collection('mimoausers');
-
 //Meteor.subscribe('mimoaCommentsCollection');
 Router.configure({
-    layoutTemplate: 'index',
     loadingTemplate: 'loading',
+    layoutTemplate:'index',
     waitOn: function() {
         if(Router.current().route.getName() == 'myFavorites'){
             return Meteor.subscribe('mimoausersfavoritescollection', Meteor.userId());
         }
-        return subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, 25);
+        console.log(paginationNumber);
+        hereBrowser = Geolocation.currentLocation();
+        currentLat = hereBrowser.coords.latitude;
+        currentLng = hereBrowser.coords.longitude;
+        subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, paginationNumber);
+    }
+});
+Template.postsList.events({
+    'click button.loadbutton':function(){
+        paginationNumber+=25;
+        console.log(paginationNumber);
+        return subHandle.loadNextPage();
     }
 });
 Router.map(function(){
@@ -44,6 +54,9 @@ Router.map(function(){
     this.route('postsList', {
         path:'/nearby',
         template: 'layout',
+        waitOn: function() {
+
+        },
         data: function(){
             Meteor.subscribe('mimoauserscollection');
             proxyDB.mimoaUsersCollection.find();

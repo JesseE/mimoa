@@ -19,9 +19,11 @@
   }
 }
 .post-content__summary{overflow:hidden;width:100%;}
-.post-content__thumb-image{width: 30%; height: 75px; float:left;overflow:hidden;}
+.post-content__thumb-image{width: 30%; height: 75px; float:left;overflow:hidden;background-color: #65D500; border:white;}
 .post-content__thumb-image--full-width{  width: 100%;}
-.post-content__text--full-width{  width: 100%;background-color:white;padding:5px; position: relative; z-index:  1;
+.post-content__text--full-width{
+  &:before{background-color: grey;}
+  width: 100%;background-color:white;padding:5px; position: relative; z-index:  1;
   h4{text-align: center;color: #65D500; }
   h5{text-align:left;color: black;}
 }

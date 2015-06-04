@@ -1,6 +1,6 @@
 <template name="postsList">
     <div id="post-list" class="post-list">
-    {{#with posts}}
+        {{#if Template.subscriptionsReady}}
         {{#each posts}}
                 <div class="post" data-distance="{{currentDistance}}">
                     <div class="post-content">
@@ -27,7 +27,9 @@
                     </div>
                 </div>
         {{/each}}
-    {{/with}}
+        {{else}}
+            {{>spinner}}
+        {{/if}}
     </div>
     <div class="load-container">
         <button class="loadbutton"><span>load more</span></button>

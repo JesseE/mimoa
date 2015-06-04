@@ -39,3 +39,13 @@ Meteor.methods({
         //return proxyDB.mimoaUsersCollection.update({users:user.email},{users:userAccount}, {upsert: true});
     }
 });
+if(Meteor.isCordova){
+    Ground.methodResume([
+        'updateRating',
+        'addNewProject',
+        'addToMyFavorite',
+        'removeProject',
+        'removeFavoriteProject',
+        'signUp'
+    ]);
+}
