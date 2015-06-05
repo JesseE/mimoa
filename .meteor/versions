@@ -1,5 +1,4 @@
 accounts-base@1.2.0
-accounts-facebook@1.0.4
 accounts-google@1.0.4
 accounts-oauth@1.1.5
 accounts-password@1.1.1
@@ -23,7 +22,6 @@ dispatch:request-animation-frame@0.0.1
 edgee:meteor-server-deps@0.1.2
 ejson@1.0.6
 email@1.0.6
-facebook@1.2.0
 fastclick@1.0.3
 fezvrasta:bootstrap-material-design@0.3.0
 fortawesome:fontawesome@4.3.0

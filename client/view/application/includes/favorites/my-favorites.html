@@ -5,14 +5,14 @@
         {{#each posts}}
             <div class="post" data-distance="{{currentDistance}}">
                 <div class="post-content">
-                    <a class="post-item" href="/posts/{{project.id}}">
+                    <a class="post-item" href="favorites/posts/{{project.id}}">
                         <div class="post-content__thumb-image">
                             <img class="post-list__image-container" src="{{project.thumb}}">
                         </div>
                         <div class="post-content__text">
                             <h3>{{project.name}}{{project.username}}</h3>
                             <p class="author">
-                              {{project.freetext2.[0]._}}
+                                {{project.freetext2.[0]._}}
                             </p>
                             <div class="rating-container">
                                 <div class="rating-image">
@@ -20,9 +20,10 @@
                                 </div>
                             </div>
                             <p class="distance">
-                              {{currentDistance}} m
+                                {{currentDistance}} m
                             </p>
-                        </div></a>
+                        </div>
+                    </a>
                     <div class="minus-icon"><i class="fa fa-minus"></i></div>
                 </div>
             </div>

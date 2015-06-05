@@ -1,9 +1,9 @@
 <template name="nav">
         <div class="nav-container">
             <ul class="nav">
-                    <li class="back-button"><h4><i class="large mdi-navigation-chevron-left"></i></h4></li>
-                <!--<li class="nearby-button"><a class="brand" href="{{pathFor 'postsList'}}"><h4>Nearby</h4></a></li>-->
-
+                 {{#unless postList}}
+                     <li class="back-button"><h4><i class="large mdi-navigation-chevron-left"></i></h4></li>
+                 {{/unless}}
                 {{#if postPage}}
                     <li class="nearby-button"><a class="brand" href="#"><h4>Details</h4></a></li>
                     <li class="map-button"><a href="{{pathFor 'projectsMap'}}"><h4>Map</h4></a></li>
@@ -12,10 +12,8 @@
                     <li class="map-button"><a href="{{pathFor 'projectsMap'}}"><h4>Map</h4></a></li>
                 {{/if}}
                 {{#if postList}}
+                    <li class="nearby-button"><a class="brand" href="{{pathFor 'curatorsList'}}"><h4>Curators</h4></a></li>
                     <li class="nearby-button"><a class="brand" href="{{pathFor 'postsList'}}"><h4>Nearby</h4></a></li>
-
-                    <!--<li class="nearby-button"><a class="brand" href="#"><h4><i class="large mdi-maps-navigation"></i></h4></a></li>-->
-                    <!--<li class="nearby-button"><a class="brand" href="#"><h4>Nearby</h4></a></li>-->
                     <li class="map-button"><a href="{{pathFor 'projectsMap'}}"><h4>Map</h4></a></li>
                 {{/if}}
                 {{#if postPageMap}}
@@ -25,7 +23,6 @@
                 {{#if favoritesPage}}
                     <li class="map-button"><a href="{{pathFor 'projectsMap'}}"><h4>Map</h4></a></li>
                 {{/if}}
-
                 <!--{{#if currentUser}}<li><a href="{{pathFor 'postSubmit'}}">New</a></li>{{/if}}-->
             </ul>
         </div>

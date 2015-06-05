@@ -5,7 +5,6 @@ var infowindow;
 var map;
 var currentLocation;
 var mimoaIcon = 'http://mimoa.eu/map/img/focus1.png';
-
 var myCurrentCountry;
 var myCurrentCity;
 var currentLat;
@@ -22,19 +21,18 @@ Meteor.startup(function(){
     }
     navigator.geolocation.getCurrentPosition(success, error);
 });
-
 Template.projectsMap.helpers({
     mapOptions: function() {
-            if(GoogleMaps.loaded()) {
-                // Map initialization options;
-                return {
-                    center: new google.maps.LatLng(currentLat,currentLng),
-                    zoom: 13,
-                    icon: mimoaIcon,
-                    draggable: true,
-                    disableDefaultUI: true
-                };
-            }
+        if(GoogleMaps.loaded()) {
+            // Map initialization options;
+            return {
+                center: new google.maps.LatLng(currentLat,currentLng),
+                zoom: 13,
+                icon: mimoaIcon,
+                draggable: true,
+                disableDefaultUI: true
+            };
+        }
     }
 });
 Template.projectsMap.onCreated(function(){
@@ -56,9 +54,7 @@ Template.projectsMap.onCreated(function(){
                     infowindow.close();
                 }
                 infowindow.open(map.instance, marker);
-
             });
-
         });
         myLocationMarker = new google.maps.Marker({
             position: new google.maps.LatLng(currentLat,currentLng),

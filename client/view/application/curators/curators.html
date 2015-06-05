@@ -1,0 +1,19 @@
+<template name="curatorsList">
+    {{>nav}}
+        <div id="post-list" class="post-list--curators">
+            {{#each currators}}
+                <div class="curator">
+                    <a href="{{pathFor 'curatorProfile'}}">
+                        <div class="curator__thumb"></div>
+                        <div class="curator__info">
+                            <div class="curator__name">Derp</div>
+                            <div class="curator__location">The NetherRealm</div>
+                        </div>
+                        <div class="curator__follow-button">
+                            <i class="fa fa-plus-square"></i>
+                        </div>
+                    </a>
+                </div>
+            {{/each}}
+        </div>
+</template>

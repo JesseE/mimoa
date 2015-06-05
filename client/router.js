@@ -10,6 +10,7 @@ var initializing;
 var paginationNumber = 25;
 myFavorites = new Mongo.Collection('myfavorites');
 AccountSystem = new Mongo.Collection('mimoausers');
+var currentUserId = Meteor.userId();
 //Meteor.subscribe('mimoaCommentsCollection');
 Router.configure({
     loadingTemplate: 'loading',
@@ -18,6 +19,7 @@ Router.configure({
         if(Router.current().route.getName() == 'myFavorites'){
             return Meteor.subscribe('mimoausersfavoritescollection', Meteor.userId());
         }
+        Meteor.subscribe('mimoausersfavoritescollection', currentUserId);
         console.log(paginationNumber);
         hereBrowser = Geolocation.currentLocation();
         currentLat = hereBrowser.coords.latitude;
@@ -63,15 +65,37 @@ Router.map(function(){
             return proxyDB.mimoaCollection.find({},{thumb:1,lon:1,lat:1,freetext2:1,freeint1:1,title:1});
         }
     });
+    this.route('curatorsList', {
+        path:'/curators',
+        template:'curatorsList',
+        data:function(){
+            return proxyDB.mimoaCuratorsCollection.find({});
+        }
+    });
+    this.route('curatorProfile', {
+        path: '/curator/:user',
+        template:'curatorsProfile',
+        data:function() {
+
+        }
+    });
     this.route('myFavorites', {
         path:'/favorites',
         template:'myFavorites',
         data:function(){
-
             //something with the matcher still doesnt work
 
             proxyDB.mimoaCollection.find({},{thumb:1,lon:1,lat:1,freetext2:1,freeint1:1,title:1});
             return proxyDB.mimoaUsersFavoritesCollection.find({userID: Meteor.userId()});
+        }
+    });
+    this.route('myFavoritesItem', {
+        path:'/favorites/posts/:id',
+        template:'myFavoritesItemPage',
+        data:function(){
+            //something with the matcher still doesnt work
+            //proxyDB.mimoaCollection.find({},{thumb:1,lon:1,lat:1,freetext2:1,freeint1:1,title:1});
+            return proxyDB.mimoaUsersFavoritesCollection.findOne({id:this.params.id});
         }
     });
     this.route('projectsMap', {

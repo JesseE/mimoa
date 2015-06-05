@@ -14,7 +14,6 @@ fezvrasta:bootstrap-material-design
 sacha:spin
 fastclick
 webapp
-http
 meteor-platform
 chriswessels:hammer
 meteorhacks:kadira
@@ -23,6 +22,5 @@ percolate:paginated-subscription
 fortawesome:fontawesome
 accounts-password
 accounts-google
-accounts-facebook
 accounts-ui-unstyled
 lepozepo:reactive-publish

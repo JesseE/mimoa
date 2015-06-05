@@ -19,19 +19,9 @@ Template.myFavorites.rendered = function() {
         currentCoords = [currentLng,currentLat];
         console.log(currentLat,currentLng);
         return subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, 25);
-        //HTTP.call('GET', 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + currentLat + ',' + currentLng + '&key=' + apiKey + '', function (err, res) {
-        //    myCurrentCity = res.data.results[0].address_components[3].long_name;
-        //    myCurrentCountry = res.data.results[0].address_components[6].long_name;
-        //    Session.set('myCurrentCity',myCurrentCity);
-        //    Session.set('myCurrentCountry',myCurrentCountry);
-        //});
     }
     function error(err) {
         console.warn('ERROR(' + err.code + '): ' + err.message);
-        //myCurrentCity = 'Amsterdam';
-        //myCurrentCountry = 'Netherlands';
-        //subHandle = Meteor.subscribeWithPagination('mimoacollection', myCurrentCountry, myCurrentCity, 15);
-        //return subHandle;
     }
     if(navigator.geolocation){
         return navigator.geolocation.getCurrentPosition(success, error, options);
@@ -46,16 +36,17 @@ Template.myFavorites.rendered = function() {
 Template.myFavorites.helpers({
     posts: function() {
         proxyDB.mimoaCollection.find({},{thumb:1,lon:1,lat:1,freetext2:1,freeint1:1,title:1});
+
         return proxyDB.mimoaUsersFavoritesCollection.find({userID: Meteor.userId()});
     }
 });
 Template.myFavorites.events({
     'click a.post-item':function(){
         var projectTitle = this.title;
-        Meteor.call('searchProject',projectTitle, function(err,results){
-            console.log('remove projects from my favorites');
-            if(err){console.log(err);}else{console.log(results);}
-        });
+        //Meteor.call('searchProject',projectTitle, function(err,results){
+        //    console.log('remove projects from my favorites');
+        //    if(err){console.log(err);}else{console.log(results);}
+        //});
     },
     'click button.loadbutton':function(){
         return subHandle.loadNextPage();

@@ -2,9 +2,7 @@ var subHandle;
 var currentLat;
 var currentLng;
 var hereBrowser;
-
-
-Meteor.startup(function(){
+//Meteor.startup(function(){
     //var options = {enableHighAccuracy: false};
     //function success(position) {
     //    apiKey = 'AIzaSyCHm1lpUrl8t-6qHQ-16X39ZTNt1ocHmkM';
@@ -26,8 +24,7 @@ Meteor.startup(function(){
     //$(function(){
     //    document.addEventListener("deviceready", onDeviceReady, true);
     //});
-
-});
+//});
 //window.onscroll = function(ev) {
 //    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
 //        Meteor.setTimeout(function() {
@@ -40,11 +37,6 @@ Template.postsList.helpers({
         return proxyDB.mimoaCollection.find({},{thumb:1,lon:1,lat:1,freetext2:1,freeint1:1,title:1});
     }
 });
-Template.postsList.rendered = function(){
-    //make it realtime updating collection system
-
-
-};
 Template.postsList.events({
    'click div.favorite-icon':function(){
        var projectId = this._id;

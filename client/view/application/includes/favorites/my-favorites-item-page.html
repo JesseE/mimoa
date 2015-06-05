@@ -1,8 +1,8 @@
-<template name="postPage">
+<template name="myFavoritesItemPage">
     {{>nav}}
     <div class="container">
         <div id="main" class="row-fluid">
-        <!--{{>postItemPage}}-->
+            <!--{{>postItemPage}}-->
             <div class="post-content">
                 {{>carousel}}
                 <div class="add-to-favorite">
@@ -12,12 +12,12 @@
                     <ul class="post-content__title-list">
                         <li class="post-content__title-photo-item"><a href="#"><h4>Photos</h4></a></li>
                         <li class="post-content__title-item"><a href="{{pathFor 'postPageMap'}}"><h4>Route</h4></a></li>
-                        {{#if website}}<li class="post-content__title-item"><a href="{{website}}" target="_blank"><h4>Website</h4></a></li>{{/if}}
+                        {{#if project.website}}<li class="post-content__title-item"><a href="{{website}}" target="_blank"><h4>Website</h4></a></li>{{/if}}
                     </ul>
                     <div class="post-content__block-item--rating">
                         <div class="post-content__title">
-                            <h5>{{title}}</h5>
-                            <h6>{{freetext8.[0]._}}</h6>
+                            <h5>{{project.title}}</h5>
+                            <h6>{{project.freetext8.[0]._}}</h6>
                             <!--<button class="remove-project">remove</button>-->
                         </div>
                         <div class="rating-container">
@@ -27,9 +27,10 @@
                                 <div class="rating-icon-3"></div>
                                 <div class="rating-icon-4"></div>
                                 <div class="rating-icon-5"></div>
-                                <div id="rating" class="rating-{{freeint1.[0]._}}"></div>
+                                <div id="rating" class="rating-{{project.freeint1.[0]._}}"></div>
                             </div>
                         </div>
+
                         <!--<div class="comments-goto">-->
                         <!--<ul>-->
                         <!--<li><a href="#">comments</a></li>-->
@@ -54,24 +55,24 @@
                         <ul class="post-content__sub-list">
                             <li class="post-content__sub-item">
                                 <p><b>Location:</b></p>
-                                <p>{{city}}</p>
+                                <p>{{project.city}}</p>
                             </li>
                             <li class="post-content__sub-item">
                                 <p><b>Function:</b></p>
-                                <p>{{freetext5.[0]._}}</p>
+                                <p>{{project.freetext5.[0]._}}</p>
                             </li>
                             <li class="post-content__sub-item">
                                 <p><b>Contributed by:</b></p>
-                                <p>{{freetext2.[0]._}}</p>
+                                <p>{{project.freetext2.[0]._}}</p>
                             </li>
                         </ul>
-                        <div class="post-content__summary"><p>{{summary}}</p></div>
+                        <div class="post-content__summary"><p>{{project.summary}}</p></div>
                     </div>
                     <div class="post-content__block-item">
                         <ul class="post-content__sub-list">
                             <li class="post-content__sub-item">
                                 <p><b>address:</b></p>
-                                <p> {{address}}</p>
+                                <p> {{project.address}}</p>
                             </li>
                             <li class="post-content__sub-item">
                                 <p><b>opening hours:</b></p>
@@ -79,7 +80,7 @@
                             </li>
                             <li class="post-content__sub-item">
                                 <p><b>website:</b></p>
-                                <p><a href="{{website}}" target="_blank">{{website}}</a></p>
+                                <p><a href="{{project.website}}" target="_blank">{{project.website}}</a></p>
                             </li>
                         </ul>
                     </div>
@@ -87,14 +88,16 @@
                         <ul class="post-content__sub-list">
                             <li class="post-content__sub-item">
                                 <p><b>facts:</b></p>
-                                <p>completion: {{freetext3.[0]._}}</p>
+                                <p>completion: {{project.freetext3.[0]._}}</p>
                             </li>
                             <li class="post-content__sub-item">
                                 <p><b>architect:</b></p>
-                                <p>{{freetext8.[0]._}}</p>
+                                <p>{{project.freetext8.[0]._}}</p>
                             </li>
                         </ul>
                     </div>
+
+                     {{project.id.[0]}}yes
                     <!--{{> comment}}-->
                     <!--{{> commentSubmit}}-->
                 </div>
