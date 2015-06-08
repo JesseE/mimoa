@@ -5,9 +5,14 @@ var index = 0;
 bucket = [];
 Template.carousel.helpers({
     carousel: function() {
-        var item = this.imageset[0].split(',');
-
-        return item;
+        var hereInApp = Router.current().route.getName();
+        if(hereInApp == 'postPage'){
+            var item = this.imageset[0].split(',');
+            return item;
+        } else {
+            var item = this.project.imageset[0].split(',');
+            return item;
+        }
     },
     description: function() {
         var description = this.imagedescription;

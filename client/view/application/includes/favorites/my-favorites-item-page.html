@@ -11,12 +11,12 @@
                 <div class="post-content__text--full-width">
                     <ul class="post-content__title-list">
                         <li class="post-content__title-photo-item"><a href="#"><h4>Photos</h4></a></li>
-                        <li class="post-content__title-item"><a href="{{pathFor 'postPageMap'}}"><h4>Route</h4></a></li>
+                        <li class="post-content__title-item"><a href="/favorite/posts/map/{{project.id}}"><h4>Route</h4></a></li>
                         {{#if project.website}}<li class="post-content__title-item"><a href="{{website}}" target="_blank"><h4>Website</h4></a></li>{{/if}}
                     </ul>
                     <div class="post-content__block-item--rating">
                         <div class="post-content__title">
-                            <h5>{{project.title}}</h5>
+                            <h5>{{project.title}}{{favorites.project.title}}</h5>
                             <h6>{{project.freetext8.[0]._}}</h6>
                             <!--<button class="remove-project">remove</button>-->
                         </div>
@@ -30,7 +30,6 @@
                                 <div id="rating" class="rating-{{project.freeint1.[0]._}}"></div>
                             </div>
                         </div>
-
                         <!--<div class="comments-goto">-->
                         <!--<ul>-->
                         <!--<li><a href="#">comments</a></li>-->
@@ -96,8 +95,6 @@
                             </li>
                         </ul>
                     </div>
-
-                     {{project.id.[0]}}yes
                     <!--{{> comment}}-->
                     <!--{{> commentSubmit}}-->
                 </div>

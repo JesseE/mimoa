@@ -6,6 +6,8 @@ var currentCoords;
 var subHandle;
 var currentLat;
 var currentLng;
+var LastKnownLat;
+var LastKnownLng;
 var initializing;
 var paginationNumber = 25;
 myFavorites = new Mongo.Collection('myfavorites');
@@ -20,7 +22,6 @@ Router.configure({
             return Meteor.subscribe('mimoausersfavoritescollection', Meteor.userId());
         }
         Meteor.subscribe('mimoausersfavoritescollection', currentUserId);
-        console.log(paginationNumber);
         hereBrowser = Geolocation.currentLocation();
         currentLat = hereBrowser.coords.latitude;
         currentLng = hereBrowser.coords.longitude;
@@ -57,10 +58,9 @@ Router.map(function(){
         path:'/nearby',
         template: 'layout',
         waitOn: function() {
-
+            return Meteor.subscribe('mimoauserscollection');
         },
         data: function(){
-            Meteor.subscribe('mimoauserscollection');
             proxyDB.mimoaUsersCollection.find();
             return proxyDB.mimoaCollection.find({},{thumb:1,lon:1,lat:1,freetext2:1,freeint1:1,title:1});
         }
@@ -84,7 +84,6 @@ Router.map(function(){
         template:'myFavorites',
         data:function(){
             //something with the matcher still doesnt work
-
             proxyDB.mimoaCollection.find({},{thumb:1,lon:1,lat:1,freetext2:1,freeint1:1,title:1});
             return proxyDB.mimoaUsersFavoritesCollection.find({userID: Meteor.userId()});
         }
@@ -92,10 +91,13 @@ Router.map(function(){
     this.route('myFavoritesItem', {
         path:'/favorites/posts/:id',
         template:'myFavoritesItemPage',
+        waitOn: function() {
+            var currentPostID = JSON.stringify(this.params.id);
+            var currentUserId = Meteor.userId();
+            return Meteor.subscribe('mimoausersfavoritescollection', currentUserId,currentPostID)},
         data:function(){
-            //something with the matcher still doesnt work
-            //proxyDB.mimoaCollection.find({},{thumb:1,lon:1,lat:1,freetext2:1,freeint1:1,title:1});
-            return proxyDB.mimoaUsersFavoritesCollection.findOne({id:this.params.id});
+            return proxyDB.mimoaUsersFavoritesCollection.findOne({userID:Meteor.userId(),'project.id':this.params.id},{
+                id:1,title:1,address:1,website:1,freeint1:1,freetext2:1,freetext3:1,freetext8:1,freetext9:1,lon:1,lat:1,thumb:1,image1:1,imageset:1,imagedescription:1,summary:1});
         }
     });
     this.route('projectsMap', {
@@ -108,6 +110,9 @@ Router.map(function(){
     this.route('postPage', {
         path: '/posts/:id',
         template:'postPage',
+        waitOn: function(){
+          Meteor.subscribe('mimoauserscollection');
+        },
         data: function() {
             return proxyDB.mimoaCollection.findOne({id:this.params.id}, {
                 id:1,title:1,address:1,website:1,freeint1:1,freetext2:1,freetext3:1,freetext8:1,freetext9:1,lon:1,lat:1,thumb:1,image1:1,imageset:1,imagedescription:1,summary:1
@@ -133,6 +138,14 @@ Router.map(function(){
             return proxyDB.mimoaCollection.findOne({id: this.params.id},{lon:1,lat:1,title:1,summary:1,thumb:1});
         }
     });
+    this.route('favoritePostPageMap', {
+        path:'/favorite/posts/map/:id',
+        template:'postPageMap',
+        data:function() {
+            return proxyDB.mimoaUsersFavoritesCollection.findOne({userID:Meteor.userId(),'project.id':this.params.id},{
+                id:1,title:1,address:1,website:1,freeint1:1,freetext2:1,freetext3:1,freetext8:1,freetext9:1,lon:1,lat:1,thumb:1,image1:1,imageset:1,imagedescription:1,summary:1});
+        }
+    })
 });
 Router.onBeforeAction(function() {
     GoogleMaps.load({v:'3', key:'AIzaSyCHm1lpUrl8t-6qHQ-16X39ZTNt1ocHmkM', libraries: 'geometry'});
