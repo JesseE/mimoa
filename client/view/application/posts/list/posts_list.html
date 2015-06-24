@@ -1,32 +1,36 @@
 <template name="postsList">
     <div id="post-list" class="post-list">
+        {{status}}
         {{#if Template.subscriptionsReady}}
-        {{#each posts}}
-                <div class="post" data-distance="{{currentDistance}}">
-                    <div class="post-content">
-                        <a class="post-item" href="{{pathFor 'postPage'}}">
-                            <div class="post-content__thumb-image">
-                                <img class="post-list__image-container" src="{{thumb}}">
-                            </div>
-                            <div class="post-content__text">
-                                <h3>{{title}}</h3>
-                                <p class="author">
-                                    {{freetext2.[0]._}}
-                                </p>
-                                <div class="rating-container">
-                                    <div class="rating-image">
-                                        <div class="rating-{{freeint1.[0]._}}"></div>
-                                    </div>
+            {{#HammerTouchArea gestureMap=templateGestures}}
+            {{#each posts}}
+                    <div class="post" data-distance="{{currentDistance}}">
+                        <div class="post-content">
+                            <a class="post-item" href="{{pathFor 'postPage'}}">
+                                <div class="post-content__thumb-image">
+                                    <img class="post-list__image-container" src="{{thumb}}">
                                 </div>
-                                <p class="distance">
-                                    {{currentDistance}} m
-                                </p>
-                            </div>
-                        </a>
-                    <div class="favorite-icon"><i class="fa fa-diamond"></i></div>
+                                <div class="post-content__text">
+                                    <h3>{{title}}</h3>
+                                    <p class="author">
+                                        <!--{{freetext2.[0]._}}-->
+                                        {{freetext8.[0]._}}
+                                    </p>
+                                    <div class="rating-container">
+                                        <div class="rating-image">
+                                            <div class="rating-{{freeint1.[0]._}}"></div>
+                                        </div>
+                                    </div>
+                                    <p class="distance">
+                                        {{currentDistance}} m
+                                    </p>
+                                </div>
+                            </a>
+                        <div class="favorite-icon"><i class="fa fa-diamond"></i></div>
+                        </div>
                     </div>
-                </div>
-        {{/each}}
+            {{/each}}
+            {{/HammerTouchArea}}
         {{else}}
             {{>spinner}}
         {{/if}}

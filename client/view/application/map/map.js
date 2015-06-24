@@ -49,7 +49,7 @@ Template.projectsMap.onCreated(function(){
             infowindow = new google.maps.InfoWindow({
                 content: projectDescription
             });
-            google.maps.event.addListener(marker, 'click', function () {
+            google.maps.event.addListener(marker, 'click', function (evt) {
                 if (infowindow.getMap() != null) {
                     infowindow.close();
                 }

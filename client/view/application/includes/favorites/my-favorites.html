@@ -1,11 +1,16 @@
 <template name="myFavorites">
     {{>nav}}
     <div id="post-list" class="post-list">
-      {{#with posts}}
-        {{#each posts}}
+        {{#if posts}}
+            <div class="post-bar">
+                <h3>favorite architecture</h3>
+            </div>
+         <!--{{#sortable items=posts sortField="order"}}-->
+            {{#each posts}}
             <div class="post" data-distance="{{currentDistance}}">
                 <div class="post-content">
-                    <a class="post-item" href="favorites/posts/{{project.id}}">
+                    <!--<a class="post-item" href="favorites/posts/{{project.id}}">-->
+                    <a class="post-item" href="/favorites/{{currentUser}}/posts/{{project.id}}">
                         <div class="post-content__thumb-image">
                             <img class="post-list__image-container" src="{{project.thumb}}">
                         </div>
@@ -27,8 +32,28 @@
                     <div class="minus-icon"><i class="fa fa-minus"></i></div>
                 </div>
             </div>
-        {{/each}}
-          <h2 class="add-to-favorite__message">Add projects to your favorites list by tapping the icon<i class="fa fa-diamond"></i></h2>
-      {{/with}}
+            {{/each}}
+        <!--{{/sortable}}-->
+         {{/if}}
+        {{#if curators}}
+            <div class="curator-bar">
+                <h3>following curators</h3>
+            </div>
+            {{#each curators}}
+                    <div class="curator--favorite">
+                        <a href="/curator/{{curator.user._id}}">
+                            <div class="curator__thumb"><div class="curator__thumb-image"><i class="fa fa-user curator-fa"></i></div></div>
+                            <div class="curator__info">
+                                <div class="curator__name">{{curator.user.username}}</div>
+                                <div class="curator__location">The NetherRealm</div>
+                            </div>
+                        </a>
+                            <div class="curator__unfollow-button">
+                                <i class="fa fa-minus-square"></i>
+                            </div>
+                    </div>
+            {{/each}}
+        {{/if}}
     </div>
+    <!--<h2 class="add-to-favorite__message">Add projects to your favorites list by tapping the icon<i class="fa fa-diamond"></i></h2>-->
 </template>

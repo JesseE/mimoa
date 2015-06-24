@@ -1,0 +1,13 @@
+<template name="navFooter">
+        <div class="account">
+            <ul class="nav-footer__list">
+                <li class="account-info__username"><p class="profile-username">{{currentUser.username}}</p></li>
+                <a href="/nearby"><li class="account-info"><i class="fa fa-th-list"></i></li></a>
+                <a href="/profile/{{userID}}"><li class="account-info"><i class="fa fa-user"></i></li></a>
+                <li class="account-info"><i class="fa fa-search"></i></li>
+                <li class="account-info"><i class="fa fa-times"></i></li>
+                <!--<li class="account-info"><i class="fa fa-sign-out"></i></li>-->
+                <!--<a href="{{pathFor 'myFavorites'}}"><li class="account-info"><i class="fa fa-diamond"></i></li></a>-->
+            </ul>
+        </div>
+</template>

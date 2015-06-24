@@ -1,0 +1,22 @@
+<template name="myProfile">
+    {{>nav}}
+    <section class="profile">
+        <article class="profile-image">
+                <div class="profile-image__container">
+                    <div class="profile-image__thumb">
+                        <img src="" alt=""/>
+                    </div>
+
+                </div>
+            <h3 class="profile-username">{{currentUser.username}}</h3>
+        </article>
+        <article class="profile-nav">
+                <div class="profile-nav__item"><h3>favorites</h3><h3>{{favorites}}</h3></div>
+                <div class="profile-nav__item"><h3>following</h3><h3>{{following}}</h3></div>
+                <div class="profile-nav__item"><h3>followers</h3><h3>{{following}}</h3></div>
+        </article>
+        <article class="post-list--profile">
+            {{>myFavorites}}
+        </article>
+    </section>
+</template>

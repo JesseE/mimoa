@@ -1,23 +1,28 @@
 /**
  * Created by jesse on 20/02/15.
  */
+var projectsIndex = [];
+var currentIndex = {};
 var ratingValue = [];
+var nextItem = {};
+var prevItem = {};
+
 Template.postPage.helpers({
-    mapOptions: function() {
-        var here = Geolocation.currentLocation();
-        if(GoogleMaps.loaded()) {
-            var mimoaIcon = 'http://mimoa.eu/map/img/focus1.png';
-            // Map initialization options;
-            currentLocation = new google.maps.LatLng(here.coords.latitude, here.coords.longitude);
-            return {
-                center: currentLocation,
-                zoom: 13,
-                icon: mimoaIcon,
-                draggable: true,
-                disableDefaultUI: true
-            };
-        }
-    },
+    //mapOptions: function() {
+    //    var here = Geolocation.currentLocation();
+    //    if(GoogleMaps.loaded()) {
+    //        var mimoaIcon = 'http://mimoa.eu/map/img/focus1.png';
+    //        // Map initialization options;
+    //        currentLocation = new google.maps.LatLng(here.coords.latitude, here.coords.longitude);
+    //        return {
+    //            center: currentLocation,
+    //            zoom: 13,
+    //            icon: mimoaIcon,
+    //            draggable: true,
+    //            disableDefaultUI: true
+    //        };
+    //    }
+    //},
     shareData: function() {
         return {
             title: this.title,
@@ -31,15 +36,45 @@ Template.postPage.helpers({
         } else{
             return this.website;
         }
+    },
+    index: function(){
+        projectsIndex = [];
+        proxyDB.mimoaCollection.find({}).forEach(function(project){
+            projectsIndex.push(JSON.parse(project.id[0]));
+        });
+        if(projectsIndex.length >= 25) {
+            var thisPostIndex = JSON.parse(this.id);
+            currentIndex = projectsIndex.indexOf(thisPostIndex);
+            console.log(currentIndex, projectsIndex, thisPostIndex);
+        }
+    },
+    templateGestures: {
+        'swiperight body': function (event, templateInstance) {
+            prevItem = projectsIndex[currentIndex - 1];
+            if(prevItem == undefined) {
+                prevItem = currentIndex = 1;
+            }
+            console.log('you swiped right ' + prevItem);
+            return Router.go('/posts/'+prevItem);
+        },
+        'swipeleft body': function (event, templateInstance) {
+            nextItem = projectsIndex[currentIndex + 1];
+            if(nextItem == undefined){
+                currentIndex = proxyDB.mimoaCollection.find().count();
+                nextItem = currentIndex - 1;
+            }
+            console.log('you swiped left ' + nextItem);
+            return Router.go('/posts/'+nextItem);
+        }
     }
 });
 Template.postPage.events({
-    'click div.add-to-favorite':function(){
+    'click .add-to-favorite':function(){
         var projectId = this._id;
         var thisProject = this;
         var currentUserId = Meteor.userId();
         return Meteor.call('addToMyFavorite',projectId, thisProject,currentUserId, function(err,results){
-            console.log('add to my favorites');
+            console.log('add to my favorites ' +thisProject);
             if(err){console.log(err);}else{console.log(results);}
         });
     },
@@ -148,39 +183,41 @@ Template.postPage.events({
 });
 Template.postPage.rendered = function(){
     window.scrollTo(0,0);
+
 };
-Template.postPage.onCreated(function(){
-    GoogleMaps.ready('map', function (map, limit) {
-        var mimoaIcon = 'http://mimoa.eu/map/img/focus1.png';
-        proxyDB.mimoaCollection.find({}, {limit: limit}).forEach(function (project, marker, infowindow) {
-            // Add a marker to the map once it's ready
 
-            marker = new google.maps.Marker({
-                position: new google.maps.LatLng(project.lat, project.lon),
-                icon: mimoaIcon,
-                map: map.instance
-            });
-
-            projectDescription = "<div><p>" + project.title + "</p><br><p>" + project.summary + "</p><br><a href=" + '/posts/' + project.id + ">this project</a></div>";
-
-            infowindow = new google.maps.InfoWindow({
-                content: projectDescription
-            });
-
-            google.maps.event.addListener(marker, 'click', function () {
-                if (infowindow.getMap() != null) {
-                    infowindow.close();
-                }
-                infowindow.open(map.instance, marker);
-            });
-
-        });
-
-        //this needs to change to current location
-        myLocationMarker = new google.maps.Marker({
-            position: new google.maps.LatLng(52.3478951,4.8499109),
-            icon: mimoaIcon,
-            map: map.instance
-        });
-    });
-});
+//Template.postPage.onCreated(function(){
+//    GoogleMaps.ready('map', function (map, limit) {
+//        var mimoaIcon = 'http://mimoa.eu/map/img/focus1.png';
+//        proxyDB.mimoaCollection.find({}, {limit: limit}).forEach(function (project, marker, infowindow) {
+//            // Add a marker to the map once it's ready
+//
+//            marker = new google.maps.Marker({
+//                position: new google.maps.LatLng(project.lat, project.lon),
+//                icon: mimoaIcon,
+//                map: map.instance
+//            });
+//
+//            projectDescription = "<div><p>" + project.title + "</p><br><p>" + project.summary + "</p><br><a href=" + '/posts/' + project.id + ">this project</a></div>";
+//
+//            infowindow = new google.maps.InfoWindow({
+//                content: projectDescription
+//            });
+//
+//            google.maps.event.addListener(marker, 'click', function () {
+//                if (infowindow.getMap() != null) {
+//                    infowindow.close();
+//                }
+//                infowindow.open(map.instance, marker);
+//            });
+//
+//        });
+//
+//        //this needs to change to current location
+//        myLocationMarker = new google.maps.Marker({
+//            position: new google.maps.LatLng(52.3478951,4.8499109),
+//            icon: mimoaIcon,
+//            map: map.instance
+//        });
+//    });
+//});

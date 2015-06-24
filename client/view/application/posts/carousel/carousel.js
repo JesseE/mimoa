@@ -3,6 +3,10 @@
  */
 var index = 0;
 bucket = [];
+Template.carousel.rendered = function(){
+    $('div.item').first().addClass('active');
+    bucket = $('.item');
+};
 Template.carousel.helpers({
     carousel: function() {
         var hereInApp = Router.current().route.getName();
@@ -14,27 +18,23 @@ Template.carousel.helpers({
             return item;
         }
     },
+    templateGestures: {
+        'swiperight #myCarousel': function (event, templateInstance) {
+            //$(this).carousel('prev');
+            console.log('right');
+            $('.ccarousel-inner').data('prev');
+        },
+        'swipeleft #myCarousel': function() {
+          //  $(this).carousel('next');
+            console.log('left');
+        }
+    },
     description: function() {
         var description = this.imagedescription;
         console.log(description);
         return description;
     }
 });
-Template.carousel.rendered = function(){
-    $('div.item').first().addClass('active');
-    bucket = $('.item');
-    $('#myCarousel').hammer({
-        drag_min_distance:0.5,
-        threshold:5,
-        swipe_velocity:0.5
-    });
-    $('#myCarousel').hammer().on('swipeleft', function(){
-        $(this).carousel('next');
-    });
-    $('#myCarousel').hammer().on('swiperight', function(){
-        $(this).carousel('prev');
-    });
-};
 Template.carousel.events({
     'click #myCarouselImage': function() {
         var elem = document.getElementById("myCarousel");
@@ -64,34 +64,3 @@ Template.carousel.events({
         }
     }
 });
-Template.carousel.gestures({
-    //'swipeleft #myCarousel': function (event, template) {
-    //    console.log('swipeleft');
-    //    ++index;
-    //    if(index == bucket.length){
-    //        index = 0;
-    //        bucket.next().addClass('active');
-    //    } else {
-    //        bucket.prev().removeClass('active');
-    //    }
-    //    bucket.removeClass('active');
-    //    bucket.next().addClass('active');
-    //    //bucket.siblings().next().addClass('active');
-    //    //bucket.siblings().prev().removeClass('active');
-    //    console.log(this.bucket,  bucket[index]);
-    //},
-    //'swiperight #myCarousel': function (event, template) {
-    //    --index;
-    //    if(index == 0){
-    //        index = bucket.length;
-    //        bucket.next().addClass('active');
-    //    } else {
-    //        bucket.prev().removeClass('active');
-    //    }
-    //    bucket.removeClass('active');
-    //    bucket.prev().addClass('active');
-    //    console.log('swiperight');
-    //    console.log(bucket[index]);
-    //}
-});
-

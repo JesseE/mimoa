@@ -1,18 +1,15 @@
 <template name="postPage">
-    {{>nav}}
-    <div class="container">
-        <div id="main" class="row-fluid">
-        <!--{{>postItemPage}}-->
-            <div class="post-content">
+    {{#HammerTouchArea gestureMap=templateGestures}}
+            <div class="post-content--full-page">
                 {{>carousel}}
                 <div class="add-to-favorite">
                     <div class="button__add-to-favorite"><i class="fa fa-diamond"></i></div>
                 </div>
                 <div class="post-content__text--full-width">
                     <ul class="post-content__title-list">
-                        <li class="post-content__title-photo-item"><a href="#"><h4>Photos</h4></a></li>
-                        <li class="post-content__title-item"><a href="{{pathFor 'postPageMap'}}"><h4>Route</h4></a></li>
-                        {{#if website}}<li class="post-content__title-item"><a href="{{website}}" target="_blank"><h4>Website</h4></a></li>{{/if}}
+                        <a href="#"><li class="post-content__title-photo-item"><h4>Photos</h4></li></a>
+                        <a href="{{pathFor 'postPageMap'}}"><li class="post-content__title-item"><h4>Route</h4></li></a>
+                        {{#if website}}<a href="{{website}}" target="_blank"><li class="post-content__title-item"><h4>Website</h4></li></a>{{/if}}
                     </ul>
                     <div class="post-content__block-item--rating">
                         <div class="post-content__title">
@@ -78,8 +75,9 @@
                                 <p></p>
                             </li>
                             <li class="post-content__sub-item">
-                                <p><b>website:</b></p>
+                               {{#if website}} <p><b>website:</b></p>
                                 <p><a href="{{website}}" target="_blank">{{website}}</a></p>
+                                {{/if}}
                             </li>
                         </ul>
                     </div>
@@ -95,10 +93,10 @@
                             </li>
                         </ul>
                     </div>
+                    {{index}}
                     <!--{{> comment}}-->
                     <!--{{> commentSubmit}}-->
                 </div>
             </div>
-        </div>
-    </div>
+    {{/HammerTouchArea}}
 </template>

@@ -1,5 +1,6 @@
 <template name="carousel">
     {{#if carousel}}
+        {{#HammerTouchArea gestureMap=templateGestures}}
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -16,5 +17,6 @@
             <a id="myElement" class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"></a>
             <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"></a>
         </div>
+        {{/HammerTouchArea}}
     {{/if}}
 </template>

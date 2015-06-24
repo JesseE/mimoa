@@ -1,4 +1,9 @@
 Template.nav.helpers({
+    templateGestures: {
+        'tap a.nearby-button': function () {
+            $('.account').addClass('drop-down');
+        }
+    },
     postPage: function(){
         var hereInApp = Router.current().route.getName();
         if(hereInApp == 'postPage'){
@@ -32,15 +37,46 @@ Template.nav.helpers({
         }
     },
     favoritesPage:function(){
-    var hereInApp = Router.current().route.getName();
-    if(hereInApp == 'myFavorites'){
-        return true;
-    } else {
-        return false;
+        var hereInApp = Router.current().route.getName();
+        if(hereInApp == 'myFavorites'){
+            return true;
+        } else {
+            return false;
+        }
+    },
+    profilePage:function(){
+        var hereInApp = Router.current().route.getName();
+        if(hereInApp == 'myProfile'){
+            return true;
+        } else {
+            return false;
+        }
+    },
+    curatorPage:function(){
+        var hereInApp = Router.current().route.getName();
+        if(hereInApp == 'curatorsList'){
+            return true;
+        } else {
+            return false;
+        }
+    },
+    curatorProjectsPage:function(){
+        var hereInApp = Router.current().route.getName();
+        if(hereInApp == 'favoriteCuratorProfile'){
+            return true;
+        } else {
+            return false;
+        }
     }
-}
 });
 Template.nav.events({
+    'click .nearby-button .fa-list': function(){
+        console.log('clicked');
+        $('.account').addClass('drop-down');
+        $('#main').addClass('drop-down__margin');
+        $('.post-list--curators').addClass('drop-down');
+        $('.profile').addClass('drop-down__margin-profile');
+    },
     'click .back-button': function(e) {
         e.preventDefault();
         window.history.back();

@@ -1,18 +1,18 @@
 <template name="curatorsList">
     {{>nav}}
         <div id="post-list" class="post-list--curators">
-            {{#each currators}}
+            {{#each curators}}
                 <div class="curator">
                     <a href="{{pathFor 'curatorProfile'}}">
-                        <div class="curator__thumb"></div>
+                        <div class="curator__thumb"><div class="curator__thumb-image"><i class="fa fa-user curator-fa"></i></div></div>
                         <div class="curator__info">
-                            <div class="curator__name">Derp</div>
+                            <div class="curator__name">{{user.username}}</div>
                             <div class="curator__location">The NetherRealm</div>
                         </div>
+                    </a>
                         <div class="curator__follow-button">
                             <i class="fa fa-plus-square"></i>
                         </div>
-                    </a>
                 </div>
             {{/each}}
         </div>

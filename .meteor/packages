@@ -15,7 +15,6 @@ sacha:spin
 fastclick
 webapp
 meteor-platform
-chriswessels:hammer
 meteorhacks:kadira
 mdg:geolocation
 percolate:paginated-subscription
@@ -24,3 +23,5 @@ accounts-password
 accounts-google
 accounts-ui-unstyled
 lepozepo:reactive-publish
+rubaxa:sortable
+chriswessels:hammer
