@@ -9,6 +9,18 @@ var currentPostID;
 Template.postsList.rendered = function() {
 
 };
+Template.searchBox.rendered = function() {
+// name is the field of the documents to search over
+
+};
+Template.searchBox.helpers({
+    //post: function() {
+    //    return proxyDB.mimoaCollection.find({},{thumb:0,image1:1,lon:1,lat:1,freetext2:1,freeint1:1,title:1, coordinates:1});
+    //}
+
+});
+// Extended configuration
+
 Template.postsList.helpers({
     templateGestures: {
         'swiperight .post': function (event, templateInstance) {
@@ -18,6 +30,11 @@ Template.postsList.helpers({
         }
     },
     status: function(){
+        //if(Meteor.status().connected == false){
+        //    alert('you are disconnected now there is only a limited amout of projects');
+        //}else if(Meteor.status().connected == true){
+        //    console.log('your online');
+        //}
         //Meteor.setInterval(function(){
         //    Session.set('active', false);
         //},7000);
@@ -41,19 +58,27 @@ Template.postsList.helpers({
         //}
     },
     posts: function() {
-        return proxyDB.mimoaCollection.find({},{thumb:1,lon:1,lat:1,freetext2:1,freeint1:1,title:1});
+        return proxyDB.mimoaCollection.find({},{thumb:0,image1:1,lon:1,lat:1,freetext2:1,freeint1:1,title:1, coordinates:1});
     },
     currentDistance: function() {
         var hereBrowser = Geolocation.currentLocation();
-        if(hereBrowser != null){
-            if(GoogleMaps.loaded()){
+        //if(hereBrowser != null){
+        //    if(GoogleMaps.loaded()){
                 currentLocation = new google.maps.LatLng(hereBrowser.coords.latitude, hereBrowser.coords.longitude);
                 objectLocation = new google.maps.LatLng(this.lat[0],this.lon[0]);
-                distanceToLocation = JSON.parse((google.maps.geometry.spherical.computeDistanceBetween(currentLocation, objectLocation)).toFixed(0));
+                distanceToLocation = /*JSON.parse(*/(google.maps.geometry.spherical.computeDistanceBetween(currentLocation, objectLocation)).toFixed(0)/*)*/;
                 return distanceToLocation;
-            }
+        //    }
         }
-    }
+        //var hereBrowser = Geolocation.currentLocation();
+        //if(hereBrowser != null){
+        //    if(GoogleMaps.loaded()){
+        //        currentLocation = new google.maps.LatLng(hereBrowser.coords.latitude, hereBrowser.coords.longitude);
+        //        objectLocation = new google.maps.LatLng(this.lat[0],this.lon[0]);
+        //        distanceToLocation = JSON.parse((google.maps.geometry.spherical.computeDistanceBetween(currentLocation, objectLocation)).toFixed(0));
+        //        return distanceToLocation;
+        //    }
+        //}
 });
 Template.postsList.events({
    'click div.favorite-icon':function(){

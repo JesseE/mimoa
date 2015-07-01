@@ -9,7 +9,9 @@ var myCurrentCountry;
 var myCurrentCity;
 var currentLat;
 var currentLng;
-
+var paginationNumber = 25;
+var subHandle;
+var hereIcon = '/public/images/you-are-here/web/ic_location_on_black_24dp_2x.png';
 Meteor.startup(function(){
     function success(pos) {
         var crd = pos.coords;
@@ -23,6 +25,7 @@ Meteor.startup(function(){
 });
 Template.projectsMap.helpers({
     mapOptions: function() {
+        subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, paginationNumber);
         if(GoogleMaps.loaded()) {
             // Map initialization options;
             return {
@@ -33,13 +36,15 @@ Template.projectsMap.helpers({
                 disableDefaultUI: true
             };
         }
+
     }
 });
 Template.projectsMap.onCreated(function(){
     GoogleMaps.ready('map', function (map, limit) {
-        proxyDB.mimoaCollection.find({}, {limit: limit}).forEach(function (project, marker, infowindow) {
+        proxyDB.mimoaCollection.find({}).forEach(function (project, marker, infowindow) {
             // Add a marker to the map once it's ready
             marker = new google.maps.Marker({
+
                 position: new google.maps.LatLng(project.lat, project.lon),
                 icon: mimoaIcon,
                 map: map.instance
@@ -58,6 +63,7 @@ Template.projectsMap.onCreated(function(){
         });
         myLocationMarker = new google.maps.Marker({
             position: new google.maps.LatLng(currentLat,currentLng),
+            animation: google.maps.Animation.DROP,
             icon: mimoaIcon,
             map: map.instance,
             draggable: true
@@ -65,7 +71,38 @@ Template.projectsMap.onCreated(function(){
         google.maps.event.addListener(myLocationMarker, 'dragend', function(evt) {
             currentLat = evt.latLng.lat().toFixed(3);
             currentLng = evt.latLng.lng().toFixed(3);
-            subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, 25);
+            //subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, 25);
         });
+        setupMarkers = function(){
+            proxyDB.mimoaCollection.find({}).forEach(function (project, marker, infowindow) {
+                // Add a marker to the map once it's ready
+                marker = new google.maps.Marker({
+
+                    position: new google.maps.LatLng(project.lat, project.lon),
+                    icon: mimoaIcon,
+                    map: map.instance
+                });
+                projectDescription = "<div><a href=" + '/posts/' + project.id +"><h4>"+ project.title +"</h4></a><img src="+''+project.thumb[0]+"></div>";
+
+                infowindow = new google.maps.InfoWindow({
+                    content: projectDescription
+                });
+                google.maps.event.addListener(marker, 'click', function (evt) {
+                    if (infowindow.getMap() != null) {
+                        infowindow.close();
+                    }
+                    infowindow.open(map.instance, marker);
+                });
+            });
+        };
     });
+
+});
+Template.projectsMap.events({
+    'click button.loadbutton':function(){
+        paginationNumber+=25;
+        setupMarkers();
+        console.log(proxyDB.mimoaCollection.find().fetch());
+        return subHandle.loadNextPage();
+    }
 });

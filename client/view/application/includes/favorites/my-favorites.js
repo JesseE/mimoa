@@ -47,6 +47,10 @@ Template.myFavorites.helpers({
     }
 });
 Template.myFavorites.events({
+    'click .calculate-route':function(){
+        var waypoints = proxyDB.mimoaUsersFavoritesCollection.find({userID:Meteor.userId()}).fetch();
+        console.log(waypoints);
+    },
     'click .post-bar': function() {
         $('.post').toggle();
     },

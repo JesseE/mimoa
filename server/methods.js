@@ -2,16 +2,23 @@
  * Created by jesseeikema on 3/30/15.
  */
 Meteor.methods({
+    'saveDB':function(subHandle){
+        console.log(subHandle);
+      //return proxyDB.mimoaCollection.update()
+    },
     'updateRating': function(selectedDoc, ratingValue){
         return proxyDB.mimoaCollection.update({ _id: selectedDoc }, { $set : { freeint1 : { 0 : { _ : ratingValue } } } });
     },
-    'searchProject': function(projectTitle){
-        return proxyDB.mimoaCollection.find({title: projectTitle}, {
+    'searchProject': function(currentPostID){
+        return proxyDB.mimoaCollection.find({'title':{$regex : currentPostID, $options: "i"}}, {
             id:1,title:1,address:1,website:1,freeint1:1,freetext2:1,freetext3:1,freetext8:1,freetext9:1,lon:1,lat:1,thumb:1,image1:1,imageset:1,imagedescription:1,summary:1
-        },{limit:1});
+        });
     },
-    'searchProjectByArchitect':function(currentArchitect){
-      return proxyDB.mimoaCollection.find({freetext8:currentArchitect});
+    'searchProjectByCity':function(currentPostID){
+        return proxyDB.mimoaCollection.find({city:currentPostID});
+    },
+    'searchProjectByArchitect':function(currentPostID){
+      return proxyDB.mimoaCollection.find({'freetext8.[0]._':currentPostID});
     },
     'searchProjectById': function(currentPostID){
         console.log(proxyDB.mimoaCollection.find({id:currentPostID}));

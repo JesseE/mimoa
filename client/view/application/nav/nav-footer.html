@@ -2,12 +2,16 @@
         <div class="account">
             <ul class="nav-footer__list">
                 <li class="account-info__username"><p class="profile-username">{{currentUser.username}}</p></li>
-                <a href="/nearby"><li class="account-info"><i class="fa fa-th-list"></i></li></a>
-                <a href="/profile/{{userID}}"><li class="account-info"><i class="fa fa-user"></i></li></a>
-                <li class="account-info"><i class="fa fa-search"></i></li>
-                <li class="account-info"><i class="fa fa-times"></i></li>
+                <a href="/nearby"><li class="account-info"><i class="fa fa-th-list"><h4>Homepage</h4></i></li></a>
+                <a href="/profile/{{userID}}"><li class="account-info"><i class="fa fa-user"><h4>Profile</h4></i></li></a>
+                <li class="account-info"><i class="fa fa-search"><h4>Search</h4></i>
+                    {{>searchInput}}
+                </li>
+                <li class="account-info"><i class="fa fa-times"><h4>Close menu</h4></i></li>
                 <!--<li class="account-info"><i class="fa fa-sign-out"></i></li>-->
                 <!--<a href="{{pathFor 'myFavorites'}}"><li class="account-info"><i class="fa fa-diamond"></i></li></a>-->
+                <li class="account-info"><i class="fa fa-th-large small-layout"><h4>small</h4></i></li>
+                <li class="account-info"><i class="fa fa-th-list normal-layout"><h4>normal</h4></i></li>
             </ul>
         </div>
 </template>

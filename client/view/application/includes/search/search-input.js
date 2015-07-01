@@ -10,12 +10,16 @@ Template.searchInput.events({
         e.preventDefault();
         console.log($('.search-input').val());
         currentPostID = $('.search-input').val();
-        Meteor.call('searchProjectByArchitect', currentPostID, function(err,results){
-            if(err){console.log(err);}else{console.log(results);}
-        });
-        Meteor.call('searchProjectById', currentPostID, function(err,results){
-           if(err){console.log(err);}else{console.log(results);}
-        });
+        //Meteor.call('searchProjectByCity', currentPostID, function(err,results){
+        //    if(err){console.log(err);}else{console.log(results);}
+        //});
+        ////
+        //Meteor.call('searchProjectByArchitect', currentPostID, function(err,results){
+        //    if(err){console.log(err);}else{console.log(results);}
+        //});
+        //Meteor.call('searchProjectById', currentPostID, function(err,results){
+        //   if(err){console.log(err);}else{console.log(results);}
+        //});
         Meteor.call('searchProject', currentPostID, function(err,results){
             if(err){console.log(err);}else{console.log(results);}
         });

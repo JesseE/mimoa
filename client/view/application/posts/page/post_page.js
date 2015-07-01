@@ -8,21 +8,6 @@ var nextItem = {};
 var prevItem = {};
 
 Template.postPage.helpers({
-    //mapOptions: function() {
-    //    var here = Geolocation.currentLocation();
-    //    if(GoogleMaps.loaded()) {
-    //        var mimoaIcon = 'http://mimoa.eu/map/img/focus1.png';
-    //        // Map initialization options;
-    //        currentLocation = new google.maps.LatLng(here.coords.latitude, here.coords.longitude);
-    //        return {
-    //            center: currentLocation,
-    //            zoom: 13,
-    //            icon: mimoaIcon,
-    //            draggable: true,
-    //            disableDefaultUI: true
-    //        };
-    //    }
-    //},
     shareData: function() {
         return {
             title: this.title,
@@ -70,13 +55,22 @@ Template.postPage.helpers({
 });
 Template.postPage.events({
     'click .add-to-favorite':function(){
+        console.log('favorited');
         var projectId = this._id;
         var thisProject = this;
         var currentUserId = Meteor.userId();
-        return Meteor.call('addToMyFavorite',projectId, thisProject,currentUserId, function(err,results){
-            console.log('add to my favorites ' +thisProject);
+        console.log(projectId,thisProject,currentUserId);
+        return Meteor.call('addToMyFavorite',projectId, thisProject, currentUserId, function(err,results){
+            console.log('add to my favorites');
             if(err){console.log(err);}else{console.log(results);}
         });
+        //var projectId = this._id;
+        //var thisProject = this;
+        //var currentUserId = Meteor.userId();
+        //return Meteor.call('addToMyFavorite',projectId, thisProject,currentUserId, function(err,results){
+        //    console.log('add to my favorites ' +thisProject);
+        //    if(err){console.log(err);}else{console.log(results);}
+        //});
     },
     'click .post-content__title-photo-item': function() {
         var elem = document.getElementById("myCarousel");

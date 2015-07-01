@@ -6,9 +6,11 @@ var currentLat;
 var currentLng;
 var paginationNumber = 25;
 var currentUserId = Meteor.userId();
-
+var newOfflineDB;
 myFavorites = new Mongo.Collection('myfavorites');
 AccountSystem = new Mongo.Collection('mimoausers');
+// On Client and Server
+//Players = new Meteor.Collection('mimoacollection');
 
 Router.configure({
     loadingTemplate: 'loading',
@@ -38,14 +40,14 @@ Router.configure({
             hereBrowser = Geolocation.currentLocation();
             currentLat = hereBrowser.coords.latitude;
             currentLng = hereBrowser.coords.longitude;
-            return subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, paginationNumber);
+            subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, paginationNumber);
         }
     }
 });
 Router.onBeforeAction(function() {
     GoogleMaps.load({v:'3', key:'AIzaSyCHm1lpUrl8t-6qHQ-16X39ZTNt1ocHmkM', libraries: 'geometry'});
     this.next();
-}, { only: ['postPageMap','projectsMap', 'postsList','myFavoritesItemPage','favoritePostPageMap'] });
+});
 //this should be refactored
 Template.postsList.events({
     'click button.loadbutton':function(){
@@ -67,24 +69,42 @@ Router.map(function(){
         template:'searchResult',
         waitOn:function(){
             var currentPostID = this.params.id;
-            Meteor.subscribe('mimoacollectionspecific', currentPostID);
+            return Meteor.subscribe('mimoacollectionspecific', currentPostID);
+            //proxyDB.mimoaCollection.findOne({id: this.params.id});
+            //proxyDB.mimoaCollection.findOne({title: JSON.stringify(this.params.id)});
+            //proxyDB.mimoaCollection.findOne({'feetext8.[0]._': this.params.id});
+            //proxyDB.mimoaCollection.find({city: this.params.id});
         },
         data: function(){
-            if(proxyDB.mimoaCollection.findOne({freetext8:this.params.id}) == undefined) {
-
-            }else{
-                return proxyDB.mimoaCollection.findOne({feetext8: this.params.id});
-            }
-            if(proxyDB.mimoaCollection.findOne({title: this.params.id}) == undefined){
-
-            }else{
-                return proxyDB.mimoaCollection.findOne({title: this.params.id});
-            }
-            if(proxyDB.mimoaCollection.findOne({id:this.params.id}) == undefined){
-
-            }else{
-                return proxyDB.mimoaCollection.findOne({id: this.params.id});
-            }
+            //if(proxyDB.mimoaCollection.findOne({title: this.params.id}) == undefined){
+            //
+            //}else{
+            //
+            //}
+            //return proxyDB.mimoaCollection.findOne({'feetext8.[0]._': this.params.id});
+            //return proxyDB.mimoaCollection.findOne({title: this.params.id});
+            //if(proxyDB.mimoaCollection.findOne({'freetext8.[0]._':this.params.id}) == undefined) {
+            //
+            //}else{
+            //    return proxyDB.mimoaCollection.findOne({'feetext8.[0]._': this.params.id});
+            //}
+            //if(proxyDB.mimoaCollection.findOne({title: this.params.id}) == undefined){
+            //
+            //}else{
+            //    return proxyDB.mimoaCollection.findOne({title: this.params.id});
+            //}
+            //if(proxyDB.mimoaCollection.findOne({id:this.params.id}) == undefined){
+            //
+            //}else{
+            //    return proxyDB.mimoaCollection.findOne({id: this.params.id});
+            //}
+            //if(proxyDB.mimoaCollection.find({city:this.params.id}) == undefined){
+            //
+            //}else{
+            //    return proxyDB.mimoaCollection.find({city: this.params.id});
+            //}
+            return proxyDB.mimoaCollection.find({'title':{$regex:this.params.id, $options: "i"}});
+            //return proxyDB.mimoaCollection.findOne({title: {$elemMatch:{$regex:this.params.id, $options: "i"}}});
         }
     });
     this.route('postsList', {
@@ -100,7 +120,14 @@ Router.map(function(){
         },
         data: function(){
             proxyDB.mimoaUsersCollection.find({userID:currentUserId});
+           // var offline = Ground.Collection(proxyDB.mimoaCollection, 'mimoaOfflineDatabase');
+           // if(Meteor.status().connected == false){
+                //console.log(offline.find({}).fetch());
+                //return offline.find({});
+            //} else if(Meteor.status().connected == true){
+
             return proxyDB.mimoaCollection.find({});
+            //}
             //proxyDB.mimoaUsersCollection.find({userID: currentUserId});
             //return proxyDB.mimoaCollection.find({},{thumb:1,lon:1,lat:1,freetext2:1,freeint1:1,title:1});
         }
@@ -193,6 +220,13 @@ Router.map(function(){
     this.route('projectsMap', {
         path:'/map',
         template: 'projectsMap',
+        waitOn: function() {
+            hereBrowser = Geolocation.currentLocation();
+            currentLat = hereBrowser.coords.latitude;
+            currentLng = hereBrowser.coords.longitude;
+            //dont return this or no pagination
+            return subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, paginationNumber);
+        },
         data: function(){
             return proxyDB.mimoaCollection.find({},{lat:1,lon:1,summary:1,title:1,id:1,thumb:1});
         }
@@ -204,6 +238,20 @@ Router.map(function(){
             var currentPostID = this.params.id;
             var limit = 1;
             Meteor.subscribe('mimoacollectionspecific', currentPostID, limit);
+        },
+        data: function() {
+            return proxyDB.mimoaCollection.findOne({id:this.params.id}, {
+                id:1,title:1,address:1,website:1,freeint1:1,freetext2:1,freetext3:1,freetext8:1,freetext9:1,lon:1,lat:1,thumb:1,image1:1,imageset:1,imagedescription:1,summary:1
+            });
+        }
+    });
+    this.route('postPageSearched', {
+        path: '/search/post/page/:id',
+        template:'postPage',
+        waitOn: function(){
+            var currentPostID = this.params.id;
+        //    var limit = 1;
+            return Meteor.subscribe('mimoacollectionspecificsearch', currentPostID);
         },
         data: function() {
             return proxyDB.mimoaCollection.findOne({id:this.params.id}, {
@@ -239,10 +287,22 @@ Router.map(function(){
         path: '/posts/map/:id',
         template: 'postPageMap',
         waitOn: function() {
-            Meteor.subscribe('mimoacollection');
+            return Meteor.subscribe('mimoacollection');
         },
         data: function () {
             return proxyDB.mimoaCollection.findOne({id: this.params.id},{lon:1,lat:1,title:1,summary:1,thumb:1});
+        }
+    });
+    this.route('calculatedRoute',{
+        path:'profile/collection/:currentUser/map',
+        template:'collectionRoute',
+        waitOn: function(){
+            Meteor.subscribe('mimoauserscollectionlist');
+            Meteor.subscribe('mimoacuratorscollection', this.params.currentUser);
+            Meteor.subscribe('mimoausersfavoritescollection', this.params.currentUser);
+        },
+        data:function(){
+            return proxyDB.mimoaUsersFavoritesCollection.find({userID:Meteor.userId()});
         }
     });
     this.route('favoritePostPageMap', {

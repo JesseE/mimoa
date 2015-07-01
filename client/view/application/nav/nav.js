@@ -1,3 +1,4 @@
+var areYouOnline;
 Template.nav.helpers({
     templateGestures: {
         'tap a.nearby-button': function () {
@@ -68,14 +69,26 @@ Template.nav.helpers({
             return false;
         }
     }
+    //currentUserOffline: function(){
+    //    if(Meteor.status().connected == false){
+    //        alert(Meteor.status().connected);
+    //
+    //        //areYouOnline = false;
+    //        //return areYouOnline;
+    //    } else if(Meteor.status().connected == true){
+    //        //areYouOnline = true;
+    //        alert(Meteor.status().connected);
+    //        //return areYouOnline;
+    //    }
+    //}
+
 });
 Template.nav.events({
     'click .nearby-button .fa-list': function(){
-        console.log('clicked');
-        $('.account').addClass('drop-down');
-        $('#main').addClass('drop-down__margin');
-        $('.post-list--curators').addClass('drop-down');
-        $('.profile').addClass('drop-down__margin-profile');
+        $('.account').addClass('drop-left');
+        //$('#main').addClass('drop-down__margin');
+        //$('.post-list--curators').addClass('drop-down');
+        //$('.profile').addClass('drop-down__margin-profile');
     },
     'click .back-button': function(e) {
         e.preventDefault();

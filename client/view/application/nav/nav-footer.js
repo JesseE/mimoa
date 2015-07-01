@@ -32,9 +32,15 @@ Template.navFooter.events({
     },
     'click .fa-times': function(){
         $('.search').hide();
-        $('.account').removeClass('drop-down');
-        $('#main').removeClass('drop-down__margin');
-        $('.post-list--curators').removeClass('drop-down');
-        $('.profile').removeClass('drop-down__margin-profile');
+        $('.account').removeClass('drop-left');
+        //$('#main').removeClass('drop-down__margin');
+        //$('.post-list--curators').removeClass('drop-down');
+        //$('.profile').removeClass('drop-down__margin-profile');
+    },
+    'click .small-layout':function() {
+        $('.post').addClass('post-small');
+    },
+    'click .normal-layout':function() {
+        $('.post').removeClass('post-small');
     }
 });

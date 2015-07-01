@@ -3,7 +3,9 @@
     <div id="post-list" class="post-list">
         {{#if posts}}
             <div class="post-bar">
-                <h3>favorite architecture</h3>
+                <a href="collection/{{currentUser}}/map"><i class="fa fa-road calculate-route">  </i>
+                    <h3>favorite architecture</h3>
+                </a>
             </div>
          <!--{{#sortable items=posts sortField="order"}}-->
             {{#each posts}}
@@ -12,7 +14,7 @@
                     <!--<a class="post-item" href="favorites/posts/{{project.id}}">-->
                     <a class="post-item" href="/favorites/{{currentUser}}/posts/{{project.id}}">
                         <div class="post-content__thumb-image">
-                            <img class="post-list__image-container" src="{{project.thumb}}">
+                            <img class="post-list__image-container" src="{{project.image1}}">
                         </div>
                         <div class="post-content__text">
                             <h3>{{project.name}}{{project.username}}</h3>

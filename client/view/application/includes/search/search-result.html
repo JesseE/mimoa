@@ -1,13 +1,13 @@
 <template name="searchResult">
     <div id="post-list" class="post-list--search-results">
       <!--{{status}}-->
-      {{#if Template.subscriptionsReady}}
-          <!--{{#each posts}}-->
+      <!--{{#if Template.subscriptionsReady}}-->
+          {{#each .}}
               <div class="post" data-distance="{{currentDistance}}">
                   <div class="post-content">
-                      <a class="post-item" href="{{pathFor 'postPage'}}">
+                      <a class="post-item" href="/search/post/page/{{id}}">
                           <div class="post-content__thumb-image">
-                              <img class="post-list__image-container" src="{{thumb}}">
+                              <img class="post-list__image-container" src="{{image1}}">
                           </div>
                           <div class="post-content__text">
                               <h3>{{title}}</h3>
@@ -20,17 +20,17 @@
                                       <div class="rating-{{freeint1.[0]._}}"></div>
                                   </div>
                               </div>
+                              <div class="favorite-icon"><i class="fa fa-diamond"></i></div>
                               <p class="distance">
                                 {{currentDistance}} m
                               </p>
                           </div>
                       </a>
-                      <div class="favorite-icon"><i class="fa fa-diamond"></i></div>
                   </div>
               </div>
-          <!--{{/each}}-->
-      {{else}}
-        {{>spinner}}
-      {{/if}}
+          {{/each}}
+      <!--{{else}}-->
+        <!--{{>spinner}}-->
+      <!--{{/if}}-->
     </div>
 </template>

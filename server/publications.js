@@ -2,7 +2,6 @@
  * Created by jesse on 18/02/15.
  */
 myFavorites = new Mongo.Collection('myfavorites');
-
 Meteor.reactivePublish('mimoacollection', function(currentLat,currentLng, limit){
     return proxyDB.mimoaCollection.find({coordinates:
         {$near:
@@ -12,10 +11,29 @@ Meteor.reactivePublish('mimoacollection', function(currentLat,currentLng, limit)
         }
     },{limit:limit}, {reactive:true});
 });
+Meteor.publish('mimoacollectionspecificsearch', function(currentPostID){
+    return proxyDB.mimoaCollection.find({'id': currentPostID});
+});
 Meteor.publish('mimoacollectionspecific', function(currentPostID){
-    proxyDB.mimoaCollection.find({'title':currentPostID});
-    proxyDB.mimoaCollection.find({'freetext8':currentPostID});
-    return proxyDB.mimoaCollection.find({'id':currentPostID});
+    return proxyDB.mimoaCollection.find({'title':{$elemMatch : {$regex:currentPostID, $options: "i"}}});
+    //if( proxyDB.mimoaCollection.find({'title':currentPostID}) == undefined){
+    //
+    //}else{
+    //    return proxyDB.mimoaCollection.find({'title':currentPostID});
+    //}
+    //if(proxyDB.mimoaCollection.findOne({'freetext8.[0]._':currentPostID}) == undefined){
+    //
+    //}else{
+    //    return proxyDB.mimoaCollection.find({'freetext8.[0]._':currentPostID});
+    //}
+    //if( proxyDB.mimoaCollection.find({'city':currentPostID}) == undefined){
+    //
+    //}else{
+    //    return proxyDB.mimoaCollection.find({'city':currentPostID});
+    //}
+    //proxyDB.mimoaCollection.findOne({'freetext8.[0]._':JSON.stringify(currentPostID)});
+    //proxyDB.mimoaCollection.find({'id':currentPostID});
+    //proxyDB.mimoaCollection.find({'city':currentPostID});
 });
 Meteor.publish('myfavorites', function(){
     return myFavorites.find();

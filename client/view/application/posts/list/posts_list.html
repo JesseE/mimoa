@@ -1,5 +1,21 @@
+<template name="searchBox">
+    <!--{{> esInput index="mimoacollectionspecificsearch" placeholder="Search..." }}-->
+    <!--<ul>-->
+        <!--{{#esEach index="mimoacollectionspecificsearch"}}-->
+            <!--<li>Name of the player: {{title}}</li>-->
+        <!--{{/esEach}}-->
+    <!--</ul>-->
+    <!--{{#ifEsHasNoResults index="mimoacollectionspecificsearch"}}-->
+        <!--<div class="no-results">No results found!</div>-->
+    <!--{{/ifEsHasNoResults}}-->
+
+    <!--{{#ifEsIsSearching index="mimoacollectionspecificsearch"}}-->
+        <!--<div>Loading...</div>-->
+    <!--{{/ifEsIsSearching}}-->
+</template>
 <template name="postsList">
     <div id="post-list" class="post-list">
+        {{>searchBox}}
         {{status}}
         {{#if Template.subscriptionsReady}}
             {{#HammerTouchArea gestureMap=templateGestures}}
@@ -8,7 +24,7 @@
                         <div class="post-content">
                             <a class="post-item" href="{{pathFor 'postPage'}}">
                                 <div class="post-content__thumb-image">
-                                    <img class="post-list__image-container" src="{{thumb}}">
+                                    <img class="post-list__image-container" src="{{image1}}">
                                 </div>
                                 <div class="post-content__text">
                                     <h3>{{title}}</h3>
@@ -26,7 +42,7 @@
                                     </p>
                                 </div>
                             </a>
-                        <div class="favorite-icon"><i class="fa fa-diamond"></i></div>
+                            <div class="favorite-icon"><i class="fa fa-diamond"></i></div>
                         </div>
                     </div>
             {{/each}}
