@@ -81,10 +81,10 @@ Template.nav.helpers({
     //        //return areYouOnline;
     //    }
     //}
-
 });
 Template.nav.events({
-    'click .nearby-button .fa-list': function(){
+    'click .nearby-button .fa-th-list': function(e){
+        e.preventDefault();
         $('.account').addClass('drop-left');
         //$('#main').addClass('drop-down__margin');
         //$('.post-list--curators').addClass('drop-down');

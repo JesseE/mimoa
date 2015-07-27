@@ -1,7 +1,9 @@
 /**
  * Created by jesse on 18/02/15.
  */
-myFavorites = new Mongo.Collection('myfavorites');
+//myFavorites = new Mongo.Collection('myfavorites');
+//foo = new Mongo.Collection('myfavorites');
+
 Meteor.reactivePublish('mimoacollection', function(currentLat,currentLng, limit){
     return proxyDB.mimoaCollection.find({coordinates:
         {$near:
@@ -16,28 +18,23 @@ Meteor.publish('mimoacollectionspecificsearch', function(currentPostID){
 });
 Meteor.publish('mimoacollectionspecific', function(currentPostID){
     return proxyDB.mimoaCollection.find({'title':{$elemMatch : {$regex:currentPostID, $options: "i"}}});
-    //if( proxyDB.mimoaCollection.find({'title':currentPostID}) == undefined){
-    //
-    //}else{
-    //    return proxyDB.mimoaCollection.find({'title':currentPostID});
-    //}
-    //if(proxyDB.mimoaCollection.findOne({'freetext8.[0]._':currentPostID}) == undefined){
-    //
-    //}else{
-    //    return proxyDB.mimoaCollection.find({'freetext8.[0]._':currentPostID});
-    //}
-    //if( proxyDB.mimoaCollection.find({'city':currentPostID}) == undefined){
-    //
-    //}else{
-    //    return proxyDB.mimoaCollection.find({'city':currentPostID});
-    //}
-    //proxyDB.mimoaCollection.findOne({'freetext8.[0]._':JSON.stringify(currentPostID)});
-    //proxyDB.mimoaCollection.find({'id':currentPostID});
-    //proxyDB.mimoaCollection.find({'city':currentPostID});
 });
-Meteor.publish('myfavorites', function(){
-    return myFavorites.find();
+Meteor.publish('myfavorites', function(currentUserId){
+    //var project = proxyDB.mimoaUsersFavoritesCollection.find({userID:currentUserId});
+    //console.log(project);
+    //Meteor.call('offlineAvailable',project,function(err,res) {
+    //    if(err){throw err;}else{console.log(res)}
+    //});
+    //return proxyDB.mimoaUsersFavoritesCollection.find({userID:currentUserId});
+    //return Lists.find({userID:currentUserId});
 });
+Meteor.publish('myfavoritesoffline', function(currentUserId){
+    // return myFavorites.find();
+    //return myFavoritesOffline.find();
+   // return proxyDB.mimoaUsersFavoritesCollection.find({userID:currentUserId});
+    return foo.find({});
+});
+
 Meteor.publish('mimoacuratorscollection', function(currentUserId){
     return proxyDB.mimoaCuratorsCollection.find({userID:currentUserId});
 });

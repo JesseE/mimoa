@@ -5,6 +5,7 @@ var infowindow;
 var map;
 var currentLocation;
 var mimoaIcon = 'http://mimoa.eu/map/img/focus1.png';
+
 var myCurrentCountry;
 var myCurrentCity;
 var currentLat;
@@ -44,7 +45,6 @@ Template.projectsMap.onCreated(function(){
         proxyDB.mimoaCollection.find({}).forEach(function (project, marker, infowindow) {
             // Add a marker to the map once it's ready
             marker = new google.maps.Marker({
-
                 position: new google.maps.LatLng(project.lat, project.lon),
                 icon: mimoaIcon,
                 map: map.instance
@@ -71,13 +71,12 @@ Template.projectsMap.onCreated(function(){
         google.maps.event.addListener(myLocationMarker, 'dragend', function(evt) {
             currentLat = evt.latLng.lat().toFixed(3);
             currentLng = evt.latLng.lng().toFixed(3);
-            //subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, 25);
+            subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, 25);
         });
         setupMarkers = function(){
             proxyDB.mimoaCollection.find({}).forEach(function (project, marker, infowindow) {
                 // Add a marker to the map once it's ready
                 marker = new google.maps.Marker({
-
                     position: new google.maps.LatLng(project.lat, project.lon),
                     icon: mimoaIcon,
                     map: map.instance
@@ -102,7 +101,6 @@ Template.projectsMap.events({
     'click button.loadbutton':function(){
         paginationNumber+=25;
         setupMarkers();
-        console.log(proxyDB.mimoaCollection.find().fetch());
         return subHandle.loadNextPage();
     }
 });

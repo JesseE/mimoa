@@ -1,13 +1,13 @@
-/**
- * Created by jesseeikema on 5/28/15.
- */
-$(window).scroll(function() {
-    if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
-        $('.loadbutton').show();
-    } else {
-        $('.loadbutton').hide();
-    }
-});
+///**
+// * Created by jesseeikema on 5/28/15.
+// */
+//$(window).scroll(function() {
+//    if($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+//        $('.loadbutton').show();
+//    } else {
+//        $('.loadbutton').hide();
+//    }
+//});
 Template.navFooter.helpers({
     introduction:function(){
         var hereInApp = Router.current().route.getName();
@@ -22,11 +22,11 @@ Template.navFooter.helpers({
     }
 });
 Template.navFooter.events({
-    'click .fa-sign-out':function(){
-        Meteor.logout(function(){
-            Router.go('introduction');
-        });
-    },
+    //'click .fa-sign-out':function(){
+    //    Meteor.logout(function(){
+    //        Router.go('introduction');
+    //    });
+    //},
     'click .fa-search': function() {
         $('.search').show();
     },

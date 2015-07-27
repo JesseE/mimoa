@@ -50,11 +50,16 @@ Template.postPageMap.helpers({
         }
     }
 });
-
-Template.postPageMap.onCreated(function() {
+//
+//Template.postPageMap.onCreated(function() {
+//   GoogleMaps.ready('exampleMap', function(map) {
+//        return directionsDisplay.setMap(map.instance);
+//    });
+//});
+Template.postPageMap.rendered = function() {
     GoogleMaps.ready('exampleMap', function(map) {
         return directionsDisplay.setMap(map.instance);
     });
-});
+};
 
 

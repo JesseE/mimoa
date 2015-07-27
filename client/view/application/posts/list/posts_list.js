@@ -9,26 +9,16 @@ var currentPostID;
 Template.postsList.rendered = function() {
 
 };
-Template.searchBox.rendered = function() {
-// name is the field of the documents to search over
-
-};
-Template.searchBox.helpers({
-    //post: function() {
-    //    return proxyDB.mimoaCollection.find({},{thumb:0,image1:1,lon:1,lat:1,freetext2:1,freeint1:1,title:1, coordinates:1});
-    //}
-
-});
 // Extended configuration
 
 Template.postsList.helpers({
-    templateGestures: {
-        'swiperight .post': function (event, templateInstance) {
-            /* ... */
-            console.log('you swiped ' + this.title);
-
-        }
-    },
+    //templateGestures: {
+    //    'swiperight .post': function (event, templateInstance) {
+    //        /* ... */
+    //        console.log('you swiped ' + this.title);
+    //
+    //    }
+    //},
     status: function(){
         //if(Meteor.status().connected == false){
         //    alert('you are disconnected now there is only a limited amout of projects');
@@ -58,7 +48,7 @@ Template.postsList.helpers({
         //}
     },
     posts: function() {
-        return proxyDB.mimoaCollection.find({},{thumb:0,image1:1,lon:1,lat:1,freetext2:1,freeint1:1,title:1, coordinates:1});
+        return proxyDB.mimoaCollection.find({},{thumb:0,image1:1,lon:1,lat:1,freetext2:1,freeint1:1,title:1, coordinates:1,imageset:1});
     },
     currentDistance: function() {
         var hereBrowser = Geolocation.currentLocation();

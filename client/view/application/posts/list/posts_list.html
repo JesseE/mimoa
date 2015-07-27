@@ -1,24 +1,7 @@
-<template name="searchBox">
-    <!--{{> esInput index="mimoacollectionspecificsearch" placeholder="Search..." }}-->
-    <!--<ul>-->
-        <!--{{#esEach index="mimoacollectionspecificsearch"}}-->
-            <!--<li>Name of the player: {{title}}</li>-->
-        <!--{{/esEach}}-->
-    <!--</ul>-->
-    <!--{{#ifEsHasNoResults index="mimoacollectionspecificsearch"}}-->
-        <!--<div class="no-results">No results found!</div>-->
-    <!--{{/ifEsHasNoResults}}-->
-
-    <!--{{#ifEsIsSearching index="mimoacollectionspecificsearch"}}-->
-        <!--<div>Loading...</div>-->
-    <!--{{/ifEsIsSearching}}-->
-</template>
 <template name="postsList">
     <div id="post-list" class="post-list">
-        {{>searchBox}}
         {{status}}
         {{#if Template.subscriptionsReady}}
-            {{#HammerTouchArea gestureMap=templateGestures}}
             {{#each posts}}
                     <div class="post" data-distance="{{currentDistance}}">
                         <div class="post-content">
@@ -46,7 +29,6 @@
                         </div>
                     </div>
             {{/each}}
-            {{/HammerTouchArea}}
         {{else}}
             {{>spinner}}
         {{/if}}

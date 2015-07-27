@@ -8,50 +8,75 @@ var nextItem = {};
 var prevItem = {};
 
 Template.postPage.helpers({
-    shareData: function() {
-        return {
-            title: this.title,
-            summary: this.summary,
-            image : this.image1
-        }
-    },
-    website: function(){
-        if(this.website[0] == ""){
-            return false;
-        } else{
-            return this.website;
-        }
-    },
-    index: function(){
-        projectsIndex = [];
-        proxyDB.mimoaCollection.find({}).forEach(function(project){
-            projectsIndex.push(JSON.parse(project.id[0]));
-        });
-        if(projectsIndex.length >= 25) {
-            var thisPostIndex = JSON.parse(this.id);
-            currentIndex = projectsIndex.indexOf(thisPostIndex);
-            console.log(currentIndex, projectsIndex, thisPostIndex);
-        }
-    },
-    templateGestures: {
-        'swiperight body': function (event, templateInstance) {
-            prevItem = projectsIndex[currentIndex - 1];
-            if(prevItem == undefined) {
-                prevItem = currentIndex = 1;
-            }
-            console.log('you swiped right ' + prevItem);
-            return Router.go('/posts/'+prevItem);
-        },
-        'swipeleft body': function (event, templateInstance) {
-            nextItem = projectsIndex[currentIndex + 1];
-            if(nextItem == undefined){
-                currentIndex = proxyDB.mimoaCollection.find().count();
-                nextItem = currentIndex - 1;
-            }
-            console.log('you swiped left ' + nextItem);
-            return Router.go('/posts/'+nextItem);
-        }
+    //carousel: function() {
+    //    var hereInApp = Router.current().route.getName();
+    //    if(hereInApp == 'postPage'){
+    //        var item = this.imageset[0].split(',');
+    //        return item;
+    //    } else {
+    //        var item = this.project.imageset[0].split(',');
+    //        return item;
+    //    }
+    //},
+    description: function() {
+        var description = this.imagedescription;
+        console.log(description);
+        return description;
     }
+    //shareData: function() {
+    //    return {
+    //        title: this.title,
+    //        summary: this.summary,
+    //        image : this.image1
+    //    }
+    //},
+    //website: function(){
+    //    if(this.website[0] == ""){
+    //        return false;
+    //    } else{
+    //        return this.website;
+    //    }
+    //},
+    //index: function(){
+    //    projectsIndex = [];
+    //    proxyDB.mimoaCollection.find({}).forEach(function(project){
+    //        projectsIndex.push(JSON.parse(project.id[0]));
+    //    });
+    //    if(projectsIndex.length >= 25) {
+    //        var thisPostIndex = JSON.parse(this.id);
+    //        currentIndex = projectsIndex.indexOf(thisPostIndex);
+    //        console.log(currentIndex, projectsIndex, thisPostIndex);
+    //    }
+    //},
+    //templateGestures: {
+    //    //'swiperight #myCarousel': function(event, templateInstance) {
+    //    //    $(this).carousel('prev');
+    //    //},
+    //    //'swipeleft #myCarousel': function(event, templateInstance) {
+    //    //    $(this).carousel('next');
+    //    //}
+    //    "swiperight .carousel-inner": function (event, templateInstance) {
+    //        //prevItem = projectsIndex[currentIndex - 1];
+    //        //if(prevItem == undefined) {
+    //        //    prevItem = currentIndex = 1;
+    //        //}
+    //        //console.log('you swiped right ' + prevItem);
+    //        //return Router.go('/posts/'+prevItem);
+    //
+    //        console.log('swiped right');
+    //    },
+    //    "swipeleft .carousel-inner": function (event, templateInstance) {
+    //        //nextItem = projectsIndex[currentIndex + 1];
+    //        //if(nextItem == undefined){
+    //        //    currentIndex = proxyDB.mimoaCollection.find().count();
+    //        //    nextItem = currentIndex - 1;
+    //        //}
+    //        //console.log('you swiped left ' + nextItem);
+    //        //return Router.go('/posts/'+nextItem);
+    //
+    //        console.log('swiped left '+ $(this).carousel('next'));
+    //    }
+    //}
 });
 Template.postPage.events({
     'click .add-to-favorite':function(){
@@ -175,9 +200,12 @@ Template.postPage.events({
         });
     }
 });
+//var index = 0;
+//bucket = [];
 Template.postPage.rendered = function(){
     window.scrollTo(0,0);
-
+    $('div.item').first().addClass('active');
+    //bucket = $('.item');
 };
 
 //Template.postPage.onCreated(function(){
