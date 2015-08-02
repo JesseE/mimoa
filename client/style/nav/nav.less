@@ -1,12 +1,11 @@
-.nav{    /* height: 59px; */ height:60px; max-width: 500px;  position: fixed;  /*float: left; */  width: 100%;  display: block;  z-index: 5;  bottom: 0;  background: #65D500;  border-radius: 0;  border: 0;  box-shadow: 1px 1px 7px grey;}
+.nav{    /* height: 59px; */ height:60px; max-width: 500px;  position: fixed;  /*float: left; */  width: 100%;  display: block;  z-index: 99999999;  bottom: 0;  background: #65D500;  border-radius: 0;  border: 0;  box-shadow: 1px 1px 7px grey;}
 @media (max-width: 600px) {
   .nav-container{max-width:500px;}
 }
 @media (max-width: 600px) {
-  .nav{left:0px;}
+  .nav{left:0;}
 }
-//.nav-container{   position: fixed;  max-width: 500px;  z-index: 9999;  height: 70px;}
-.nav li { height: 60px; position: relative;  display: inline-block;  width: 24%;  text-align: center;  color: white;  top: 3px; }
+.nav li { height: 60px; position: relative;  display: inline-block;  width: 24%;  text-align: center;  color: white; border-top: 2px solid white;  padding-top: 4px; }
 .nav a{  color: white; }
 i.large.mdi-navigation-chevron-left {  position: relative;  top:4px;  font-size: 25px;}
 i.large.mdi-maps-navigation{  transform: rotate(40deg); }

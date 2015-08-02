@@ -1,5 +1,5 @@
 <template name="myFavorites">
-    {{>nav}}
+    <!--{{>nav}}-->
     <div id="post-list" class="post-list">
         {{#if posts}}
             <div class="post-bar">
@@ -27,7 +27,7 @@
                                 <img class="post-list__image-container" src="{{project.image1}}">
                             </div>
                             <div class="post-content__text--list">
-                                <h4>{{project.title}}</h4>
+                                <h4>{{project.project.title}}</h4>
                                 <h4>{{project.name}}</h4>
                                 <p class="author">
                                     {{project.freetext8.[0]._}}

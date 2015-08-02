@@ -14,16 +14,18 @@ Template.carousel.rendered = function(){
 };
 Template.carousel.helpers({
     carousel: function() {
-        var hereInApp = Router.current().route.getName();
-        console.log(hereInApp);
-        if(hereInApp == 'postPage' || 'postPageSearched'){
-            item = this.imageset[0].split(',');
-            return item;
-        }
-        if(hereInApp == 'myFavoritesItem' || 'myCuratorItem'){
-            item = this.project.imageset[0].split(',');
-            return item;
-        }
+        item = this.imageset[0].split(',');
+        return item;
+    },
+    carousel1: function() {
+        item = this.project.imageset[0].split(',');
+        return item;
+    },
+    carousel2: function() {
+        console.log(JSON.stringify(this.project.project.imageset[0]));
+        item = this.project.project.imageset[0].split(',');
+        console.log(item);
+        return item;
     },
     description: function() {
         var description = this.imagedescription;
@@ -45,6 +47,8 @@ Template.carousel.helpers({
             console.log(index);
             $(thisItemIndicator).addClass('active');
             $(thisItem).addClass('active');
+            $(thisItem).removeClass('animated fadeInRight');
+            $(thisItem).addClass('animated fadeInLeft');
         },
         'swipeleft #myCarousel': function(e, t) {
             if(index == -1){
@@ -60,6 +64,9 @@ Template.carousel.helpers({
             console.log(index);
             $(thisItemIndicator).addClass('active');
             $(thisItem).addClass('active');
+            $(thisItem).removeClass('animated fadeInLeft');
+            $(thisItem).addClass('animated fadeInRight');
+
         }
     }
 });

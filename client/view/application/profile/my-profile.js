@@ -1,7 +1,6 @@
 /**
  * Created by jesseeikema on 6/10/15.
  */
-
 Template.myProfile.helpers({
     following: function(){
         return proxyDB.mimoaCuratorsCollection.find().count();
@@ -10,21 +9,28 @@ Template.myProfile.helpers({
         return proxyDB.mimoaUsersFavoritesCollection.find().count();
     },
     userID: function(){
-        return Meteor.user().emails[0].address;
+        return Meteor.userId();
     },
     offline:function(){
-        //GroundDB(foo.find({userID:Meteor.userId()}));
-        console.log(foo.find({}).fetch());
-     //   return proxyDB.mimoaUsersFavoritesCollection.find({userID:currentUserId});
         return foo.find({});
     }
 });
 Template.myProfile.events({
-    'click div.minus-icon': function(){
+    'click .minus-icon': function(){
         var thisPost = this;
         return Meteor.call('removeOfflineProject', thisPost, function(err,results){
             console.log('remove projects from my favorites');
             if(err){console.log(err);}else{console.log(results);}
         });
-    }
+    },
+    'click .offline-button': function(){
+        return proxyDB.mimoaUsersFavoritesCollection.find({userID:Meteor.userId()}).forEach(function (project) {
+            return Meteor.call('offlineAvailable', project, function(err, res){
+                if(err){throw err;} else{ console.log(res);}
+            });
+        });
+    },
+    'click .post-favorites__listing-calculate':function(){
+        return Router.go('calculatedRoute',{currentUser:Meteor.userId()});
+    },
 });

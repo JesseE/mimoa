@@ -19,7 +19,7 @@ Template.postPage.helpers({
     //    }
     //},
     description: function() {
-        var description = this.imagedescription;
+        var description = [this.imagedescription, this.title];
         console.log(description);
         return description;
     }

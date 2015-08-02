@@ -1,9 +1,6 @@
 /**
  * Created by jesse on 18/02/15.
  */
-//myFavorites = new Mongo.Collection('myfavorites');
-//foo = new Mongo.Collection('myfavorites');
-
 Meteor.reactivePublish('mimoacollection', function(currentLat,currentLng, limit){
     return proxyDB.mimoaCollection.find({coordinates:
         {$near:
@@ -28,13 +25,12 @@ Meteor.publish('myfavorites', function(currentUserId){
     //return proxyDB.mimoaUsersFavoritesCollection.find({userID:currentUserId});
     //return Lists.find({userID:currentUserId});
 });
-Meteor.publish('myfavoritesoffline', function(currentUserId){
-    // return myFavorites.find();
-    //return myFavoritesOffline.find();
-   // return proxyDB.mimoaUsersFavoritesCollection.find({userID:currentUserId});
+Meteor.publish('myfavoritesofflinespecific', function(currentPostID){
+    return foo.find({'project.project.id': currentPostID});
+});
+Meteor.publish('myfavoritesoffline', function(){
     return foo.find({});
 });
-
 Meteor.publish('mimoacuratorscollection', function(currentUserId){
     return proxyDB.mimoaCuratorsCollection.find({userID:currentUserId});
 });

@@ -27,12 +27,25 @@ Template.navFooter.events({
     //        Router.go('introduction');
     //    });
     //},
+    'click .fa-th-list':function(){
+        $('.account').removeClass('fadeInUp');
+        $('.account').addClass('animated fadeOutDown');
+        $('.account').hide();
+    },
+    'click .fa-user':function(){
+        $('.account').removeClass('fadeInUp');
+        $('.account').addClass('animated fadeOutDown');
+        $('.account').hide();
+    },
     'click .fa-search': function() {
         $('.search').show();
+        $('.account').hide();
     },
     'click .fa-times': function(){
         $('.search').hide();
-        $('.account').removeClass('drop-left');
+        $('.account').removeClass('fadeInUp');
+        $('.account').addClass('animated fadeOutDown');
+        $('.account').hide();
         //$('#main').removeClass('drop-down__margin');
         //$('.post-list--curators').removeClass('drop-down');
         //$('.profile').removeClass('drop-down__margin-profile');

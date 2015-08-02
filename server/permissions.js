@@ -1,3 +1,3 @@
-Meteor.AppCache.config({
-    onlineOnly: ['/packages/']
-});
+//Meteor.AppCache.config({
+//    onlineOnly: ['/packages/']
+//});

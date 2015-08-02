@@ -14,8 +14,8 @@ Meteor.startup(function(){
         var crd = pos.coords;
         currentLat = crd.latitude;
         currentLng = crd.longitude;
-        localStorage["currentSavedLat"] = currentLat;
-        localStorage["currentSavedLng"] = currentLng;
+        localStorage["currentSavedLat"] = JSON.stringify(currentLat);
+        localStorage["currentSavedLng"] = JSON.stringify(currentLng);
     }
     function error(err) {
         console.log(err);
@@ -35,13 +35,15 @@ var rendererOptions = {
     draggable: true
 };
 
-
 Template.collectionRoute.helpers({
     exampleMapOptions: function() {
         var projectContainer = [];
         proxyDB.mimoaUsersFavoritesCollection.find({userID:Meteor.userId()}).forEach(function (project, marker, infowindow) {
+
             localStorage["projectCoordsLat"]= JSON.stringify(project.project.lat[0]);
+            localStorage.setItem('projectCoordsLat',JSON.stringify(project.project.lat[0]));
             localStorage["projectCoordsLng"]= JSON.stringify(project.project.lon[0]);
+            localStorage.setItem('projectCoordsLng',JSON.stringify(project.project.lon[0]));
             //projectCoords = new google.maps.LatLng(project.project.lat[0],project.project.lon[0]);
             projectCoords = new google.maps.LatLng(JSON.parse(localStorage["projectCoordsLat"]),JSON.parse(localStorage["projectCoordsLng"]));
             console.log(projectCoords);
@@ -57,7 +59,7 @@ Template.collectionRoute.helpers({
                 directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
                 localStorage["projectCoordsLengthA"] = JSON.stringify(projectContainer[projectsLength].location.A);
                 localStorage["projectCoordsLengthF"] = JSON.stringify(projectContainer[projectsLength].location.F);
-                console.log(projectContainer);
+
                 var request = {
                     origin: myCurrentLocation = new google.maps.LatLng(localStorage.getItem('currentSavedLat'), localStorage.getItem('currentSavedLng')),
                     waypoints:projectContainer,
@@ -69,10 +71,14 @@ Template.collectionRoute.helpers({
                 directionService.route(request, function(response,status){
                     if(status == google.maps.DirectionsStatus.OK){
                         directionsDisplay.setDirections(response);
-                        //localStorage.setItem('offlineDirections',directionsDisplay.setDirections(response));
-                        //console.log(response.routes[0].overview_polyline);
+                        localStorage.setItem('offlineDirections',response.routes[0].overview_polyline);
+                    } else{
+                        directionsDisplay.setDirections(localStorage.getItem('offlineDirectionsPath'));
                     }
                 });
+
+                var decodePath = google.maps.geometry.encoding.decodePath(localStorage.getItem('offlineDirections'));
+                localStorage.setItem('offlineDirectionsPath', decodePath);
 
                 google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
                     computeTotalDistance(directionsDisplay.getDirections());
@@ -87,7 +93,6 @@ Template.collectionRoute.helpers({
                     total = total / 1000.0;
                 }
 
-                console.log(localStorage.getItem('currentSavedLat'), localStorage.getItem('currentSavedLng'));
                 // Map initialization options
                 return {
                     center: new google.maps.LatLng(localStorage.getItem('currentSavedLat'), localStorage.getItem('currentSavedLng')),

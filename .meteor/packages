@@ -27,7 +27,11 @@ chriswessels:hammer
 okgrow:iron-router-autoscroll
 fezvrasta:bootstrap-material-design
 ground:db
-msavin:mongol
-appcache
-ground:localstorage
 chrisben:imgcache
+meteorhacks:kadira
+natestrauser:animate-css
+appcache
+jesty:polyline
+meteorhacks:npm
+
+npm-container

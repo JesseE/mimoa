@@ -1,13 +1,13 @@
-///**
-// * Created by jesseeikema on 7/13/15.
-// */
-//
-//if (!Cache.prototype.add) {
-//    Cache.prototype.add = function add(request) {
-//        return this.addAll([request]);
-//    };
-//}
-//
+/////**
+//// * Created by jesseeikema on 7/13/15.
+//// */
+////
+////if (!Cache.prototype.add) {
+////    Cache.prototype.add = function add(request) {
+////        return this.addAll([request]);
+////    };
+////}
+////
 //if (!Cache.prototype.addAll) {
 //    Cache.prototype.addAll = function addAll(requests) {
 //        var cache = this;
@@ -71,10 +71,13 @@
 //    );
 //});
 //Template.collectionRoute.events({
-//    'click .map-save-offline': function(){
+//    'click .map-save-offline': function(e){
+//        e.preventDefault();
 //        var currentUserID = Meteor.userId();
+//        console.log(currentUserID);
 //        caches.open('/').then(function(cache) {
 //            fetch('/profile/collection/'+currentUserID+'/map').then(function(response) {
+//                console.log(response);
 //                cache.addAll(response);
 //                return response;
 //            });

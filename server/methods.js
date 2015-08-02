@@ -4,10 +4,7 @@
 foo = new Mongo.Collection('myfavoritesoffline');
 Meteor.methods({
     'offlineAvailable':function(project){
-        //console.log(project.project._id);
-        //console.log(project._id);
-        console.log(foo.find().fetch());
-        return foo.update({_id:project._id},{project:project},{upsert:true});
+         return foo.insert({project:project});
     },
     'saveDB':function(subHandle){
         //return proxyDB.mimoaCollection.update()
@@ -76,3 +73,26 @@ Meteor.methods({
         return proxyDB.mimoaUsersCollection.update({userID:currentUserId},{userID:currentUserId,user:user},{upsert:true});
     }
 });
+
+if ( Meteor.isClient ) {
+    Ground.methodResume([
+        'signUp',
+        'removeFavoriteProject',
+        'removeCuratorFromMyFavorite',
+        'addToMyFavorite',
+        'addCuratorToMyFavorite',
+        'comments',
+        'removeComment',
+        'removeOfflineProject',
+        'removeProject',
+        'addNewProject',
+        'searchProjectById',
+        'searchProjectByArchitect',
+        'searchProjectByCity',
+        'searchProjectByCountry',
+        'searchProject',
+        'updateRating',
+        'saveDB',
+        'offlineAvailable'
+    ]);
+}

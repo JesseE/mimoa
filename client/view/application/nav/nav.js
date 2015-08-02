@@ -85,7 +85,9 @@ Template.nav.helpers({
 Template.nav.events({
     'click .nearby-button .fa-th-list': function(e){
         e.preventDefault();
-        $('.account').addClass('drop-left');
+        $('.account').show();
+        $('.account').removeClass('fadeOutDown');
+        $('.account').addClass('animated fadeInUp');
         //$('#main').addClass('drop-down__margin');
         //$('.post-list--curators').addClass('drop-down');
         //$('.profile').addClass('drop-down__margin-profile');

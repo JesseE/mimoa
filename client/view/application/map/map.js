@@ -13,6 +13,7 @@ var currentLng;
 var paginationNumber = 25;
 var subHandle;
 var hereIcon = '/public/images/you-are-here/web/ic_location_on_black_24dp_2x.png';
+
 Meteor.startup(function(){
     function success(pos) {
         var crd = pos.coords;
@@ -49,6 +50,7 @@ Template.projectsMap.onCreated(function(){
                 icon: mimoaIcon,
                 map: map.instance
             });
+
             projectDescription = "<div><a href=" + '/posts/' + project.id +"><h4>"+ project.title +"</h4></a><img src="+''+project.thumb[0]+"></div>";
 
             infowindow = new google.maps.InfoWindow({

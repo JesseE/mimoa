@@ -71,7 +71,11 @@ Template.postsList.helpers({
         //}
 });
 Template.postsList.events({
-   'click div.favorite-icon':function(){
+    'click .post':function(){
+        $(this).addClass('animated fadeOutLeft');
+    },
+   'click .favorite-icon':function(){
+       $(this).addClass('favorite-icon--added');
        var projectId = this._id;
        var thisProject = this;
        var currentUserId = Meteor.userId();
@@ -80,5 +84,6 @@ Template.postsList.events({
            console.log('add to my favorites');
           if(err){console.log(err);}else{console.log(results);}
        });
+
    }
 });

@@ -1,5 +1,5 @@
 <template name="searchResult">
-    <div id="post-list" class="post-list--search-results">
+    <div class="post-list--search-results">
       <!--{{status}}-->
       <!--{{#if Template.subscriptionsReady}}-->
           {{#each .}}
@@ -15,11 +15,13 @@
                                   <!--{{freetext2.[0]._}}-->
                                 {{freetext8.[0]._}}
                               </p>
-                              <div class="rating-container">
-                                  <div class="rating-image">
-                                      <div class="rating-{{freeint1.[0]._}}"></div>
-                                  </div>
-                              </div>
+                              <p class="author">{{country}}</p>
+                              <p class="author">{{city}}</p>
+                              <!--<div class="rating-container">-->
+                                  <!--<div class="rating-image">-->
+                                      <!--<div class="rating-{{freeint1.[0]._}}"></div>-->
+                                  <!--</div>-->
+                              <!--</div>-->
                               <div class="favorite-icon">
                                   <i class="fa fa-diamond"></i>
                               </div>

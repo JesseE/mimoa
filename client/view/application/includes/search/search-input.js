@@ -6,6 +6,8 @@ var currentPostID;
 Template.searchInput.events({
     'submit .search-form':function(e){
         e.preventDefault();
+        $('.account').removeClass('fadeInUp');
+        $('.account').addClass('animated fadeOutDown');
         console.log($('.search-input').val());
         currentPostID = $('.search-input').val();
         //Meteor.call('searchProjectByCity', currentPostID, function(err,results){
