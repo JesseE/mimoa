@@ -85,7 +85,7 @@ Template.postPage.events({
         var thisProject = this;
         var currentUserId = Meteor.userId();
         console.log(projectId,thisProject,currentUserId);
-        return Meteor.call('addToMyFavorite',projectId, thisProject, currentUserId, function(err,results){
+        return Meteor.call('offlineAvailable', thisProject, currentUserId, function(err,results){
             console.log('add to my favorites');
             if(err){console.log(err);}else{console.log(results);}
         });

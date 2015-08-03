@@ -1,8 +1,14 @@
 .curator{
-  float:left; position:relative; z-index: 1; width: 100%;  top:0px;  margin:10px; height:75px;
+  float:left; position:relative; z-index: 1; width: 100%;  top:0;  margin:10px; height:75px;
+  :last-of-type{
+    margin-bottom:80px;
+  }
 }
 .curator--favorite{
  &:extend(.curator);top:0; margin:10px 0;
+  :last-of-type{
+    margin-bottom:80px;
+  }
 }
 .curator-bar{
   float: left; padding:0 10px;  background-color: #65D500;  width: 100%;  color: white;  height: 59px;
@@ -11,7 +17,7 @@
 
 }
 .curator__thumb-image{ &:extend(.post-content__thumb-image);
-  float:left;  height: 75px;  width:75px;  border-radius:100%;  background-color:#65D500;
+  float:left;  height: 75px;  width:75px;  border-radius:100%;  background-color:#65D500;    margin-left: 15px;
 }
 .curator__info {
   width: 50%;  height: 75px;  float: left;  padding: 5px 15px;color:black;

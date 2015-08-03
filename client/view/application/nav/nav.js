@@ -86,6 +86,7 @@ Template.nav.events({
     'click .nearby-button .fa-th-list': function(e){
         e.preventDefault();
         $('.account').show();
+        $('.nav').hide();
         $('.account').removeClass('fadeOutDown');
         $('.account').addClass('animated fadeInUp');
         //$('#main').addClass('drop-down__margin');

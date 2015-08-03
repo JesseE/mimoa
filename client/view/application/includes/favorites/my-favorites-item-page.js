@@ -61,7 +61,19 @@ Template.favoritePostPageMap.helpers({
         }
     }
 });
-
+Template.favoritePostPageMap.events({
+    'click .add-to-favorite':function(){
+        console.log('favorited');
+        var projectId = this._id;
+        var thisProject = this.project;
+        var currentUserId = Meteor.userId();
+        console.log(projectId,thisProject,currentUserId);
+        return Meteor.call('offlineAvailable', thisProject, currentUserId, function(err,results){
+            console.log('add to my favorites');
+            if(err){console.log(err);}else{console.log(results);}
+        });
+    }
+});
 Template.favoritePostPageMap.onCreated(function() {
     GoogleMaps.ready('exampleMap', function(map) {
         return directionsDisplay.setMap(map.instance);

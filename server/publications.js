@@ -1,6 +1,7 @@
 /**
  * Created by jesse on 18/02/15.
  */
+Sortable.collections = 'myfavoritesoffline';
 Meteor.reactivePublish('mimoacollection', function(currentLat,currentLng, limit){
     return proxyDB.mimoaCollection.find({coordinates:
         {$near:
@@ -28,8 +29,8 @@ Meteor.publish('myfavorites', function(currentUserId){
 Meteor.publish('myfavoritesofflinespecific', function(currentPostID){
     return foo.find({'project.project.id': currentPostID});
 });
-Meteor.publish('myfavoritesoffline', function(){
-    return foo.find({});
+Meteor.publish('myfavoritesoffline', function(currentUserId){
+    return foo.find({'userID': currentUserId});
 });
 Meteor.publish('mimoacuratorscollection', function(currentUserId){
     return proxyDB.mimoaCuratorsCollection.find({userID:currentUserId});

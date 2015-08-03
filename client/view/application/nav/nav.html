@@ -1,45 +1,46 @@
 <template name="nav">
         <div class="nav-container">
             <ul class="nav">
-                 {{#unless postList}}
-                     <li class="back-button"><h4><i class="large mdi-navigation-chevron-left"></i></h4></li>
-                 {{/unless}}
-                {{#if postPage}}
-                    <!--<a href="{{pathFor 'postsList'}}"><li class="back-button"><h4><i class="fa fa-list"></i></h4></li></a>-->
-                    <a class="brand" href="#"><li class="nearby-button"><h4>Details</h4></li></a>
-                    <a href="{{pathFor 'projectsMap'}}"><li class="map-button"><i class="fa fa-compass"><h4>Map</h4></i></li></a>
-                {{/if}}
-                {{#if mapPage}}
-                    <a href="{{pathFor 'projectsMap'}}"><li class="map-button"><i class="fa fa-compass"><h4>Map</h4></i></li></a>
-                    <a class="brand" href="{{pathFor 'postsList'}}"><li class="nearby-button"><i class="fa fa-home"><h4>Nearby</h4></i></li></a>
-                {{/if}}
-                {{#if postList}}
-                    <a class="brand" href="{{pathFor 'curatorsList'}}"><li class="nearby-button"><i class="fa fa-group"><h4>Curators</h4></i></li></a>
-                    <a class="brand" href="{{pathFor 'postsList'}}"><li class="nearby-button"><i class="fa fa-home"><h4>Nearby</h4></i></li></a>
-                    <a href="{{pathFor 'projectsMap'}}"><li class="map-button"><i class="fa fa-compass"><h4>Map</h4></i></li></a>
-                    <!--<a href="#" class="nearby-button"><li class="nearby-button"><i class="fa fa-list"></i></li></a>-->
-                {{/if}}
-                {{#if postPageMap}}
-                    <a class="brand" href="#"><li class="nearby-button"><i class="fa fa-road"><h4>Route</h4></i></li></a>
-                    <a href="{{pathFor 'projectsMap'}}"><li class="map-button"><i class="fa fa-compass"><h4>Map</h4></i></li></a>
-                {{/if}}
-                {{#if favoritesPage}}
-                    <a href="#"><li class="map-button"><h4>Favorites</h4></li></a>
-                    <a href="{{pathFor 'projectsMap'}}"><li class="map-button"><i class="fa fa-compass"><h4>Map</h4></i></li></a>
-                {{/if}}
-                {{#if profilePage}}
-                    <a href="#"><li class="map-button"><i class="fa fa-user"><h4>Profile</h4></i></li></a>
-                    <a href="{{pathFor 'projectsMap'}}"><li class="map-button"><i class="fa fa-compass"><h4>Map</h4></i></li></a>
-                {{/if}}
-                {{#if curatorPage}}
-                    <a href="#"><li class="map-button"><i class="fa fa-group"><h4>Curators</h4></i></li></a>
-                    <a href="{{pathFor 'projectsMap'}}"><li class="map-button"><i class="fa fa-compass"><h4>Map</h4></i></li></a>
-                {{/if}}
-                {{#if curatorProjectsPage}}
-                    <a href="#"><li class="map-button"><i class="fa fa-group"><h4>Curators project</h4></i></li></a>
-                {{/if}}
-                <a href="#" class="nearby-button"><li class="nearby-button"><i class="fa fa-th-list"><h4>Menu</h4></i></li></a>
+
+                <!--{{#if postPage}}-->
+                    <!--&lt;!&ndash;<a href="{{pathFor 'postsList'}}"><li class="back-button"><h4><i class="fa fa-list"></i></h4></li></a>&ndash;&gt;-->
+                    <!--<a class="brand" href="#"><li class="nearby-button"><h4>Details</h4></li></a>-->
+                    <!--<a href="{{pathFor 'projectsMap'}}"><li class="map-button"><i class="fa fa-compass"><h4>Map</h4></i></li></a>-->
+                <!--{{/if}}-->
+                <!--{{#if mapPage}}-->
+                    <!--<a href="{{pathFor 'projectsMap'}}"><li class="map-button"><i class="fa fa-compass"><h4>Map</h4></i></li></a>-->
+                    <!--<a class="brand" href="{{pathFor 'postsList'}}"><li class="nearby-button"><i class="fa fa-home"><h4>Nearby</h4></i></li></a>-->
+                <!--{{/if}}-->
+                <!--{{#if postList}}-->
+                    <!--<a class="brand" href="{{pathFor 'curatorsList'}}"><li class="nearby-button"><i class="fa fa-group"><h4>Curators</h4></i></li></a>-->
+                    <!--<a class="brand" href="{{pathFor 'postsList'}}"><li class="nearby-button"><i class="fa fa-home"><h4>Nearby</h4></i></li></a>-->
+                    <!--<a href="{{pathFor 'projectsMap'}}"><li class="map-button"><i class="fa fa-compass"><h4>Map</h4></i></li></a>-->
+                    <!--&lt;!&ndash;<a href="#" class="nearby-button"><li class="nearby-button"><i class="fa fa-list"></i></li></a>&ndash;&gt;-->
+                <!--{{/if}}-->
+                <!--{{#if postPageMap}}-->
+                    <!--<a class="brand" href="#"><li class="nearby-button"><i class="fa fa-road"><h4>Route</h4></i></li></a>-->
+                    <!--<a href="{{pathFor 'projectsMap'}}"><li class="map-button"><i class="fa fa-compass"><h4>Map</h4></i></li></a>-->
+                <!--{{/if}}-->
+                <!--{{#if favoritesPage}}-->
+                    <!--<a href="#"><li class="map-button"><h4>Favorites</h4></li></a>-->
+                    <!--<a href="{{pathFor 'projectsMap'}}"><li class="map-button"><i class="fa fa-compass"><h4>Map</h4></i></li></a>-->
+                <!--{{/if}}-->
+                <!--{{#if profilePage}}-->
+                    <!--<a href="#"><li class="map-button"><i class="fa fa-user"><h4>Profile</h4></i></li></a>-->
+                    <!--<a href="{{pathFor 'projectsMap'}}"><li class="map-button"><i class="fa fa-compass"><h4>Map</h4></i></li></a>-->
+                <!--{{/if}}-->
+                <!--{{#if curatorPage}}-->
+                    <!--<a href="#"><li class="map-button"><i class="fa fa-group"><h4>Curators</h4></i></li></a>-->
+                    <!--<a href="{{pathFor 'projectsMap'}}"><li class="map-button"><i class="fa fa-compass"><h4>Map</h4></i></li></a>-->
+                <!--{{/if}}-->
+                <!--{{#if curatorProjectsPage}}-->
+                    <!--<a href="#"><li class="map-button"><i class="fa fa-group"><h4>Curators project</h4></i></li></a>-->
+                <!--{{/if}}-->
+                    <li class="nearby-button"><i class="fa fa-th-list"><h4>Menu</h4></i></li>
                 <!--{{#if currentUser}}<li><a href="{{pathFor 'postSubmit'}}">New</a></li>{{/if}}-->
+                    {{#unless postList}}
+                        <li class="back-button"><h4><i class="large mdi-navigation-chevron-left"></i></h4></li>
+                    {{/unless}}
             </ul>
             {{#if currentUserOffline}}
                 <div class="offline">

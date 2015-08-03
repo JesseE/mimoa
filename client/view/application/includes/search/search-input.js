@@ -4,11 +4,9 @@
 
 var currentPostID;
 Template.searchInput.events({
-    'submit .search-form':function(e){
-        e.preventDefault();
+    'submit .search-form':function(){
         $('.account').removeClass('fadeInUp');
         $('.account').addClass('animated fadeOutDown');
-        console.log($('.search-input').val());
         currentPostID = $('.search-input').val();
         //Meteor.call('searchProjectByCity', currentPostID, function(err,results){
         //    if(err){console.log(err);}else{console.log(results);}
@@ -20,16 +18,20 @@ Template.searchInput.events({
         //Meteor.call('searchProjectById', currentPostID, function(err,results){
         //   if(err){console.log(err);}else{console.log(results);}
         //});
+        console.log(currentPostID);
+
         Meteor.call('searchProject', currentPostID, function(err,results){
            // if(err){console.log(err);}else{console.log(results);}
+
         });
+        return  Router.go('/search/post/'+currentPostID);
         //Meteor.call('searchProjectByCity', currentPostID, function(err,results){
         //    if(err){console.log(err);}else{console.log(results);}
         //});
         //Meteor.call('searchProjectByCountry', currentPostID, function(err,results){
         //    if(err){console.log(err);}else{console.log(results);}
         //});
-        Router.go('/search/post/'+currentPostID);
+        //Router.go('/search/post/'+currentPostID);
     }
 });
 Template.searchInput.helpers({

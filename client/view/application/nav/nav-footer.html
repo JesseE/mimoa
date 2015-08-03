@@ -1,12 +1,19 @@
 <template name="navFooter">
         <div class="account">
         <ul class="nav-footer__list">
-                <a href="/nearby"><li class="account-info"><i class="fa fa-th-list"><h4>Homepage</h4></i></li></a>
-                <a href="/profile/{{userID}}"><li class="account-info"><i class="fa fa-user"><h4>Profile</h4></i></li></a>
-                <li class="account-info"><i class="fa fa-search"><h4>Search</h4></i>
-                    {{>searchInput}}
-                </li>
-                <li class="account-info"><i class="fa fa-times"><h4>Close menu</h4></i></li>
+            <a href="/nearby"><li class="account-info"><i class="fa fa-th-list"><h4>Homepage</h4></i></li></a>
+            <a href="/map"><li class="account-info"><i class="fa fa-compass"><h4>Map</h4></i></li></a>
+            <a href="/profile/{{userID}}"><li class="account-info"><i class="fa fa-user"><h4>Profile</h4></i></li></a>
+            <a href="/curators"><li class="account-info"><i class="fa fa-group"><h4>Curators</h4></i></li></a>
+            <li class="account-info"><i class="fa fa-search"><h4>Search</h4></i></li>
+            <li class="account-info"><i class="fa fa-times"><h4>Close menu</h4></i></li>
             </ul>
         </div>
+    <div class="account--search">
+        <ul class="nav-footer__list">
+            <li class="account-info"><i class="fa fa-search"><h4>Search</h4></i></li>
+            <li class="account-info">{{>searchInput}}</li>
+            <li class="account-info"><i class="fa fa-times"><h4>Close menu</h4></i></li>
+        </ul>
+    </div>
 </template>

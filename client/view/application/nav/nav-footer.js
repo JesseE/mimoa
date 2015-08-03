@@ -39,9 +39,20 @@ Template.navFooter.events({
     },
     'click .fa-search': function() {
         $('.search').show();
+        $('.account--search').show();
+        $('.account').hide();
+    },
+    'click .account-info':function(){
+        $('.nav').show();
+    },
+    'click .fa-compass':function(){
+        $('.account').hide();
+    },
+    'click.fa-group':function(){
         $('.account').hide();
     },
     'click .fa-times': function(){
+        $('.nav').show();
         $('.search').hide();
         $('.account').removeClass('fadeInUp');
         $('.account').addClass('animated fadeOutDown');

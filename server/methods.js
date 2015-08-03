@@ -3,8 +3,13 @@
  */
 foo = new Mongo.Collection('myfavoritesoffline');
 Meteor.methods({
-    'offlineAvailable':function(project){
-         return foo.insert({project:project});
+    'offlineAvailable':function(thisProject,currentUserId){
+        return foo.update({userID:currentUserId, 'project.id':'thisProject.id'},
+            {
+                userID:currentUserId,
+                project:thisProject
+            }, {upsert:true});
+
     },
     'saveDB':function(subHandle){
         //return proxyDB.mimoaCollection.update()
@@ -56,11 +61,12 @@ Meteor.methods({
             },{upsert:true});
     },
     'addToMyFavorite': function(projectId, thisProject, currentUserId){
-        return proxyDB.mimoaUsersFavoritesCollection.update({userID:currentUserId, 'project.id':'thisProject.id'},
-            {
-                userID:currentUserId,
-                project:thisProject
-            }, {upsert:true});
+        //proxyDB.mimoaUsersFavoritesCollection.update({userID:currentUserId, 'project.id':'thisProject.id'},
+        //    {
+        //        userID:currentUserId,
+        //        project:thisProject
+        //    }, {upsert:true});
+
     },
     'removeCuratorFromMyFavorite':function(thisCurator, thisUserID){
         return proxyDB.mimoaCuratorsCollection.remove({userID:thisUserID,'curator.userID':thisCurator.curator.userID});

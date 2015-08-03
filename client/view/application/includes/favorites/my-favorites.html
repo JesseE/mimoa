@@ -1,54 +1,7 @@
 <template name="myFavorites">
     <!--{{>nav}}-->
     <div id="post-list" class="post-list">
-        {{#if posts}}
-            <div class="post-bar">
-                <!--<a href="collection/{{currentUser}}/map">-->
-                    <!--<i class="fa fa-map calculate-route"></i>-->
-                <div class="create-new__list"><button>add new list</button></div>
-                <div class="post-favorites">
-                    <h3>favorite architecture</h3>
-                </div>
-                    <!--<a href="{{pathFor 'projectsMap'}}">-->
-                        <!--<li class="map-button"><i class="fa fa-compass"><h4>Map</h4></i></li>-->
-                    <!--</a>-->
-                <!--</a>-->
-            </div>
-         <!--{{#sortable items=posts sortField="order"}}-->
-            <div class="post-favorites__listing">
-              <div class="post-favorites__listing-title"><h3>favorites Amsterdam</h3></div>
-                <div class="post-favorites__listing-calculate"><i class="fa fa-compass"><h3>calculate route</h3></i></div>
-            {{#each posts}}
-                <div class="post--list" data-distance="{{currentDistance}}">
-                    <div class="post-content--list">
-                        <!--<a class="post-item" href="favorites/posts/{{project.id}}">-->
-                        <a class="post-item" href="/favorites/{{currentUser}}/posts/{{project.id}}">
-                            <div class="post-content__thumb-image--list">
-                                <img class="post-list__image-container" src="{{project.image1}}">
-                            </div>
-                            <div class="post-content__text--list">
-                                <h4>{{project.project.title}}</h4>
-                                <h4>{{project.name}}</h4>
-                                <p class="author">
-                                    {{project.freetext8.[0]._}}
-                                </p>
-                                <!--<div class="rating-container">-->
-                                    <!--<div class="rating-image">-->
-                                        <!--<div class="rating-{{project.freeint1.[0]._}}"></div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<p class="distance">-->
-                                    <!--{{currentDistance}} m-->
-                                <!--</p>-->
-                            </div>
-                        </a>
-                        <div class="minus-icon"><i class="fa fa-minus"></i></div>
-                    </div>
-                </div>
-            {{/each}}
-            </div>
-        <!--{{/sortable}}-->
-         {{/if}}
+
         {{#if curators}}
             <div class="curator-bar">
                 <h3>following curators</h3>
@@ -71,3 +24,5 @@
     </div>
     <!--<h2 class="add-to-favorite__message">Add projects to your favorites list by tapping the icon<i class="fa fa-diamond"></i></h2>-->
 </template>
+
+

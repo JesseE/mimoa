@@ -74,12 +74,14 @@ Router.map(function(){
         template:'searchResult',
         waitOn:function(){
             var currentPostID = this.params.id;
+            console.log(currentPostID);
             Meteor.subscribe('mimoacollectionspecific', currentPostID);
             subs.subscribe('mimoacollectionspecific', currentPostID);
         },
         data: function(){
             return proxyDB.mimoaCollection.find({'title':{$regex:this.params.id, $options: "i"}});
         },
+        cache:true,
         fastRender: true
     });
     this.route('postsList', {
@@ -114,16 +116,16 @@ Router.map(function(){
         waitOn:function(){
 
 // to fix this shizzle
-
-            Meteor.subscribe('myfavoritesoffline');
-            subs.subscribe('myfavoritesoffline');
-           Meteor.subscribe('mimoauserscollectionlist');
+            var currentUserId = this.params.userID;
+            Meteor.subscribe('myfavoritesoffline',currentUserId);
+            subs.subscribe('myfavoritesoffline',currentUserId);
+           //Meteor.subscribe('mimoauserscollectionlist');
             Meteor.subscribe('mimoacuratorscollection', this.params.userID);
-            Meteor.subscribe('mimoausersfavoritescollection', this.params.userID);
+           // Meteor.subscribe('mimoausersfavoritescollection', this.params.userID);
         },
         data: function(){
-            proxyDB.mimoaUsersFavoritesCollection.find({userID:this.params.userID});
-            return foo.find({});
+           // proxyDB.mimoaUsersFavoritesCollection.find({userID:this.params.userID});
+            return foo.find({'project.userID':this.params.userID});
         },
         cache:true,
         fastRender: true
@@ -186,8 +188,8 @@ Router.map(function(){
             Meteor.subscribe('myfavoritesofflinespecific',currentPostID);
         },
         data:function(){
-            console.log(foo.findOne({'project.project.id':this.params.id}));
-            return foo.findOne({'project.project.id':this.params.id});
+            console.log(foo.findOne({'project.id':this.params.id}));
+            return foo.findOne({'project.id':this.params.id});
         },
         fastRender: true
     });
@@ -292,14 +294,18 @@ Router.map(function(){
         template:'collectionRoute',
         waitOn: function(){
             subs.subscribe('mimoauserscollectionlist');
-            subs.subscribe('mimoacuratorscollection', this.params.currentUser);
-            subs.subscribe('mimoausersfavoritescollection', this.params.currentUser);
-            Meteor.subscribe('mimoauserscollectionlist');
-            Meteor.subscribe('mimoacuratorscollection', this.params.currentUser);
-            Meteor.subscribe('mimoausersfavoritescollection', this.params.currentUser);
+            var currentUserId = this.params.currentUser;
+            Meteor.subscribe('myfavoritesoffline',currentUserId);
+            subs.subscribe('myfavoritesoffline',currentUserId);
+            //subs.subscribe('mimoacuratorscollection', this.params.currentUser);
+            //subs.subscribe('mimoausersfavoritescollection', this.params.currentUser);
+            //Meteor.subscribe('mimoauserscollectionlist');
+            //Meteor.subscribe('mimoacuratorscollection', this.params.currentUser);
+            //Meteor.subscribe('mimoausersfavoritescollection', this.params.currentUser);
         },
         data:function(){
-            return proxyDB.mimoaUsersFavoritesCollection.find({userID:Meteor.userId()});
+            console.log(foo.find({}).fetch());
+            return foo.find({userID:Meteor.userId()});
         },
         cache:true,
         fastRender:true

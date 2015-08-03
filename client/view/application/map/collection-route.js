@@ -38,8 +38,8 @@ var rendererOptions = {
 Template.collectionRoute.helpers({
     exampleMapOptions: function() {
         var projectContainer = [];
-        proxyDB.mimoaUsersFavoritesCollection.find({userID:Meteor.userId()}).forEach(function (project, marker, infowindow) {
-
+        //proxyDB.mimoaUsersFavoritesCollection.find({userID:Meteor.userId()}).forEach(function (project, marker, infowindow) {
+        foo.find({userID:Meteor.userId()}).forEach(function (project, marker, infowindow) {
             localStorage["projectCoordsLat"]= JSON.stringify(project.project.lat[0]);
             localStorage.setItem('projectCoordsLat',JSON.stringify(project.project.lat[0]));
             localStorage["projectCoordsLng"]= JSON.stringify(project.project.lon[0]);

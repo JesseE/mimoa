@@ -12,12 +12,16 @@ Template.myProfile.helpers({
         return Meteor.userId();
     },
     offline:function(){
-        return foo.find({});
+        return foo.find({userID:Meteor.userId()});
     }
 });
 Template.myProfile.events({
     'click .minus-icon': function(){
         var thisPost = this;
+        Meteor.call('removeProject', thisPost, function(err,results){
+            console.log('remove projects from my favorites');
+            if(err){console.log(err);}else{console.log(results);}
+        });
         return Meteor.call('removeOfflineProject', thisPost, function(err,results){
             console.log('remove projects from my favorites');
             if(err){console.log(err);}else{console.log(results);}

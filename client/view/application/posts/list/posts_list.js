@@ -52,38 +52,43 @@ Template.postsList.helpers({
     },
     currentDistance: function() {
         var hereBrowser = Geolocation.currentLocation();
-        //if(hereBrowser != null){
-        //    if(GoogleMaps.loaded()){
-                currentLocation = new google.maps.LatLng(hereBrowser.coords.latitude, hereBrowser.coords.longitude);
-                objectLocation = new google.maps.LatLng(this.lat[0],this.lon[0]);
-                distanceToLocation = /*JSON.parse(*/(google.maps.geometry.spherical.computeDistanceBetween(currentLocation, objectLocation)).toFixed(0)/*)*/;
-                return distanceToLocation;
-        //    }
+        currentLocation = new google.maps.LatLng(hereBrowser.coords.latitude, hereBrowser.coords.longitude);
+        objectLocation = new google.maps.LatLng(this.lat[0],this.lon[0]);
+        distanceToLocation = /*JSON.parse(*/(google.maps.geometry.spherical.computeDistanceBetween(currentLocation, objectLocation)).toFixed(0)/*)*/;
+        return distanceToLocation;
         }
-        //var hereBrowser = Geolocation.currentLocation();
-        //if(hereBrowser != null){
-        //    if(GoogleMaps.loaded()){
-        //        currentLocation = new google.maps.LatLng(hereBrowser.coords.latitude, hereBrowser.coords.longitude);
-        //        objectLocation = new google.maps.LatLng(this.lat[0],this.lon[0]);
-        //        distanceToLocation = JSON.parse((google.maps.geometry.spherical.computeDistanceBetween(currentLocation, objectLocation)).toFixed(0));
-        //        return distanceToLocation;
-        //    }
-        //}
+
 });
 Template.postsList.events({
     'click .post':function(){
         $(this).addClass('animated fadeOutLeft');
     },
-   'click .favorite-icon':function(){
-       $(this).addClass('favorite-icon--added');
+   'click div.favorite-icon':function(event, template){
+       $(event.target.nextElementSibling).show();
+       $(event.target.nextElementSibling).addClass('animated fadeIn');
+       Meteor.setTimeout(function(){
+           $(event.target.nextElementSibling).removeClass('animated fadeIn');
+           $(event.target.nextElementSibling).addClass('animated fadeOut');
+       },2000);
+       $(event.target.parentElement).removeClass("favorite-icon");
+       $(event.target.parentElement).addClass("favorite-icon--added");
+       console.log($(event.target));
        var projectId = this._id;
        var thisProject = this;
        var currentUserId = Meteor.userId();
-       console.log(projectId,thisProject,currentUserId);
-       return Meteor.call('addToMyFavorite',projectId, thisProject, currentUserId, function(err,results){
-           console.log('add to my favorites');
-          if(err){console.log(err);}else{console.log(results);}
+
+       return Meteor.call('offlineAvailable',thisProject,currentUserId,function(err,res){
+           if(err){throw err;} else{ console.log(res);}
        });
+       //return proxyDB.mimoaUsersFavoritesCollection.find({userID:Meteor.userId()}).forEach(function (project) {
+       //    return Meteor.call('offlineAvailable', project, function(err, res){
+       //        if(err){throw err;} else{ console.log(res);}
+       //    });
+       //});
+       //return Meteor.call('addToMyFavorite',projectId, thisProject, currentUserId, function(err,results){
+       //    console.log('add to my favorites');
+       //   if(err){console.log(err);}else{console.log(results);}
+       //});
 
    }
 });

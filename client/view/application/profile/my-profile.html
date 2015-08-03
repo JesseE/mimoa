@@ -1,7 +1,7 @@
 <template name="myProfile">
     {{>nav}}
     <section class="profile animated fadeInUp">
-        <div class="profile-thumb"><div class="curator__thumb-image"><i class="fa fa-user curator-fa"></i></div></div>
+        <div class="profile__thumb"><div class="profile__thumb-image"><i class="fa fa-user curator-fa"></i></div></div>
         <!--<article class="profile-image">-->
                 <!--<div class="profile-image__container">-->
                     <!--<div class="profile-image__thumb">-->
@@ -21,7 +21,7 @@
             <div class="post-bar">
                 <!--<a href="collection/{{currentUser}}/map">-->
                 <!--<i class="fa fa-map calculate-route"></i>-->
-                <div class="create-new__list"><button>add new list</button><button class="offline-button"><span>offline-button</span></button></div>
+                <!--<div class="create-new__list"><button>add new list</button><button class="offline-button"><span>offline-button</span></button></div>-->
                 <div class="post-favorites">
                     <h3>favorites offline</h3>
                 </div>
@@ -31,19 +31,22 @@
                 <!--</a>-->
             </div>
             <div class="post-favorites__listing-calculate"><i class="fa fa-compass"><h3>calculate route</h3></i></div>
-            {{#each offline}}
+            <!--{{#sortable items=foo sortField="order"}}-->
+                {{#each offline}}
                 <div class="post--list">
                     <div class="post-content--list">
                         <!--<a class="post-item" href="favorites/posts/{{project.project.id}}">-->
-                        <a class="post-item" href="offline/favorites/{{userID}}/posts/{{project.project.id}}">
+                        <a class="post-item" href="offline/favorites/{{userID}}/posts/{{project.id}}">
                             <div class="post-content__thumb-image--list">
-                                <img class="post-list__image-container" src="{{project.project.image1}}" >
+                                <img class="post-list__image-container" src="{{project.image1}}" >
                             </div>
                             <div class="post-content__text--list">
                                 <h4></h4>
-                                <h4>{{project.project.name}}</h4>
+                                <h4>{{project.title}}</h4>
                                 <p class="author">
-                                    {{project.project.freetext8.[0]._}}
+                                    {{project.freetext8.[0]._}}<br>
+                                    {{project.country}}
+                                    {{project.city}}
                                 </p>
                             </div>
                         </a>
@@ -55,8 +58,8 @@
                     </div>
                 </div>
             {{/each}}
+            <!--{{/sortable}}-->
             {{>myFavorites}}
         </article>
-
     </section>
 </template>
