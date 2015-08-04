@@ -85,6 +85,11 @@ Template.nav.helpers({
 Template.nav.events({
     'click .nearby-button .fa-th-list': function(e){
         e.preventDefault();
+        //if($('.back-button').show()){
+        //    $('.nearby-button').addClass('nearby-button--mod');
+        //}else if($('.back-button').hide()){
+        //    $('.nearby-button').removeClass('nearby-button--mod');
+        //}
         $('.account').show();
         $('.nav').hide();
         $('.account').removeClass('fadeOutDown');

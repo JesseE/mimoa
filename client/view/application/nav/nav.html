@@ -36,11 +36,12 @@
                 <!--{{#if curatorProjectsPage}}-->
                     <!--<a href="#"><li class="map-button"><i class="fa fa-group"><h4>Curators project</h4></i></li></a>-->
                 <!--{{/if}}-->
+                    <li class="back-button"><h4><i class="large mdi-navigation-chevron-left"></i></h4></li>
+
                     <li class="nearby-button"><i class="fa fa-th-list"><h4>Menu</h4></i></li>
+
                 <!--{{#if currentUser}}<li><a href="{{pathFor 'postSubmit'}}">New</a></li>{{/if}}-->
-                    {{#unless postList}}
-                        <li class="back-button"><h4><i class="large mdi-navigation-chevron-left"></i></h4></li>
-                    {{/unless}}
+
             </ul>
             {{#if currentUserOffline}}
                 <div class="offline">
