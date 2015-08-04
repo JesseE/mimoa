@@ -18,6 +18,13 @@ Template.postPage.helpers({
     //        return item;
     //    }
     //},
+    currentDistance: function() {
+        var hereBrowser = Geolocation.currentLocation();
+        currentLocation = new google.maps.LatLng(hereBrowser.coords.latitude, hereBrowser.coords.longitude);
+        objectLocation = new google.maps.LatLng(this.lat[0],this.lon[0]);
+        distanceToLocation = /*JSON.parse(*/(google.maps.geometry.spherical.computeDistanceBetween(currentLocation, objectLocation)).toFixed(0)/*)*/;
+        return distanceToLocation;
+    },
     description: function() {
         var description = [this.imagedescription, this.title];
         console.log(description);
