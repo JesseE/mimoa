@@ -61,7 +61,8 @@ Template.postsList.helpers({
 });
 Template.postsList.events({
     'click .post':function(){
-        $(this).addClass('animated fadeOutLeft');
+        //$(this).addClass('animated fadeOutLeft');
+        //$(event.target).addClass('animate-to-top');
     },
    'click div.favorite-icon':function(event, template){
        $(event.target.nextElementSibling).show();
@@ -70,8 +71,8 @@ Template.postsList.events({
            $(event.target.nextElementSibling).removeClass('animated fadeIn');
            $(event.target.nextElementSibling).addClass('animated fadeOut');
        },2000);
-       $(event.target.parentElement).removeClass("favorite-icon");
-       $(event.target.parentElement).addClass("favorite-icon--added");
+       //$(event.target.parentElement).removeClass("favorite-icon");
+       $(event.target.parentElement).addClass("fa--pressed");
        console.log($(event.target));
        var projectId = this._id;
        var thisProject = this;

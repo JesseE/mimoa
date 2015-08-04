@@ -12,25 +12,39 @@
         <article>
             <h3 class="profile-username">{{currentUser.username}}</h3>
         </article>
-        <article class="profile-nav">
-                <div class="profile-nav__item"><h3>profile</h3></div>
-                <div class="profile-nav__item"><h3>list</h3></div>
-                <div class="profile-nav__item"><h3>following</h3></div>
-        </article>
+        <!--<article class="profile-nav">-->
+                <!--<div class="profile-nav__item"><h3>profile</h3></div>-->
+                <!--<div class="profile-nav__item"><h3>list</h3></div>-->
+                <!--<div class="profile-nav__item"><h3>following</h3></div>-->
+        <!--</article>-->
         <article class="post-list--profile">
             <div class="post-bar">
                 <!--<a href="collection/{{currentUser}}/map">-->
                 <!--<i class="fa fa-map calculate-route"></i>-->
                 <!--<div class="create-new__list"><button>add new list</button><button class="offline-button"><span>offline-button</span></button></div>-->
                 <div class="post-favorites">
-                    <h3>favorites offline</h3>
+                    <div class="icon-container">
+                        <i class="fa fa-diamond"></i>
+                    </div>
+                    <div class="banner-text">
+                        <h3>favorites</h3>
+                        <p>these project are offline available</p>
+                    </div>
                 </div>
                 <!--<a href="{{pathFor 'projectsMap'}}">-->
                 <!--<li class="map-button"><i class="fa fa-compass"><h4>Map</h4></i></li>-->
                 <!--</a>-->
                 <!--</a>-->
             </div>
-            <div class="post-favorites__listing-calculate"><i class="fa fa-compass"><h3>calculate route</h3></i></div>
+            <div class="post-favorites__listing-calculate">
+                <div class="icon-container">
+                    <i class="fa fa-compass"></i>
+                </div>
+                <div class="banner-text">
+                    <h3>calculate route</h3>
+                    <p>This creates a route along these projects in natural order</p>
+                </div>
+            </div>
             <!--{{#sortable items=foo sortField="order"}}-->
                 {{#each offline}}
                 <div class="post--list">
@@ -41,9 +55,8 @@
                                 <img class="post-list__image-container" src="{{project.image1}}" >
                             </div>
                             <div class="post-content__text--list">
-                                <h4></h4>
                                 <h4>{{project.title}}</h4>
-                                <p class="author">
+                                <p>
                                     {{project.freetext8.[0]._}}<br>
                                     {{project.country}}
                                     {{project.city}}

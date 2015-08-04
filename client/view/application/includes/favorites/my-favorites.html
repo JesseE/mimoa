@@ -1,10 +1,15 @@
 <template name="myFavorites">
     <!--{{>nav}}-->
     <div id="post-list" class="post-list">
-
         {{#if curators}}
             <div class="curator-bar">
-                <h3>following curators</h3>
+                <div class="icon-container">
+                    <i class="fa fa-group"></i>
+                </div>
+                <div class="banner-text">
+                    <h3>curators</h3>
+                    <p>the curators you follow</p>
+                </div>
             </div>
             {{#each curators}}
                     <div class="curator--favorite">
@@ -16,7 +21,7 @@
                             </div>
                         </a>
                             <div class="curator__unfollow-button">
-                                <i class="fa fa-minus-square"></i>
+                                <div class="minus-icon"><i class="fa fa-minus"></i></div>
                             </div>
                     </div>
             {{/each}}

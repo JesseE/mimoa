@@ -20,6 +20,7 @@ Router.configure({
         var hereInApp = Router.current().route.getName();
         if(hereInApp == 'introduction'){
             if (Meteor.loggingIn()) {
+                return Metoer.loggingIn();
             } else if(Meteor.user()){
                 var currentUserId = Meteor.userId();
                 var user = Meteor.user();
@@ -39,7 +40,7 @@ Router.configure({
             hereBrowser = Geolocation.currentLocation();
             currentLat = hereBrowser.coords.latitude;
             currentLng = hereBrowser.coords.longitude;
-            subHandle = Meteor.subscribeWithPagination('mimoacollection', hereBrowser.coords.latitude, hereBrowser.coords.longitude, paginationNumber);
+            return subHandle = Meteor.subscribeWithPagination('mimoacollection', hereBrowser.coords.latitude, hereBrowser.coords.longitude, paginationNumber);
         }
     }
 });
@@ -55,7 +56,7 @@ Template.postsList.events({
     'click button.loadbutton':function(){
         paginationNumber+=25;
         console.log(paginationNumber);
-        return subHandle.loadNextPage();
+        subHandle.loadNextPage();
     }
 });
 
@@ -227,6 +228,7 @@ Router.map(function(){
         waitOn: function(){
             var currentPostID = this.params.id;
             var limit = 1;
+            subs.subscribe('mimoacollectionspecific', currentPostID, limit);
             Meteor.subscribe('mimoacollectionspecific', currentPostID, limit);
         },
         data: function() {
@@ -255,6 +257,7 @@ Router.map(function(){
         path: '/posts/:projects.id',
         template:'postPage',
         waitOn: function(){
+            subs.subscribe('mimoauserscollection');
             Meteor.subscribe('mimoauserscollection');
         },
         data: function() {
@@ -262,6 +265,7 @@ Router.map(function(){
                 id:1,title:1,address:1,website:1,freeint1:1,freetext2:1,freetext3:1,freetext8:1,freetext9:1,lon:1,lat:1,thumb:1,image1:1,imageset:1,imagedescription:1,summary:1
             });
         },
+        cache:true,
         fastRender: true
     });
     this.route('postPageCarousel', {
@@ -296,7 +300,7 @@ Router.map(function(){
             subs.subscribe('mimoauserscollectionlist');
             var currentUserId = this.params.currentUser;
             Meteor.subscribe('myfavoritesoffline',currentUserId);
-            subs.subscribe('myfavoritesoffline',currentUserId);
+            return subs.subscribe('myfavoritesoffline',currentUserId);
             //subs.subscribe('mimoacuratorscollection', this.params.currentUser);
             //subs.subscribe('mimoausersfavoritescollection', this.params.currentUser);
             //Meteor.subscribe('mimoauserscollectionlist');

@@ -70,10 +70,10 @@ Template.collectionRoute.helpers({
 
                 directionService.route(request, function(response,status){
                     if(status == google.maps.DirectionsStatus.OK){
-                        directionsDisplay.setDirections(response);
                         localStorage.setItem('offlineDirections',response.routes[0].overview_polyline);
+                        return directionsDisplay.setDirections(response);
                     } else{
-                        directionsDisplay.setDirections(localStorage.getItem('offlineDirectionsPath'));
+                        return directionsDisplay.setDirections(localStorage.getItem('offlineDirectionsPath'));
                     }
                 });
 
