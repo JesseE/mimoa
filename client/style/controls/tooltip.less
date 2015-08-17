@@ -1,11 +1,27 @@
-.tooltip-post{   width: 125px;
-  height: 50px;
-  float: right;
+.tooltip-post{
+  display: none;
+  width: 300px;
+  /* float: right; */
   box-shadow: 1px 1px 1px lightgrey;
-  display: block;
   position: absolute;
-  right: 10px;
-  bottom: 30px;
-  color: #65D500;
-  display:none;
+  right: 0px;
+  color: #7ED321;
+  background-color: white;
+  padding: 10px;
+  z-index: 999999999999999999999999999999999;
+  height: 211px;
+  overflow: scroll;
+  top: -153px;
+}
+.tooltip-post-page{&:extend(.tooltip-post);
+  display: none;
+  width: 50%;
+  /* float: right; */
+  box-shadow: 1px 1px 1px lightgrey;
+  position: relative;
+  color: #7ED321;
+  background-color: white;
+  padding: 10px;
+  z-index: 99999999;
+  margin: auto;
 }

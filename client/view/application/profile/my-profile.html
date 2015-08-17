@@ -1,7 +1,12 @@
 <template name="myProfile">
     {{>nav}}
     <section class="profile animated fadeInUp">
-        <div class="profile__thumb"><div class="profile__thumb-image"><i class="fa fa-user curator-fa"></i></div></div>
+        <div class="profile__thumb">
+            <div class="profile__thumb-image">
+                <!--<i class="fa fa-user curator-fa"></i>-->
+                <img class="potrait" src="/images/jesse.jpeg" alt="user profile picture"/>
+            </div>
+        </div>
         <!--<article class="profile-image">-->
                 <!--<div class="profile-image__container">-->
                     <!--<div class="profile-image__thumb">-->
@@ -9,7 +14,7 @@
                     <!--</div>-->
                 <!--</div>-->
         <!--</article>-->
-        <article>
+        <article class="profile-info">
             <h3 class="profile-username">{{currentUser.username}}</h3>
         </article>
         <!--<article class="profile-nav">-->
@@ -24,10 +29,10 @@
                 <!--<div class="create-new__list"><button>add new list</button><button class="offline-button"><span>offline-button</span></button></div>-->
                 <div class="post-favorites">
                     <div class="icon-container">
-                        <i class="fa fa-diamond"></i>
+                        <i class="fa fa-heart"></i>
                     </div>
                     <div class="banner-text">
-                        <h3>favorites</h3>
+                        <h3>favorites lists</h3>
                         <p>these project are offline available</p>
                     </div>
                 </div>
@@ -36,43 +41,38 @@
                 <!--</a>-->
                 <!--</a>-->
             </div>
-            <div class="post-favorites__listing-calculate">
-                <div class="icon-container">
-                    <i class="fa fa-compass"></i>
-                </div>
-                <div class="banner-text">
-                    <h3>calculate route</h3>
-                    <p>This creates a route along these projects in order (max 11 projecten)</p>
-                </div>
-            </div>
-            <!--{{#sortable items=foo sortField="order"}}-->
-                {{#each offline}}
-                <div class="post--list">
-                    <div class="post-content--list">
-                        <!--<a class="post-item" href="favorites/posts/{{project.project.id}}">-->
-                        <a class="post-item" href="offline/favorites/{{userID}}/posts/{{project.id}}">
-                            <div class="post-content__thumb-image--list">
-                                <img class="post-list__image-container" src="{{project.image1}}" >
+            <form class="new-list">
+                <li class="back-button"><h4><i class="large mdi-navigation-chevron-left"></i></h4></li>
+                <input type="text" name="listNameInput">
+                <input type="submit">
+            </form>
+            <div class="post-container">
+
+                {{#each list}}
+               <div class="post--list" data-name="{{name}}" data-position="{{currentDistance}}">
+                        <div class="post-content--list">
+                            <div class="post-content__text--list-title">
+                                <h4>{{name}}</h4>
                             </div>
-                            <div class="post-content__text--list">
-                                <h4>{{project.title}}</h4>
-                                <p>
-                                    {{project.freetext8.[0]._}}<br>
-                                    {{project.country}}
-                                    {{project.city}}
-                                </p>
-                            </div>
-                        </a>
-                        <div class="minus-icon"><i class="fa fa-minus"></i></div>
-                        <!--<div class="tooltip-post">-->
+                            <!--</a>-->
+                            <!--<div class="minus-icon"><i class="fa fa-heart"></i></div>-->
+                            <!--<div class="tooltip-post">-->
                             <!--<i class="fa fa-minus"></i><span>remove</span>-->
                             <!--<i class="fa fa-arrows-v"></i><span>move</span>-->
-                        <!--</div>-->
+                            <!--</div>-->
+
+                        </div>
                     </div>
-                </div>
-            {{/each}}
-            <!--{{/sortable}}-->
-            {{>myFavorites}}
+                {{/each}}
+                    <div class="post--list-create" data-position="{{currentDistance}}">
+                        <div class="post-content--list">
+                                <div class="post-content__text--list-title">
+                                    <h4>create new favorites list</h4>
+                                </div>
+                        </div>
+                    </div>
+            </div>
+            <!--{{>myFavorites}}-->
         </article>
     </section>
 </template>

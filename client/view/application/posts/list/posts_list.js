@@ -6,6 +6,7 @@ var currentLocation;
 var objectLocation;
 var distanceToLocation;
 var currentPostID;
+var currentProject;
 Template.postsList.rendered = function() {
 
 };
@@ -47,6 +48,9 @@ Template.postsList.helpers({
         //    //$('.nav').css('height', '40px')
         //}
     },
+    list:function(){
+      return foolist.find({userID:Meteor.userId()});
+    },
     posts: function() {
         return proxyDB.mimoaCollection.find({},{thumb:0,image1:1,lon:1,lat:1,freetext2:1,freeint1:1,title:1, coordinates:1,imageset:1});
     },
@@ -56,7 +60,7 @@ Template.postsList.helpers({
         objectLocation = new google.maps.LatLng(this.lat[0],this.lon[0]);
         distanceToLocation = /*JSON.parse(*/(google.maps.geometry.spherical.computeDistanceBetween(currentLocation, objectLocation)).toFixed(0)/*)*/;
         return distanceToLocation;
-        }
+    }
 
 });
 Template.postsList.events({
@@ -64,23 +68,38 @@ Template.postsList.events({
         //$(this).addClass('animated fadeOutLeft');
         //$(event.target).addClass('animate-to-top');
     },
-   'click div.favorite-icon':function(event, template){
+    'click .tooltip-post-text':function(event, template){
+        var text = $(event.target).text().replace(/\s+/g, '');
+        var foolistName = text;
+        console.log(foolistName);
+        var projectId = currentProject._id;
+        var thisProject = currentProject;
+        console.log(currentProject);
+        var currentUserId = Meteor.userId();
+        $(event.target.parentElement.parentElement).removeClass('fadeIn');
+        $(event.target.parentElement.parentElement).addClass('fadeOut');
+        return Meteor.call('offlineAvailable',foolistName,thisProject,currentUserId,function(err,res){
+            if(err){throw err;} else{ }
+        });
+    },
+   'click .favorite-icon':function(event, template){
+       currentProject = this;
+       console.log('clicked',$(event.target));
        $(event.target.nextElementSibling).show();
-       $(event.target.nextElementSibling).addClass('animated fadeIn');
-       Meteor.setTimeout(function(){
-           $(event.target.nextElementSibling).removeClass('animated fadeIn');
-           $(event.target.nextElementSibling).addClass('animated fadeOut');
-       },2000);
+       $(event.target.nextElementSibling).addClass('fadeIn');
+       //$(this).$('.tooltip-post').show();
+       //$(this).$('.tooltip-post').addClass('animated fadeIn');
+       //$(event.target.nextElementSibling).show();
+       //$(event.target.nextElementSibling).addClass('animated fadeIn');
+       ////Meteor.setTimeout(function(){
+       //    $(event.target.nextElementSibling).removeClass('animated fadeIn');
+       //    $(event.target.nextElementSibling).addClass('animated fadeOut');
+       //},2000);
        //$(event.target.parentElement).removeClass("favorite-icon");
-       $(event.target.parentElement).addClass("fa--pressed");
-       console.log($(event.target));
-       var projectId = this._id;
-       var thisProject = this;
-       var currentUserId = Meteor.userId();
+       //$(event.target.parentElement).addClass("fa--pressed");
 
-       return Meteor.call('offlineAvailable',thisProject,currentUserId,function(err,res){
-           if(err){throw err;} else{ console.log(res);}
-       });
+
+
        //return proxyDB.mimoaUsersFavoritesCollection.find({userID:Meteor.userId()}).forEach(function (project) {
        //    return Meteor.call('offlineAvailable', project, function(err, res){
        //        if(err){throw err;} else{ console.log(res);}
@@ -91,5 +110,23 @@ Template.postsList.events({
        //   if(err){console.log(err);}else{console.log(results);}
        //});
 
-   }
+   },
+    'submit form': function(event){
+        event.preventDefault();
+        var currentUserId = Meteor.userId();
+        var listName = event.target.listNameInput.value;
+        Meteor.call('createFavList',listName,currentUserId,function(err,res){
+            if(err){throw err;} else{console.log(foolist.find().fetch());}
+        });
+        $('.new-list').removeClass('fadeInRight');
+        $('.new-list').addClass('fadeOutLeft');
+        $('.post-container').removeClass('fadeOutLeft');
+        $('.post-container').addClass('fadeInRight');
+
+    },
+    'click .post--list-create':function(){
+        $('.post-container').addClass('animated fadeOutLeft');
+        $('.new-list').show();
+        $('.new-list').addClass('animated fadeInRight');
+    }
 });

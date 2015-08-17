@@ -1,9 +1,8 @@
 /**
- * Created by jesseeikema on 6/10/15.
+ * Created by jesseeikema on 8/11/15.
  */
 var listName;
-var username;
-Template.myProfile.helpers({
+Template.myProfilePage.helpers({
     following: function(){
         return proxyDB.mimoaCuratorsCollection.find().count();
     },
@@ -11,18 +10,21 @@ Template.myProfile.helpers({
         return proxyDB.mimoaUsersFavoritesCollection.find().count();
     },
     userID: function(){
-        username = Meteor.userId();
-        return username;
+        return Meteor.userId();
+    },
+    name:function(){
+        return foo.find({});
     },
     offline:function(){
-        $(".post--list").sort(sort_li).appendTo('.post-container');
-        function sort_li(a, b){
-            return ($(b).data('position')) < ($(a).data('position')) ? 1 : -1;
-        }
+        //$(".post--list").sort(sort_li).appendTo('.post-container');
+        //function sort_li(a, b){
+        //    return ($(b).data('position')) < ($(a).data('position')) ? 1 : -1;
+        //}
         //foo.find({userID:Meteor.userId()});
         //return foolist.find({userID:Meteor.userId(),name:listName});
-        console.log(this.name);
-        return foo.find({name:listName});
+        listName = Router.current().params.listName;
+        console.log(listName);
+        return foo.find({name:listName},{sort: { 'project.title' : 1 }});
     },
     currentDistance: function() {
         var hereBrowser = Geolocation.currentLocation();
@@ -32,16 +34,10 @@ Template.myProfile.helpers({
         return distanceToLocation;
     },
     list:function(){
-        return foolist.find({userID:Meteor.userId()},{sort:{name:1}});
+        return foolist.find({userID:Meteor.userId()});
     }
 });
-
-Template.myProfile.rendered = function(){
-    username = Meteor.userId();
-    return username;
-};
-
-Template.myProfile.events({
+Template.myProfilePage.events({
     'click .post--list':function(event){
         var text = $(event.target).text().replace(/\s+/g, '');
         listName = text;

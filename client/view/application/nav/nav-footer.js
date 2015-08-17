@@ -21,12 +21,43 @@ Template.navFooter.helpers({
         return Meteor.userId();
     }
 });
+var currentPostID;
 Template.navFooter.events({
     //'click .fa-sign-out':function(){
     //    Meteor.logout(function(){
     //        Router.go('introduction');
     //    });
     //},
+    'submit .search-form':function(){
+        $('.account--search').removeClass('fadeInUp');
+        $('.account--search').addClass('animated fadeOutDown');
+        $('.nav').show();
+        currentPostID = $('.search-input').val();
+        console.log(currentPostID);
+        //Meteor.call('searchProjectByCity', currentPostID, function(err,results){
+        //    if(err){console.log(err);}else{console.log(results);}
+        //});
+        ////
+        //Meteor.call('searchProjectByArchitect', currentPostID, function(err,results){
+        //    if(err){console.log(err);}else{console.log(results);}
+        //});
+        //Meteor.call('searchProjectById', currentPostID, function(err,results){
+        //   if(err){console.log(err);}else{console.log(results);}
+        //});
+
+        Meteor.call('searchProject', currentPostID, function(err,results){
+            if(err){console.log(err);}else{console.log(results);
+            }
+        });
+        return Router.go('searchProject',{currentPostID:currentPostID});
+        //Meteor.call('searchProjectByCity', currentPostID, function(err,results){
+        //    if(err){console.log(err);}else{console.log(results);}
+        //});
+        //Meteor.call('searchProjectByCountry', currentPostID, function(err,results){
+        //    if(err){console.log(err);}else{console.log(results);}
+        //});
+        //Router.go('/search/post/'+currentPostID);
+    },
     'click .fa-th-list':function(){
         $('.account').removeClass('fadeInUp');
         $('.account').addClass('animated fadeOutDown');

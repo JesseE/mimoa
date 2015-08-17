@@ -3,6 +3,22 @@ Template.nav.helpers({
     templateGestures: {
         'tap a.nearby-button': function () {
             $('.account').addClass('drop-down');
+        },
+        'swipe .nav':function(){
+            $('.nav').show();
+            $('.search').hide();
+            $('.account').removeClass('fadeInUp');
+            $('.account').addClass('animated fadeOutDown');
+            $('.account').hide();
+        }
+
+    },
+    intro:function(){
+        var hereInApp = Router.current().route.getName();
+        if(hereInApp == 'introduction'){
+            return true;
+        } else {
+            return false;
         }
     },
     postPage: function(){

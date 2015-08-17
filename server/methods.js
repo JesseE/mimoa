@@ -1,11 +1,17 @@
 /**
  * Created by jesseeikema on 3/30/15.
  */
+foolist = new Mongo.Collection('myfavoritesofflinelist');
 foo = new Mongo.Collection('myfavoritesoffline');
+
 Meteor.methods({
-    'offlineAvailable':function(thisProject,currentUserId){
-        return foo.update({userID:currentUserId, 'project.id':'thisProject.id'},
+    'createFavList':function(listName,currentUserId){
+        return foolist.update({name:listName,userID:currentUserId},{name:listName,userID:currentUserId},{upsert:true});
+    },
+    'offlineAvailable':function(foolistName,thisProject,currentUserId){
+        return foo.update({name:foolistName,userID:currentUserId, 'project.id':'thisProject.id'},
             {
+                name:foolistName,
                 userID:currentUserId,
                 project:thisProject
             }, {upsert:true});
@@ -80,25 +86,4 @@ Meteor.methods({
     }
 });
 
-if ( Meteor.isClient ) {
-    Ground.methodResume([
-        'signUp',
-        'removeFavoriteProject',
-        'removeCuratorFromMyFavorite',
-        'addToMyFavorite',
-        'addCuratorToMyFavorite',
-        'comments',
-        'removeComment',
-        'removeOfflineProject',
-        'removeProject',
-        'addNewProject',
-        'searchProjectById',
-        'searchProjectByArchitect',
-        'searchProjectByCity',
-        'searchProjectByCountry',
-        'searchProject',
-        'updateRating',
-        'saveDB',
-        'offlineAvailable'
-    ]);
-}
+//Meteor.AppCache.config({onlineOnly: ['/packages/']});

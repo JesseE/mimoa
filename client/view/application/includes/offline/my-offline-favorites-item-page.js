@@ -11,33 +11,40 @@
 //    //    return proxyDB.mimoaUsersFavoritesCollection.findOne({'userID': currentUserId, 'project.id':currentPostID});
 //    //}
 //});
-
-var directionService;
-var myCurrentLocation;
-var myCurrentDestination;
-var directionsDisplay;
-
-Meteor.startup(function(){
-    function success(pos) {
-        var crd = pos.coords;
-        currentLat = crd.latitude;
-        currentLng = crd.longitude;
-    }
-    function error(err) {
-        console.log(err);
-    }
-    navigator.geolocation.getCurrentPosition(success, error);
-});
+//
+//var directionService;
+//var myCurrentLocation;
+//var myCurrentDestination;
+//var directionsDisplay;
+//
+//Meteor.startup(function(){
+//    function success(pos) {
+//        var crd = pos.coords;
+//        currentLat = crd.latitude;
+//        currentLng = crd.longitude;
+//    }
+//    function error(err) {
+//        console.log(err);
+//    }
+//    navigator.geolocation.getCurrentPosition(success, error);
+//});
 Template.myOfflineFavoritesItemPage.helpers({
-    offline:function(){
-        var currentPostID = JSON.stringify(Router.current().params.id);
-        //console.log(currentPostID,foo.findOne({'project.project.id':currentPostID}).fetch());
-
+//    offline:function(){
+//        var currentPostID = JSON.stringify(Router.current().params.id);
+//        //console.log(currentPostID,foo.findOne({'project.project.id':currentPostID}).fetch());
+//
+//    }
+    currentDistance: function() {
+        var hereBrowser = Geolocation.currentLocation();
+        currentLocation = new google.maps.LatLng(hereBrowser.coords.latitude, hereBrowser.coords.longitude);
+        objectLocation = new google.maps.LatLng(this.project.lat[0],this.project.lon[0]);
+        distanceToLocation = /*JSON.parse(*/(google.maps.geometry.spherical.computeDistanceBetween(currentLocation, objectLocation)).toFixed(0)/*)*/;
+        return distanceToLocation;
     }
 });
-
-Template.favoritePostPageMap.onCreated(function() {
-    GoogleMaps.ready('exampleMap', function(map) {
-        return directionsDisplay.setMap(map.instance);
-    });
-});
+//
+//Template.favoritePostPageMap.onCreated(function() {
+//    GoogleMaps.ready('exampleMap', function(map) {
+//        return directionsDisplay.setMap(map.instance);
+//    });
+//});

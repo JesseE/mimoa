@@ -13,7 +13,7 @@ boilerplate-generator@1.0.3
 callback-hook@1.0.3
 check@1.0.5
 chrisben:imgcache@1.0.0-rc1
-chriswessels:hammer@4.0.1
+chriswessels:hammer@4.0.2
 chuangbo:cookie@1.1.0
 coffeescript@1.0.6
 dburles:google-maps@1.1.1
@@ -30,7 +30,7 @@ fezvrasta:bootstrap-material-design@0.3.0
 fortawesome:fontawesome@4.3.0
 geojson-utils@1.0.3
 google@1.1.5
-ground:db@0.3.11
+ground:db@0.3.12
 ground:dictionary@0.2.1
 ground:localstorage@0.1.8
 ground:minimax@1.1.3
@@ -65,12 +65,13 @@ meteor@1.1.6
 meteor-platform@1.2.2
 meteorhacks:fast-render@2.7.1
 meteorhacks:inject-data@1.3.0
-meteorhacks:kadira@2.22.1
+meteorhacks:kadira@2.23.0
 meteorhacks:meteorx@1.3.1
 meteorhacks:picker@1.0.3
 meteorhacks:subs-manager@1.5.2
 minifiers@1.1.5
 minimongo@1.0.8
+mmuric:richmarker@0.0.5
 mobile-status-bar@1.0.3
 mongo@1.1.0
 mongo-livedata@1.0.8

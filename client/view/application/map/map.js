@@ -5,7 +5,7 @@ var infowindow;
 var map;
 var currentLocation;
 var mimoaIcon = 'http://mimoa.eu/map/img/focus1.png';
-
+//var mimoaIcon = {url:'/images/mimoaicon.png', size: new Google.maps.Size(20,32)};
 var myCurrentCountry;
 var myCurrentCity;
 var currentLat;
@@ -30,6 +30,7 @@ Template.projectsMap.helpers({
         subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, paginationNumber);
         if(GoogleMaps.loaded()) {
             // Map initialization options;
+            //var mimoaIcon = {url:'/images/mimoaicon.png', size: new google.maps.Size(20,32)};
             return {
                 center: new google.maps.LatLng(currentLat,currentLng),
                 zoom: 13,
@@ -43,8 +44,10 @@ Template.projectsMap.helpers({
 });
 Template.projectsMap.onCreated(function(){
     GoogleMaps.ready('map', function (map, limit) {
+       // var mimoaIcon = {url:'/images/mimoaicon.png', size: new google.maps.Size(20,32)};
         proxyDB.mimoaCollection.find({}).forEach(function (project, marker, infowindow) {
             // Add a marker to the map once it's ready
+
             marker = new google.maps.Marker({
                 position: new google.maps.LatLng(project.lat, project.lon),
                 icon: mimoaIcon,
@@ -66,7 +69,7 @@ Template.projectsMap.onCreated(function(){
         myLocationMarker = new google.maps.Marker({
             position: new google.maps.LatLng(currentLat,currentLng),
             animation: google.maps.Animation.DROP,
-            icon: mimoaIcon,
+            icon: '',
             map: map.instance,
             draggable: true
         });
@@ -80,8 +83,9 @@ Template.projectsMap.onCreated(function(){
                 // Add a marker to the map once it's ready
                 marker = new google.maps.Marker({
                     position: new google.maps.LatLng(project.lat, project.lon),
-                    icon: mimoaIcon,
+                    icon: '',
                     map: map.instance
+                    //labelContent: '<i class="fa fa-send fa-3x" style="color:rgba(153,102,102,0.8);"></i>'
                 });
                 projectDescription = "<div><a href=" + '/posts/' + project.id +"><h4>"+ project.title +"</h4></a><img src="+''+project.thumb[0]+"></div>";
 

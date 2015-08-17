@@ -1,51 +1,30 @@
 <template name="postPage">
             <div class="post-content--full-page animated fadeInLeft">
                {{>carousel}}
+                <div class="tooltip-post-page">
+                    <h4>added to:</h4>
+                    {{#each list}}
+                        <div class="tooltip-post-text" ><h4 data-name="{{name}}">{{name}}</h4></div>
+                    {{/each}}
+                </div>
                 <div class="post-content__text-page">
                     <p class="distance">
                         {{currentDistance}} m
                     </p>
                 </div>
                 <div class="add-to-favorite">
-                    <div class="button__add-to-favorite"><i class="fa fa-diamond"></i></div>
+                    <div class="button__add-to-favorite"><i class="fa fa-heart"></i></div>
                 </div>
                 <div class="post-content__text--full-width">
+                    <div class="post-content__title">
+                        <h3>{{title}}</h3>
+                        <p class="author">{{freetext8.[0]._}}</p>
+                    </div>
                     <ul class="post-content__title-list">
                         <a href="#"><li class="post-content__title-photo-item"><h4>Photos</h4></li></a>
                         <a href="{{pathFor 'postPageMap'}}"><li class="post-content__title-item"><h4>Route</h4></li></a>
                         {{#if website}}<a href="{{website}}" target="_blank"><li class="post-content__title-item"><h4>Website</h4></li></a>{{/if}}
                     </ul>
-                    <div class="post-content__block-item--rating">
-                        <div class="post-content__title">
-                            <h5>{{title}}</h5>
-                            <h6>{{freetext8.[0]._}}</h6>
-                            <!--<button class="remove-project">remove</button>-->
-                        </div>
-                        <div class="rating-container">
-                            <div class="rating-image--project-page">
-                                <div class="rating-icon-1"></div>
-                                <div class="rating-icon-2"></div>
-                                <div class="rating-icon-3"></div>
-                                <div class="rating-icon-4"></div>
-                                <div class="rating-icon-5"></div>
-                                <div id="rating" class="rating-{{freeint1.[0]._}}"></div>
-                            </div>
-                        </div>
-                        <!--<div class="comments-goto">-->
-                        <!--<ul>-->
-                        <!--<li><a href="#">comments</a></li>-->
-                        <!--</ul>-->
-                        <!--</div>-->
-                    </div>
-                    <div class="share">
-                        <ul class="share-list">
-                            <li class="share-list__item share-bg special">{{> shareit__pinterest }}</li>
-                            <li class="share-list__item share-bg special">{{> shareit__facebook }}</li>
-                            <li class="share-list__item share-bg special">{{> shareit__twitter }}</li>
-                            <li class="share-list__item share-bg special">{{> shareit__googleplus }}</li>
-                            <li class="share-list__item share-bg special">{{> shareit__mail }}</li>
-                        </ul>
-                    </div>
                     <div class="commentroute">
                         <a href="#comment">
                             <li class="share-list__item">Comments</li>
@@ -57,27 +36,33 @@
                                 <p><b>Location:</b></p>
                                 <p>{{city}}</p>
                             </li>
+                            {{#if freetext5.[0]._}}
                             <li class="post-content__sub-item">
                                 <p><b>Function:</b></p>
                                 <p>{{freetext5.[0]._}}</p>
                             </li>
+                            {{/if}}
+                            {{#if freetext2.[0]._}}
                             <li class="post-content__sub-item">
                                 <p><b>Contributed by:</b></p>
                                 <p>{{freetext2.[0]._}}</p>
                             </li>
+                            {{/if}}
                         </ul>
                         <div class="post-content__summary"><p>{{summary}}</p></div>
                     </div>
                     <div class="post-content__block-item">
                         <ul class="post-content__sub-list">
+                            {{#if address}}
                             <li class="post-content__sub-item">
                                 <p><b>address:</b></p>
                                 <p> {{address}}</p>
                             </li>
-                            <li class="post-content__sub-item">
-                                <p><b>opening hours:</b></p>
-                                <p></p>
-                            </li>
+                            {{/if}}
+                            <!--<li class="post-content__sub-item">-->
+                                <!--<p><b>opening hours:</b></p>-->
+                                <!--<p></p>-->
+                            <!--</li>-->
                             <li class="post-content__sub-item">
                                {{#if website}} <p><b>website:</b></p>
                                 <p><a href="{{website}}" target="_blank">{{website}}</a></p>
@@ -87,17 +72,30 @@
                     </div>
                     <div class="post-content__block-item">
                         <ul class="post-content__sub-list">
+                            {{#if freetext3.[0]._}}
                             <li class="post-content__sub-item">
                                 <p><b>facts:</b></p>
                                 <p>completion: {{freetext3.[0]._}}</p>
                             </li>
+                            {{/if}}
+                            {{#if freetext8.[0]._}}
                             <li class="post-content__sub-item">
                                 <p><b>architect:</b></p>
                                 <p>{{freetext8.[0]._}}</p>
                             </li>
+                            {{/if}}
                         </ul>
                     </div>
                     {{index}}
+                    <div class="share">
+                        <ul class="share-list">
+                            <li class="share-list__item share-bg special">{{> shareit__pinterest }}</li>
+                            <li class="share-list__item share-bg special">{{> shareit__facebook }}</li>
+                            <li class="share-list__item share-bg special">{{> shareit__twitter }}</li>
+                            <li class="share-list__item share-bg special">{{> shareit__googleplus }}</li>
+                            <li class="share-list__item share-bg special">{{> shareit__mail }}</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 </template>

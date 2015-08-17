@@ -18,6 +18,16 @@ Template.postPage.helpers({
     //        return item;
     //    }
     //},
+    website:function(){
+        var str = this.website[0];
+        if( str.indexOf('http://www.') >= 0){
+            return str;
+        } else{
+            var newStr;
+            newStr = str.replace('www.', 'http://www.');
+            return newStr;
+        }
+    },
     currentDistance: function() {
         var hereBrowser = Geolocation.currentLocation();
         currentLocation = new google.maps.LatLng(hereBrowser.coords.latitude, hereBrowser.coords.longitude);
@@ -29,6 +39,9 @@ Template.postPage.helpers({
         var description = [this.imagedescription, this.title];
         console.log(description);
         return description;
+    },
+    list:function(){
+        return foolist.find({userID:Meteor.userId()});
     }
     //shareData: function() {
     //    return {
@@ -87,15 +100,18 @@ Template.postPage.helpers({
 });
 Template.postPage.events({
     'click .add-to-favorite':function(){
-        console.log('favorited');
-        var projectId = this._id;
-        var thisProject = this;
-        var currentUserId = Meteor.userId();
-        console.log(projectId,thisProject,currentUserId);
-        return Meteor.call('offlineAvailable', thisProject, currentUserId, function(err,results){
-            console.log('add to my favorites');
-            if(err){console.log(err);}else{console.log(results);}
-        });
+        currentProject = this;
+        $('.tooltip-post-page').show();
+        $('.tooltip-post-page').addClass('animated fadeIn');
+        //console.log('favorited');
+        //var projectId = this._id;
+        //var thisProject = this;
+        //var currentUserId = Meteor.userId();
+        //console.log(projectId,thisProject,currentUserId);
+        //return Meteor.call('offlineAvailable', thisProject, currentUserId, function(err,results){
+        //    console.log('add to my favorites');
+        //    if(err){console.log(err);}else{console.log(results);}
+        //});
         //var projectId = this._id;
         //var thisProject = this;
         //var currentUserId = Meteor.userId();
@@ -103,6 +119,20 @@ Template.postPage.events({
         //    console.log('add to my favorites ' +thisProject);
         //    if(err){console.log(err);}else{console.log(results);}
         //});
+    },
+    'click .tooltip-post-text':function(event, template){
+        var text = $(event.target).text().replace(/\s+/g, '');
+        var foolistName = text;
+        console.log(foolistName);
+        var projectId = currentProject._id;
+        var thisProject = currentProject;
+        console.log(currentProject);
+        var currentUserId = Meteor.userId();
+        $('.tooltip-post-page').removeClass('fadeIn');
+        $('.tooltip-post-page').addClass('fadeOut');
+        return Meteor.call('offlineAvailable',foolistName,thisProject,currentUserId,function(err,res){
+            if(err){throw err;} else{ }
+        });
     },
     'click .post-content__title-photo-item': function() {
         var elem = document.getElementById("myCarousel");

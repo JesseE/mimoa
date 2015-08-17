@@ -29,7 +29,22 @@ Meteor.publish('myfavorites', function(currentUserId){
 Meteor.publish('myfavoritesofflinespecific', function(currentPostID){
     return foo.find({'project.project.id': currentPostID});
 });
-Meteor.publish('myfavoritesoffline', function(currentUserId){
+Meteor.publish('myfavoritesoffline', function(currentUserId,currentLng,currentLat){
+    return foo.find({'userID': currentUserId},{coordinates:
+        {$near:
+            {$geometry:
+                {type: "Point",coordinates:[currentLng, currentLat]}
+            }
+        }
+    });
+});
+Meteor.publish('myfavoritesofflinelist', function(currentUserId){
+    return foolist.find({'userID': currentUserId});
+});
+Meteor.publish('myfavoritesofflinelisting', function(currentUserId,listName){
+    return foo.find({'userID': currentUserId,name:listName});
+});
+Meteor.publish('myfavoritesofflinelistitems', function(currentUserId){
     return foo.find({'userID': currentUserId});
 });
 Meteor.publish('mimoacuratorscollection', function(currentUserId){
