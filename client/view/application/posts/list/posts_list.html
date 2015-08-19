@@ -1,9 +1,9 @@
 <template name="postsList">
-    <div id="post-list" class="post-list">
+    <section id="post-list" class="post-list">
         {{status}}
         {{#if Template.subscriptionsReady}}
             {{#each posts}}
-                    <div class="post" data-distance="{{currentDistance}}">
+                    <article class="post" data-distance="{{currentDistance}}">
                         <div class="post-content">
                             <a class="post-item" href="{{pathFor 'postPage'}}">
                                 <div class="post-content__thumb-image">
@@ -14,11 +14,6 @@
                                     <p class="author">
                                         {{freetext8.[0]._}}
                                     </p>
-                                    <!--<div class="rating-container">-->
-                                        <!--<div class="rating-image">-->
-                                            <!--<div class="rating-{{freeint1.[0]._}}"></div>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
                                     <p class="distance">
                                         {{currentDistance}} m
                                     </p>
@@ -31,18 +26,18 @@
                                         {{#each list}}
                                             <div class="tooltip-post-text" ><h4 data-name="{{name}}">{{name}}</h4></div>
                                         {{/each}}
-                                        <div class="tooltip-post-text post--list-create-tooltip"><h4>create new list</h4></div>
+                                        <div class="post--list-create-tooltip tooltip-post-text"><h4>create new list</h4></div>
                                 </div>
                             </div>
 
                         </div>
-                    </div>
+                    </article>
             {{/each}}
         {{else}}
             {{>spinner}}
         {{/if}}
-    </div>
-    <div class="load-container">
+    </section>
+    <section class="load-container">
         <button class="loadbutton"><span>load more</span></button>
-    </div>
+    </section>
 </template>

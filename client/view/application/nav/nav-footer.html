@@ -1,5 +1,5 @@
 <template name="navFooter">
-        <div class="account">
+        <section class="account">
         <ul class="nav-footer__list">
             <a href="/nearby"><li class="account-info"><i class="fa fa-th-list"><h4>Homepage</h4></i></li></a>
             <a href="/map"><li class="account-info"><i class="fa fa-compass"><h4>Map</h4></i></li></a>
@@ -8,12 +8,12 @@
             <!--<li class="account-info"><i class="fa fa-search"><h4>Search</h4></i></li>-->
             <li class="account-info"><i class="fa fa-times"><h4>Close menu</h4></i></li>
             </ul>
-        </div>
-    <div class="account--search">
+        </section>
+    <article class="account--search">
         <ul class="nav-footer__list">
             <li class="account-info"><i class="fa fa-search"><h4>Search</h4></i></li>
             <li class="account-info">{{>searchInput}}</li>
             <li class="account-info"><i class="fa fa-times"><h4>Close menu</h4></i></li>
         </ul>
-    </div>
+    </article>
 </template>

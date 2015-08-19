@@ -16,12 +16,6 @@ Template.myProfilePage.helpers({
         return titleList;
     },
     offline:function(){
-        //$(".post--list").sort(sort_li).appendTo('.post-container');
-        //function sort_li(a, b){
-        //    return ($(b).data('position')) < ($(a).data('position')) ? 1 : -1;
-        //}
-        //foo.find({userID:Meteor.userId()});
-        //return foolist.find({userID:Meteor.userId(),name:listName});
         listName = Router.current().params.listName;
         console.log(listName);
         return foo.find({name:listName},{sort: { 'project.title' : 1 }});
@@ -91,7 +85,6 @@ Template.myProfilePage.events({
     },
     'click .post-favorites__listing-calculate':function(){
         var currentUser = Meteor.userId();
-        //return Router.go('profile/collection/'+currentUser+'/'+listName+'/map');
         return Router.go('calculatedRoute',{currentUser:Meteor.userId(),listName:listName});
     }
 });

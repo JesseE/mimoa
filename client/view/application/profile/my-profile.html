@@ -21,9 +21,9 @@
                     </div>
                 </div>
             </div>
-            <div class="post-container">
+            <section class="post-container">
                 {{#each list}}
-               <div class="post--list" data-name="{{name}}" data-position="{{currentDistance}}">
+               <article class="post--list" data-name="{{name}}" data-position="{{currentDistance}}">
                         <div class="post-content--list">
                             <div class="post-list-text-title">
                                 <h4 class="list-title">{{name}}</h4>
@@ -35,7 +35,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </article>
                 {{else}}
                     <div class="post--list-items" data-position="{{currentDistance}}">
                         <div class="post-content--list">
@@ -45,7 +45,7 @@
                         </div>
                     </div>
                 {{/each}}
-            </div>
+            </section>
         </article>
         <article class="post--list-create">
             <div class="icon-container--calculate">

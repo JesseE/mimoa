@@ -1,24 +1,23 @@
 <template name="postPage">
-            <div class="post-content--full-page animated fadeInLeft">
+            <section class="post-content--full-page animated fadeInLeft">
                {{>carousel}}
-                <div class="post-content__text-page">
+                <article class="post-content__text-page">
                     <p class="distance">
                         {{currentDistance}} m
                     </p>
-                </div>
+                </article>
                 <div class="add-to-favorite">
                     <div class="button__add-to-favorite"><i class="fa fa-heart"></i></div>
                 </div>
-                <div class="tooltip-post-page animated">
+                <article class="tooltip-post-page animated">
                     <div class="tooltip__remove-page"><i class="fa fa-times"></i></div>
                     <h4 class="tooltip-title">add to:</h4>
                     {{#each list}}
                         <div class="tooltip-post-text" ><h4 data-name="{{name}}">{{name}}</h4></div>
                     {{/each}}
                     <div class="tooltip-post-text post--list-create-tooltip"><h4>create new list</h4></div>
-                </div>
-                <div class="post-content__text--full-width">
-
+                </article>
+                <article class="post-content__text--full-width">
                     <div class="post-content__title">
                         <h3>{{title}}</h3>
                         <p class="author">{{freetext8.[0]._}}</p>
@@ -33,7 +32,7 @@
                             <li class="share-list__item">Comments</li>
                         </a>
                     </div>
-                    <div class="post-content__block-item">
+                    <article class="post-content__block-item">
                         <ul class="post-content__sub-list">
                             <li class="post-content__sub-item">
                                 <p><b>Location:</b></p>
@@ -53,8 +52,8 @@
                             {{/if}}
                         </ul>
                         <div class="post-content__summary"><p>{{summary}}</p></div>
-                    </div>
-                    <div class="post-content__block-item">
+                    </article>
+                    <article class="post-content__block-item">
                         <ul class="post-content__sub-list">
                             {{#if address}}
                             <li class="post-content__sub-item">
@@ -62,18 +61,14 @@
                                 <p> {{address}}</p>
                             </li>
                             {{/if}}
-                            <!--<li class="post-content__sub-item">-->
-                                <!--<p><b>opening hours:</b></p>-->
-                                <!--<p></p>-->
-                            <!--</li>-->
                             <li class="post-content__sub-item">
                                {{#if website}} <p><b>website:</b></p>
                                 <p><a href="{{website}}" target="_blank">{{website}}</a></p>
                                 {{/if}}
                             </li>
                         </ul>
-                    </div>
-                    <div class="post-content__block-item">
+                    </article>
+                    <article class="post-content__block-item">
                         <ul class="post-content__sub-list">
                             {{#if freetext3.[0]._}}
                             <li class="post-content__sub-item">
@@ -88,7 +83,7 @@
                             </li>
                             {{/if}}
                         </ul>
-                    </div>
+                    </article>
                     {{index}}
                     <div class="share">
                         <ul class="share-list">
@@ -99,7 +94,7 @@
                             <li class="share-list__item share-bg special">{{> shareit__mail }}</li>
                         </ul>
                     </div>
-                </div>
+                </article>
 
-            </div>
+            </section>
 </template>
