@@ -1,0 +1,102 @@
+<template name="myFavoritesItemPage">
+    {{>nav}}
+        <div class="post-content--full-page animated fadeInLeft">
+            {{>carousel}}
+            <div class="tooltip-post-page">
+                <h4>added to:</h4>
+                {{#each list}}
+                    <div class="tooltip-post-title" ><h4 data-name="{{name}}">{{name}}</h4></div>
+                {{/each}}
+            </div>
+            <div class="post-content__text-page">
+                <p class="distance">
+                    {{currentDistance}} m
+                </p>
+            </div>
+            <div class="add-to-favorite--added">
+                <div class="button__add-to-favorite"><i class="fa fa-heart"></i></div>
+            </div>
+            <div class="post-content__text--full-width">
+                <div class="post-content__title">
+                    <h3>{{project.title}}</h3>
+                    <p class="author">{{project.freetext8.[0]._}}</p>
+                </div>
+                <ul class="post-content__title-list">
+                    <a href="#"><li class="post-content__title-photo-item"><h4>Photos</h4></li></a>
+                    <a href="{{pathFor 'postPageMap'}}"><li class="post-content__title-item"><h4>Route</h4></li></a>
+                    {{#if project.website}}<a href="{{project.website}}" target="_blank"><li class="post-content__title-item"><h4>Website</h4></li></a>{{/if}}
+                </ul>
+                <div class="commentroute">
+                    <a href="#comment">
+                        <li class="share-list__item">Comments</li>
+                    </a>
+                </div>
+                <div class="post-content__block-item">
+                    <ul class="post-content__sub-list">
+                        <li class="post-content__sub-item">
+                            <p><b>Location:</b></p>
+                            <p>{{project.city}}</p>
+                        </li>
+                        {{#if project.freetext5.[0]._}}
+                            <li class="post-content__sub-item">
+                                <p><b>Function:</b></p>
+                                <p>{{project.freetext5.[0]._}}</p>
+                            </li>
+                        {{/if}}
+                        {{#if project.freetext2.[0]._}}
+                            <li class="post-content__sub-item">
+                                <p><b>Contributed by:</b></p>
+                                <p>{{project.freetext2.[0]._}}</p>
+                            </li>
+                        {{/if}}
+                    </ul>
+                    <div class="post-content__summary"><p>{{project.summary}}</p></div>
+                </div>
+                <div class="post-content__block-item">
+                    <ul class="post-content__sub-list">
+                        {{#if project.address}}
+                            <li class="post-content__sub-item">
+                                <p><b>address:</b></p>
+                                <p> {{project.address}}</p>
+                            </li>
+                        {{/if}}
+                        <!--<li class="post-content__sub-item">-->
+                        <!--<p><b>opening hours:</b></p>-->
+                        <!--<p></p>-->
+                        <!--</li>-->
+                        <li class="post-content__sub-item">
+                            {{#if project.website}} <p><b>website:</b></p>
+                                <p><a href="{{project.website}}" target="_blank">{{project.website}}</a></p>
+                            {{/if}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="post-content__block-item">
+                    <ul class="post-content__sub-list">
+                        {{#if project.freetext3.[0]._}}
+                            <li class="post-content__sub-item">
+                                <p><b>facts:</b></p>
+                                <p>completion: {{project.freetext3.[0]._}}</p>
+                            </li>
+                        {{/if}}
+                        {{#if project.freetext8.[0]._}}
+                            <li class="post-content__sub-item">
+                                <p><b>architect:</b></p>
+                                <p>{{project.freetext8.[0]._}}</p>
+                            </li>
+                        {{/if}}
+                    </ul>
+                </div>
+                {{index}}
+                <div class="share">
+                    <ul class="share-list">
+                        <li class="share-list__item share-bg special">{{> shareit__pinterest }}</li>
+                        <li class="share-list__item share-bg special">{{> shareit__facebook }}</li>
+                        <li class="share-list__item share-bg special">{{> shareit__twitter }}</li>
+                        <li class="share-list__item share-bg special">{{> shareit__googleplus }}</li>
+                        <li class="share-list__item share-bg special">{{> shareit__mail }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+</template>

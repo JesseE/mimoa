@@ -1,0 +1,59 @@
+<template name="myProfile">
+    {{>nav}}
+    <section class="profile animated fadeInUp">
+        <div class="profile__thumb">
+            <div class="profile__thumb-image">
+                <img class="potrait" src="/images/jesse.jpeg" alt="user profile picture"/>
+            </div>
+        </div>
+        <article class="profile-info">
+            <h3 class="profile-username">{{currentUser.username}}</h3>
+        </article>
+        <article class="post-list--profile">
+            <div class="post-bar">
+                <div class="post-favorites">
+                    <div class="icon-container">
+                        <i class="fa fa-heart"></i>
+                    </div>
+                    <div class="banner-text">
+                        <h3>favorites lists</h3>
+                        <p>these project are offline available</p>
+                    </div>
+                </div>
+            </div>
+            <div class="post-container">
+                {{#each list}}
+               <div class="post--list" data-name="{{name}}" data-position="{{currentDistance}}">
+                        <div class="post-content--list">
+                            <div class="post-list-text-title">
+                                <h4 class="list-title">{{name}}</h4>
+                                <div class="tooltip-adjust">
+                                    <div class="tooltip-post-list animated">
+                                        <div class="tooltip__remove-page"><i class="fa fa-times"></i></div>
+                                    </div>
+                                    <i class="fa fa-ellipsis-v"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{else}}
+                    <div class="post--list-items" data-position="{{currentDistance}}">
+                        <div class="post-content--list">
+                            <div class="post-content__text--list-noitems">
+                                <h4>there are no favorite lists</h4><i class="fa fa-heart"></i>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </article>
+        <article class="post--list-create">
+            <div class="icon-container--calculate">
+                <i class="fa fa-plus"></i>
+            </div>
+            <div class="banner-text--calculate">
+                <h3>create new list</h3>
+            </div>
+        </article>
+    </section>
+</template>

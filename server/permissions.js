@@ -1,3 +1,3 @@
-/**
- * Created by jesse on 19/02/15.
- */
+//Meteor.AppCache.config({
+//    onlineOnly: ['/packages/']
+//});

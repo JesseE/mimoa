@@ -4,19 +4,29 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-platform
 insecure
 mrt:dbproxy
 less
-webapp
-meteorhacks:kadira
-http
 dburles:google-maps
-iron:router
-accounts-ui
-percolate:paginated-subscription
-ground:db
-bootstrap
-mrt:googlemaps
+webapp
+meteor-platform
 mdg:geolocation
-dburles:jquery-tinysort
+percolate:paginated-subscription
+fortawesome:fontawesome
+accounts-password
+accounts-ui-unstyled
+lepozepo:reactive-publish
+meteorhacks:fast-render
+iron:router
+sacha:spin
+meteorhacks:subs-manager
+fastclick
+chriswessels:hammer
+okgrow:iron-router-autoscroll
+fezvrasta:bootstrap-material-design
+meteorhacks:kadira
+natestrauser:animate-css
+
+ground:db
+appcache
+mmuric:richmarker

@@ -1,0 +1,76 @@
+@media (max-width: 600px) {
+  .accounts-dialog{
+    width: 200px;
+  }
+  #login-buttons.login-buttons-dropdown-align-right #login-dropdown-list{
+    right: 20px;
+  }
+}
+li.account-info{ //float:left; display: inline-block;  color: white; width: 9.3%;height: 40px;/*margin:10px 0;*/ line-height:50px;
+  //float: left;
+  //display: inline-block;
+  //color: white;
+  //width: 80%;
+  //height: 60px;
+  ///* margin: 10px 0; */
+  //line-height: 50px;
+
+  //float: left;
+  //display: inline-block;
+  //color: white;
+  //width: 90%;
+  //height: 56px;
+  //border-bottom: 2px solid white;
+  //line-height: 50px;
+  //padding: 5px;
+
+  float: left;
+  display: inline-block;
+  color: white;
+  width: 40%;
+  height: 56px;
+  //border-bottom: 2px solid white;
+  line-height: 50px;
+  padding: 5px;
+  margin: 10px;
+
+
+}
+.account-info>i{ color:white; font-size:30px;}
+.account-info__username{
+  width: 100%;
+  text-align: center;
+  //&:extend(li.account-info);
+  //width:60%;
+}
+.account {
+  position: fixed;
+  z-index: 999999999999999999999999999999;
+  max-width: 500px;
+  background: #7ED321;
+  padding: 0;
+  border-top: white 1px solid;
+  transition: all 200ms 0ms ease-in;
+  -webkit-transition: all 200ms 0ms ease-in;
+  bottom: 0;
+  display: none;
+  width: 100%;
+  margin: auto;
+}
+.account--search{
+  &:extend(.account);
+  display:none;
+}
+div#login-username-or-email-label-and-input {
+  width: 100%;
+  float: left;
+}
+#login-password-again-label-and-input {
+  float: left;
+  width: 100%;
+}
+#login-email-label-and-input {
+  float: left;
+  width: 100%;
+}
+form input{float:left; padding:5px;}

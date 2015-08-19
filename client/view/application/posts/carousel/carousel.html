@@ -1,0 +1,59 @@
+<template name="carousel">
+{{#HammerTouchArea gestureMap=templateGestures}}
+    {{#if carousel}}
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="item-indicator active"></li>
+                <li data-target="#myCarousel" data-slide-to="1" class="item-indicator"></li>
+                <li data-target="#myCarousel" data-slide-to="2" class="item-indicator"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox" >
+                {{#each carousel}}
+                        <div class="item">
+                            <img id="myCarouselImage" src="{{.}}" alt=""/>
+                        </div>
+                {{/each}}
+            </div>
+            <a id="myElement" class="left carousel-control" href=""></a>
+            <a class="right carousel-control" href=""></a>
+        </div>
+    {{/if}}
+    {{#if carousel1}}
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="item-indicator active"></li>
+                <li data-target="#myCarousel" data-slide-to="1" class="item-indicator"></li>
+                <li data-target="#myCarousel" data-slide-to="2" class="item-indicator"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox" >
+                {{#each carousel1}}
+                    <div class="item">
+                        <img id="myCarouselImage" src="{{.}}" alt=""/>
+                    </div>
+                {{/each}}
+            </div>
+            <a id="myElement" class="left carousel-control" href=""></a>
+            <a class="right carousel-control" href=""></a>
+        </div>
+    {{/if}}
+    {{#if carousel2}}
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="item-indicator active"></li>
+                <li data-target="#myCarousel" data-slide-to="1" class="item-indicator"></li>
+                <li data-target="#myCarousel" data-slide-to="2" class="item-indicator"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox" >
+                {{#each carousel2}}
+                    <div class="item">
+                        <img id="myCarouselImage" src="{{.}}" alt=""/>
+                    </div>
+                {{/each}}
+            </div>
+            <a id="myElement" class="left carousel-control" href=""></a>
+            <a class="right carousel-control" href=""></a>
+        </div>
+    {{/if}}
+    {{/HammerTouchArea}}
+</template>
+

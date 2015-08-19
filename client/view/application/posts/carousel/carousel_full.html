@@ -1,0 +1,24 @@
+<template name="carouselFull">
+   {{>nav}}
+    {{#if carouselFull}}
+        <i class="icon icon-material-favorite"></i>
+        <div id="myCarouselFull" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+                <li data-target="#myCarousel" data-slide-to="2" class=""></li>
+            </ol>
+            <div class="carousel-inner" role="listbox" >
+                {{#each carouselFull}}
+                    <div class="item">
+                        <img src="{{.}}" alt=""/>
+                    </div>
+                {{/each}}
+            </div>
+            <a id="myElement" class="left carousel-control" href="#myCarousel" role="button" data-slide="prev"></a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next"></a>
+
+        </div>
+        {{>back}}
+    {{/if}}
+</template>

@@ -1,0 +1,66 @@
+<template name="myProfilePage">
+  {{>nav}}
+    <section class="profile animated fadeInUp">
+        <div class="profile__thumb"><div class="profile__thumb-image"><img class="potrait" src="/images/jesse.jpeg" alt="user profile picture"/></div></div>
+        <article class="profile-info">
+            <h3 class="profile-username">{{currentUser.username}}</h3>
+        </article>
+        <article class="post-list--profile">
+            <div class="post-bar">
+                <div class="post-favorites">
+                    <div class="icon-container">
+                        <i class="fa fa-heart"></i>
+                    </div>
+                    <div class="banner-text">
+                        <h3>{{name}}</h3>
+                        <p>these project are offline available</p>
+                    </div>
+                </div>
+            </div>
+            <div class="post-container">
+              {{#each offline}}
+                  <div class="post--list-items" data-position="{{currentDistance}}">
+                      <div class="post-content--list">
+                          <!--<a class="post-item" href="favorites/posts/{{project.project.id}}">-->
+                          <a class="post-item" href="offline/favorites/{{userID}}/posts/{{project.id}}">
+                              <div class="post-content__thumb-image--list">
+                                  <img class="post-list__image-container" src="{{project.image1}}" >
+                              </div>
+                              <div class="post-content__text--list">
+                                  <h4>{{project.title}}</h4>
+                                  <p>
+                                    {{project.freetext8.[0]._}}<br>
+                                    {{project.country}}
+                                    {{project.city}}
+                                  </p>
+                                  <!--<p class="distance-favorites">-->
+                                  <!--{{currentDistance}} m-->
+                                  <!--</p>-->
+                              </div>
+
+                          </a>
+                          <div class="minus-icon"><i class="fa fa-heart"></i></div>
+                      </div>
+                  </div>
+                  {{else}}
+                  <div class="post--list-items" data-position="{{currentDistance}}">
+                      <div class="post-content--list">
+                          <div class="post-content__text--list-noitems">
+                              <h4>there are no favorite items<br>add new items by pressing on the </h4><i class="fa fa-heart"></i>
+                          </div>
+                      </div>
+                  </div>
+              {{/each}}
+            </div>
+            <div class="post-favorites__listing-calculate">
+                <div class="icon-container--calculate">
+                    <i class="fa fa-compass"></i>
+                </div>
+                <div class="banner-text--calculate">
+                    <h3>calculate route</h3>
+                    <p>This creates a route along these projects in order (max 11 projecten)</p>
+                </div>
+            </div>
+        </article>
+    </section>
+</template>
