@@ -3,30 +3,14 @@
     <section class="profile animated fadeInUp">
         <div class="profile__thumb">
             <div class="profile__thumb-image">
-                <!--<i class="fa fa-user curator-fa"></i>-->
                 <img class="potrait" src="/images/jesse.jpeg" alt="user profile picture"/>
             </div>
         </div>
-        <!--<article class="profile-image">-->
-                <!--<div class="profile-image__container">-->
-                    <!--<div class="profile-image__thumb">-->
-                        <!--&lt;!&ndash;<img src="/images/jesse.jpeg" alt="user profile picture" width="100" height="100"/>&ndash;&gt;-->
-                    <!--</div>-->
-                <!--</div>-->
-        <!--</article>-->
         <article class="profile-info">
             <h3 class="profile-username">{{currentUser.username}}</h3>
         </article>
-        <!--<article class="profile-nav">-->
-                <!--<div class="profile-nav__item"><h3>profile</h3></div>-->
-                <!--<div class="profile-nav__item"><h3>list</h3></div>-->
-                <!--<div class="profile-nav__item"><h3>following</h3></div>-->
-        <!--</article>-->
         <article class="post-list--profile">
             <div class="post-bar">
-                <!--<a href="collection/{{currentUser}}/map">-->
-                <!--<i class="fa fa-map calculate-route"></i>-->
-                <!--<div class="create-new__list"><button>add new list</button><button class="offline-button"><span>offline-button</span></button></div>-->
                 <div class="post-favorites">
                     <div class="icon-container">
                         <i class="fa fa-heart"></i>
@@ -36,43 +20,40 @@
                         <p>these project are offline available</p>
                     </div>
                 </div>
-                <!--<a href="{{pathFor 'projectsMap'}}">-->
-                <!--<li class="map-button"><i class="fa fa-compass"><h4>Map</h4></i></li>-->
-                <!--</a>-->
-                <!--</a>-->
             </div>
-            <form class="new-list">
-                <li class="back-button"><h4><i class="large mdi-navigation-chevron-left"></i></h4></li>
-                <input type="text" name="listNameInput">
-                <input type="submit">
-            </form>
             <div class="post-container">
-
                 {{#each list}}
                <div class="post--list" data-name="{{name}}" data-position="{{currentDistance}}">
                         <div class="post-content--list">
-                            <div class="post-content__text--list-title">
-                                <h4>{{name}}</h4>
+                            <div class="post-list-text-title">
+                                <h4 class="list-title">{{name}}</h4>
+                                <div class="tooltip-adjust">
+                                    <div class="tooltip-post-list animated">
+                                        <div class="tooltip__remove-page"><i class="fa fa-times"></i></div>
+                                    </div>
+                                    <i class="fa fa-ellipsis-v"></i>
+                                </div>
                             </div>
-                            <!--</a>-->
-                            <!--<div class="minus-icon"><i class="fa fa-heart"></i></div>-->
-                            <!--<div class="tooltip-post">-->
-                            <!--<i class="fa fa-minus"></i><span>remove</span>-->
-                            <!--<i class="fa fa-arrows-v"></i><span>move</span>-->
-                            <!--</div>-->
-
+                        </div>
+                    </div>
+                {{else}}
+                    <div class="post--list-items" data-position="{{currentDistance}}">
+                        <div class="post-content--list">
+                            <div class="post-content__text--list-noitems">
+                                <h4>there are no favorite lists</h4><i class="fa fa-heart"></i>
+                            </div>
                         </div>
                     </div>
                 {{/each}}
-                    <div class="post--list-create" data-position="{{currentDistance}}">
-                        <div class="post-content--list">
-                                <div class="post-content__text--list-title">
-                                    <h4>create new favorites list</h4>
-                                </div>
-                        </div>
-                    </div>
             </div>
-            <!--{{>myFavorites}}-->
+        </article>
+        <article class="post--list-create">
+            <div class="icon-container--calculate">
+                <i class="fa fa-plus"></i>
+            </div>
+            <div class="banner-text--calculate">
+                <h3>create new list</h3>
+            </div>
         </article>
     </section>
 </template>

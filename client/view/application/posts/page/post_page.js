@@ -99,10 +99,26 @@ Template.postPage.helpers({
     //}
 });
 Template.postPage.events({
+    'click .tooltip__remove-page': function(){
+        //console.log($(event.target.parentElement.parentElement));
+        //$(event.target).hide();
+        //$('.tooltip-post-page').removeClass('fadeIn');
+        //$('.tooltip-post-page').addClass('fadeOut');
+        $('.tooltip-post-page').hide();
+        //$('.tooltip-post-page').removeClass('fadeIn');
+    },
+    'click .tooltip-post-text .post--list-create-tooltip':function(){
+        var userID = Meteor.userId();
+        return Router.go('/profile/'+userID+'/create');
+        //$(this).addClass('animated fadeOutLeft');
+        //$(event.target).addClass('animate-to-top');
+    },
+
     'click .add-to-favorite':function(){
         currentProject = this;
         $('.tooltip-post-page').show();
-        $('.tooltip-post-page').addClass('animated fadeIn');
+        //$('.tooltip-post-page').addClass('fadeIn');
+
         //console.log('favorited');
         //var projectId = this._id;
         //var thisProject = this;
@@ -128,11 +144,13 @@ Template.postPage.events({
         var thisProject = currentProject;
         console.log(currentProject);
         var currentUserId = Meteor.userId();
-        $('.tooltip-post-page').removeClass('fadeIn');
-        $('.tooltip-post-page').addClass('fadeOut');
+        //$('.tooltip-post-page').hide();
+        //$('.tooltip-post-page').removeClass('fadeIn');
+        //$('.tooltip-post-page').addClass('fadeOut');
         return Meteor.call('offlineAvailable',foolistName,thisProject,currentUserId,function(err,res){
             if(err){throw err;} else{ }
         });
+        $('.tooltip-post-page').hide();
     },
     'click .post-content__title-photo-item': function() {
         var elem = document.getElementById("myCarousel");

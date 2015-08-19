@@ -42,6 +42,9 @@ Template.myOfflineFavoritesItemPage.helpers({
         return distanceToLocation;
     }
 });
+Template.myOfflineFavoritesItemPage.rendered = function(){
+    window.scrollTo(0,0);
+};
 //
 //Template.favoritePostPageMap.onCreated(function() {
 //    GoogleMaps.ready('exampleMap', function(map) {

@@ -1,7 +1,7 @@
 /**
  * Created by jesse on 18/02/15.
  */
-Sortable.collections = 'myfavoritesoffline';
+//Sortable.collections = 'myfavoritesoffline';
 Meteor.reactivePublish('mimoacollection', function(currentLat,currentLng, limit){
     return proxyDB.mimoaCollection.find({coordinates:
         {$near:
@@ -57,12 +57,12 @@ Meteor.publish('mimoauserscollectionlist', function() {
     return proxyDB.mimoaUsersCollection.find();
 });
 Meteor.publish('mimoausersfavoritescollection', function(currentUserId, currentPostID){
-    Sortable.collections = 'mimoaUsersFavoritesCollection';
+    //Sortable.collections = 'mimoaUsersFavoritesCollection';
     if(currentPostID != null){
-       Sortable.collections = 'mimoausersfavoritescollection';
+       //Sortable.collections = 'mimoausersfavoritescollection';
        return proxyDB.mimoaUsersFavoritesCollection.find({userID:currentUserId,id:currentPostID});
     }else{
-       Sortable.collections = 'mimoausersfavoritescollection';
+      // Sortable.collections = 'mimoausersfavoritescollection';
        return proxyDB.mimoaUsersFavoritesCollection.find({userID:currentUserId});
     }
 });

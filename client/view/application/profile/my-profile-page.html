@@ -2,45 +2,21 @@
   {{>nav}}
     <section class="profile animated fadeInUp">
         <div class="profile__thumb"><div class="profile__thumb-image"><img class="potrait" src="/images/jesse.jpeg" alt="user profile picture"/></div></div>
-        <!--<article class="profile-image">-->
-        <!--<div class="profile-image__container">-->
-        <!--<div class="profile-image__thumb">-->
-        <!--&lt;!&ndash;<img src="/images/jesse.jpeg" alt="user profile picture" width="100" height="100"/>&ndash;&gt;-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</article>-->
         <article class="profile-info">
             <h3 class="profile-username">{{currentUser.username}}</h3>
         </article>
-        <!--<article class="profile-nav">-->
-        <!--<div class="profile-nav__item"><h3>profile</h3></div>-->
-        <!--<div class="profile-nav__item"><h3>list</h3></div>-->
-        <!--<div class="profile-nav__item"><h3>following</h3></div>-->
-        <!--</article>-->
         <article class="post-list--profile">
             <div class="post-bar">
-                <!--<a href="collection/{{currentUser}}/map">-->
-                <!--<i class="fa fa-map calculate-route"></i>-->
-                <!--<div class="create-new__list"><button>add new list</button><button class="offline-button"><span>offline-button</span></button></div>-->
                 <div class="post-favorites">
                     <div class="icon-container">
                         <i class="fa fa-heart"></i>
                     </div>
                     <div class="banner-text">
-                        <h3>favorites in {{name.name}}</h3>
+                        <h3>{{name}}</h3>
                         <p>these project are offline available</p>
                     </div>
                 </div>
-                <!--<a href="{{pathFor 'projectsMap'}}">-->
-                <!--<li class="map-button"><i class="fa fa-compass"><h4>Map</h4></i></li>-->
-                <!--</a>-->
-                <!--</a>-->
             </div>
-            <form class="new-list">
-                <li class="back-button"><h4><i class="large mdi-navigation-chevron-left"></i></h4></li>
-                <input type="text" name="listNameInput">
-                <input type="submit">
-            </form>
             <div class="post-container">
               {{#each offline}}
                   <div class="post--list-items" data-position="{{currentDistance}}">
@@ -64,11 +40,14 @@
 
                           </a>
                           <div class="minus-icon"><i class="fa fa-heart"></i></div>
-                          <!--<div class="tooltip-post">-->
-                          <!--<i class="fa fa-minus"></i><span>remove</span>-->
-                          <!--<i class="fa fa-arrows-v"></i><span>move</span>-->
-                          <!--</div>-->
-
+                      </div>
+                  </div>
+                  {{else}}
+                  <div class="post--list-items" data-position="{{currentDistance}}">
+                      <div class="post-content--list">
+                          <div class="post-content__text--list-noitems">
+                              <h4>there are no favorite items<br>add new items by pressing on the </h4><i class="fa fa-heart"></i>
+                          </div>
                       </div>
                   </div>
               {{/each}}
@@ -82,7 +61,6 @@
                     <p>This creates a route along these projects in order (max 11 projecten)</p>
                 </div>
             </div>
-            <!--{{>myFavorites}}-->
         </article>
     </section>
 </template>

@@ -8,7 +8,15 @@ var distanceToLocation;
 var currentPostID;
 var currentProject;
 Template.postsList.rendered = function() {
+    var toolbox = $('.tooltip-post'),
+        height = toolbox.height(),
+        scrollHeight = toolbox.get(0).scrollHeight;
 
+    toolbox.bind('mousewheel', function(e, d) {
+        if((this.scrollTop === (scrollHeight - height) && d < 0) || (this.scrollTop === 0 && d > 0)) {
+            e.preventDefault();
+        }
+    });
 };
 // Extended configuration
 
@@ -64,52 +72,40 @@ Template.postsList.helpers({
 
 });
 Template.postsList.events({
-    'click .post':function(){
+    'click .tooltip__remove': function(){
+        //console.log($(event.target.parentElement.parentElement));
+        //$(event.target).hide();
+        //$('.tooltip-post').removeClass('fadeIn');
+        //$('.tooltip-post').addClass('fadeOut');
+        //$(event.target.nextElementSibling).show();
+        $('.tooltip-post').hide();
+        //$('.tooltip-post-page').removeClass('fadeIn');
+    },
+    'click .tooltip-post-text .post--list-create-tooltip':function(){
+        var userID = Meteor.userId();
+        return Router.go('/profile/'+userID+'/create');
         //$(this).addClass('animated fadeOutLeft');
         //$(event.target).addClass('animate-to-top');
     },
     'click .tooltip-post-text':function(event, template){
         var text = $(event.target).text().replace(/\s+/g, '');
         var foolistName = text;
-        console.log(foolistName);
         var projectId = currentProject._id;
         var thisProject = currentProject;
-        console.log(currentProject);
         var currentUserId = Meteor.userId();
-        $(event.target.parentElement.parentElement).removeClass('fadeIn');
-        $(event.target.parentElement.parentElement).addClass('fadeOut');
-        return Meteor.call('offlineAvailable',foolistName,thisProject,currentUserId,function(err,res){
+
+        Meteor.call('offlineAvailable',foolistName,thisProject,currentUserId,function(err,res){
             if(err){throw err;} else{ }
         });
+        $(event.target.parentElement.parentElement).removeClass('fadeIn');
+        $(event.target.parentElement.parentElement).addClass('fadeOut');
+
     },
    'click .favorite-icon':function(event, template){
        currentProject = this;
        console.log('clicked',$(event.target));
        $(event.target.nextElementSibling).show();
-       $(event.target.nextElementSibling).addClass('fadeIn');
-       //$(this).$('.tooltip-post').show();
-       //$(this).$('.tooltip-post').addClass('animated fadeIn');
-       //$(event.target.nextElementSibling).show();
-       //$(event.target.nextElementSibling).addClass('animated fadeIn');
-       ////Meteor.setTimeout(function(){
-       //    $(event.target.nextElementSibling).removeClass('animated fadeIn');
-       //    $(event.target.nextElementSibling).addClass('animated fadeOut');
-       //},2000);
-       //$(event.target.parentElement).removeClass("favorite-icon");
-       //$(event.target.parentElement).addClass("fa--pressed");
-
-
-
-       //return proxyDB.mimoaUsersFavoritesCollection.find({userID:Meteor.userId()}).forEach(function (project) {
-       //    return Meteor.call('offlineAvailable', project, function(err, res){
-       //        if(err){throw err;} else{ console.log(res);}
-       //    });
-       //});
-       //return Meteor.call('addToMyFavorite',projectId, thisProject, currentUserId, function(err,results){
-       //    console.log('add to my favorites');
-       //   if(err){console.log(err);}else{console.log(results);}
-       //});
-
+    //   $(event.target.nextElementSibling).addClass('fadeIn');
    },
     'submit form': function(event){
         event.preventDefault();
@@ -124,9 +120,7 @@ Template.postsList.events({
         $('.post-container').addClass('fadeInRight');
 
     },
-    'click .post--list-create':function(){
-        $('.post-container').addClass('animated fadeOutLeft');
-        $('.new-list').show();
-        $('.new-list').addClass('animated fadeInRight');
+    'click .post--list-create-tooltip':function(){
+
     }
 });

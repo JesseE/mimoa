@@ -9,12 +9,16 @@ Meteor.methods({
         return foolist.update({name:listName,userID:currentUserId},{name:listName,userID:currentUserId},{upsert:true});
     },
     'offlineAvailable':function(foolistName,thisProject,currentUserId){
-        return foo.update({name:foolistName,userID:currentUserId, 'project.id':'thisProject.id'},
+        return foo.update(
             {
+                name:foolistName,userID:currentUserId, 'project.id':'thisProject.id'
+            },{
                 name:foolistName,
                 userID:currentUserId,
                 project:thisProject
-            }, {upsert:true});
+            },{
+                upsert:true
+            });
 
     },
     'saveDB':function(subHandle){
@@ -52,6 +56,10 @@ Meteor.methods({
     },
     'removeOfflineProject': function(thisPost){
         return foo.remove(thisPost);
+    },
+    'removeOfflineList':function(thisList){
+        foo.update({name:thisList},{$unset:{name:thisList}});
+        return foolist.remove(thisList);
     },
     'removeComment': function(postId){
         return proxyDB.mimoaCommentsCollection.remove(postId);

@@ -35,49 +35,19 @@ Ground.methodResume([
     'offlineAvailable'
 ]);
 
+
 Router.configure({
     loadingTemplate: 'loading',
     layoutTemplate:'index',
     waitOn: function() {
-        var hereInApp = Router.current().route.getName();
-        if(hereInApp == 'introduction'){
-            if (Meteor.loggingIn()) {
-                //return Router.go('postsList');
-            } else if(Meteor.user()){
-                var currentUserId = Meteor.userId();
-                var user = Meteor.user();
-                console.log( currentUserId, user);
-                Meteor.call('signUp', currentUserId, user, function (err, results) {
-                    if (err) {
-                            console.log(err);
-                    } else {
-                        console.log('add to user to remote db' + results);
-
-                    }
-                    //hereBrowser = Geolocation.currentLocation();
-                    //currentLat = hereBrowser.coords.latitude;
-                    //currentLng = hereBrowser.coords.longitude;
-                    //subHandle = Meteor.subscribeWithPagination('mimoacollection', hereBrowser.coords.latitude, hereBrowser.coords.longitude, paginationNumber);
-                    return Router.go('postsList');
-                });
-            }
-            else if(!Meteor.user()){
-            }
-        } else {
-            hereBrowser = Geolocation.currentLocation();
-            currentLat = hereBrowser.coords.latitude;
-            currentLng = hereBrowser.coords.longitude;
-            subHandle = Meteor.subscribeWithPagination('mimoacollection', hereBrowser.coords.latitude, hereBrowser.coords.longitude, paginationNumber);
-        }
-    }
-});
-
-Router.onBeforeAction(function () {
-    if (Meteor.loggingIn()) {
-        this.render('loading');
-    }
-    else {
-        this.next();
+        hereBrowser = Geolocation.currentLocation();
+        currentLat = hereBrowser.coords.latitude;
+        currentLng = hereBrowser.coords.longitude;
+        subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, paginationNumber);
+        Meteor.subscribe('myfavoritesofflinelist',currentUserId);
+        Meteor.subscribe('myfavoritesofflinelisting', currentUserId);
+        Meteor.subscribe('myfavoritesofflinelistitems',currentUserId);
+        Meteor.subscribe('myfavoritesoffline',currentUserId,currentLng,currentLat);
     }
 });
 Router.onBeforeAction(function() {
@@ -85,53 +55,63 @@ Router.onBeforeAction(function() {
     this.next();
 });
 IronRouterAutoscroll.animationDuration = 100;
-//this should be refactored
 Template.postsList.events({
     'click button.loadbutton':function(){
         paginationNumber+=25;
-        console.log(paginationNumber);
         subHandle.loadNextPage();
     }
 });
-
 Router.map(function(){
     this.route('introduction', {
         path:'/',
         template:'intro',
-        onBeforeAction:function(){
-            this.render('loading');
-            this.next();
-        },
-        data: function () {
-
+        waitOn: function () {
+            if (Meteor.loggingIn()) {
+                //return Router.go('postsList');
+            }
+            if(Meteor.user()){
+                var currentUserId = Meteor.userId();
+                var user = Meteor.user();
+                console.log( currentUserId, user);
+                Meteor.call('signUp', currentUserId, user, function (err, results) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log('add to user to remote db' + results);
+                    }
+                    if(Meteor.status().connected == false){
+                        return Router.go('/profile/'+Meteor.userId());
+                    }else if(Meteor.status().connected == true){
+                        return Router.go('postsList');
+                    }
+                });
+            }
+            else if(!Meteor.user()){
+            }
         },
         cache:true,
         fastRender: true
     });
     this.route('searchProject', {
-        path:'/#!search/post/:currentPostID',
+        path:'/search/post/:currentPostID',
         template:'searchResult',
         waitOn:function(){
             var currentPostID = this.params.currentPostID;
-            return Meteor.subscribe('mimoacollectionspecific', currentPostID);
+            Meteor.subscribe('mimoacollectionspecific', currentPostID);
         },
         data: function(){
             var currentPostID = this.params.currentPostID;
             //return proxyDB.mimoaCollection.find({$and:[{'title':{$regex:currentPostID, $options: "i"}},{'city':{$regex:currentPostID, $options: "i"}}]});
-            console.log(currentPostID);
             return proxyDB.mimoaCollection.find({'title':{$regex:currentPostID, $options: "i"}});
         }
     });
     this.route('postsList', {
         path:'/nearby',
         template: 'layout',
-        onBeforeAction:function(){
-            this.render('loading');
-            this.next();
-        },
         waitOn:function(){
             var currentUserId = Meteor.userId();
             Meteor.subscribe('myfavoritesofflinelist',currentUserId);
+            //subHandle = Meteor.subscribeWithPagination('mimoacollection', hereBrowser.coords.latitude, hereBrowser.coords.longitude, paginationNumber);
             subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, paginationNumber);
         },
         //onAfterAction:function(){
@@ -160,8 +140,7 @@ Router.map(function(){
         path:'/profile/:userID',
         template:'myProfile',
         waitOn:function(){
-// to fix this shizzle
-
+            // to fix this shizzle
             var currentUserId = this.params.userID;
             Meteor.subscribe('myfavoritesofflinelist',currentUserId);
             Meteor.subscribe('myfavoritesofflinelisting', currentUserId);
@@ -170,17 +149,46 @@ Router.map(function(){
             Meteor.subscribe('myfavoritesoffline',currentUserId,currentLng,currentLat);
             //Meteor.subscribe('myfavoritesofflinelisting', currentUserId, listName);
             //subs.subscribe('myfavoritesofflinelisting', currentUserId, listName);
-           // Meteor.subscribe('myfavoritesofflinelistitems',currentUserId);
-           // Meteor.subscribe('myfavoritesoffline',currentUserId,currentLng,currentLat);
-           // subs.subscribe('myfavoritesoffline',currentUserId,currentLng,currentLat);
-           ////Meteor.subscribe('mimoauserscollectionlist');
-           // Meteor.subscribe('mimoacuratorscollection', this.params.userID);
-           // Meteor.subscribe('mimoausersfavoritescollection', this.params.userID);
+            // Meteor.subscribe('myfavoritesofflinelistitems',currentUserId);
+            // Meteor.subscribe('myfavoritesoffline',currentUserId,currentLng,currentLat);
+            // subs.subscribe('myfavoritesoffline',currentUserId,currentLng,currentLat);
+            // Meteor.subscribe('mimoauserscollectionlist');
+            // Meteor.subscribe('mimoacuratorscollection', this.params.userID);
+            // Meteor.subscribe('mimoausersfavoritescollection', this.params.userID);
         },
         data: function(){
            // proxyDB.mimoaUsersFavoritesCollection.find({userID:this.params.userID});
            // foolist.find({userID:this.params.userID});
            // return foo.find({'userID':this.params.userID});
+            return foolist.find({userID:Meteor.userId()});
+        },
+        cache:true,
+        fastRender: true
+    });
+    this.route('myProfileListCreation', {
+        path:'/profile/:userID/create',
+        template:'profileListCreation',
+        waitOn:function(){
+            // to fix this shizzle
+            var currentUserId = this.params.userID;
+            Meteor.subscribe('myfavoritesofflinelist',currentUserId);
+            Meteor.subscribe('myfavoritesofflinelisting', currentUserId);
+            //subs.subscribe('myfavoritesofflinelisting', currentUserId, listName);
+            Meteor.subscribe('myfavoritesofflinelistitems',currentUserId);
+            Meteor.subscribe('myfavoritesoffline',currentUserId,currentLng,currentLat);
+            //Meteor.subscribe('myfavoritesofflinelisting', currentUserId, listName);
+            //subs.subscribe('myfavoritesofflinelisting', currentUserId, listName);
+            // Meteor.subscribe('myfavoritesofflinelistitems',currentUserId);
+            // Meteor.subscribe('myfavoritesoffline',currentUserId,currentLng,currentLat);
+            // subs.subscribe('myfavoritesoffline',currentUserId,currentLng,currentLat);
+            // Meteor.subscribe('mimoauserscollectionlist');
+            // Meteor.subscribe('mimoacuratorscollection', this.params.userID);
+            // Meteor.subscribe('mimoausersfavoritescollection', this.params.userID);
+        },
+        data: function(){
+            // proxyDB.mimoaUsersFavoritesCollection.find({userID:this.params.userID});
+            // foolist.find({userID:this.params.userID});
+            // return foo.find({'userID':this.params.userID});
             return foolist.find({userID:Meteor.userId()});
         },
         cache:true,
@@ -325,7 +333,6 @@ Router.map(function(){
             Meteor.subscribe('mimoacollectionspecific', currentPostID, limit);
         },
         data: function() {
-            foolist.find({userID:currentUserId});
             return proxyDB.mimoaCollection.findOne({id:this.params.id}, {
                 id:1,title:1,address:1,website:1,freeint1:1,freetext2:1,freetext3:1,freetext8:1,freetext9:1,lon:1,lat:1,thumb:1,image1:1,imageset:1,imagedescription:1,summary:1
             });

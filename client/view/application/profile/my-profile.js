@@ -42,20 +42,35 @@ Template.myProfile.rendered = function(){
 };
 
 Template.myProfile.events({
+    'click .tooltip__remove': function(){
+        var thisList = this;
+        console.log(thisList);
+        Meteor.call('removeOfflineList', thisList, function(err,results){
+            console.log('remove projects from my favorites');
+            if(err){console.log(err);}else{console.log(results);}
+        });
+    },
+    'click .tooltip-adjust': function(event){
+        $('.tooltip-post-list').show();
+        $('.tooltip__remove').show();
+       // $('.tooltip-post-list').addClass('fadeIn');
+    },
     'click .post--list':function(event){
+        titleList =$(event.target).text();
+        console.log(titleList);
         var text = $(event.target).text().replace(/\s+/g, '');
         listName = text;
-        $('.post--list').removeClass('fadeInLeft');
-        $('.post--list').addClass('fadeOutLeft');
+      //  $('.post--list').removeClass('fadeInLeft');
+        //$('.post--list').addClass('fadeOutLeft');
         var userID = Meteor.userId();
-        $('post--list-items').addClass('animated fadeInRight');
+        //$('post--list-items').addClass('animated fadeInRight');
         return Router.go('/profile/'+userID+'/'+listName);
     },
     'click .new-list .back-button':function(){
-        $('.new-list').removeClass('fadeInRight');
-        $('.new-list').addClass('fadeOutLeft');
-        $('.post-container').removeClass('fadeOutLeft');
-        $('.post-container').addClass('fadeInRight');
+        //$('.new-list').removeClass('fadeInRight');
+        //$('.new-list').addClass('fadeOutLeft');
+        //$('.post-container').removeClass('fadeOutLeft');
+        //$('.post-container').addClass('fadeInRight');
     },
     'submit form': function(event){
         event.preventDefault();
@@ -71,21 +86,23 @@ Template.myProfile.events({
 
     },
     'click .post--list-create':function(){
-        $('.post-container').addClass('animated fadeOutLeft');
-        $('.new-list').show();
-        $('.new-list').addClass('animated fadeInRight');
+        var userID = Meteor.userId();
+        return Router.go('/profile/'+userID+'/create');
+        //$('.post-container').addClass('animated fadeOutLeft');
+        //$('.new-list').show();
+        //$('.new-list').addClass('animated fadeInRight');
     },
-    'click .minus-icon': function(){
-        var thisPost = this;
-        Meteor.call('removeProject', thisPost, function(err,results){
-            console.log('remove projects from my favorites');
-            if(err){console.log(err);}else{console.log(results);}
-        });
-        return Meteor.call('removeOfflineProject', thisPost, function(err,results){
-            console.log('remove projects from my favorites');
-            if(err){console.log(err);}else{console.log(results);}
-        });
-    },
+    //'click .minus-icon': function(){
+    //    var thisPost = this;
+    //    Meteor.call('removeProject', thisPost, function(err,results){
+    //        console.log('remove projects from my favorites');
+    //        if(err){console.log(err);}else{console.log(results);}
+    //    });
+    //    return Meteor.call('removeOfflineProject', thisPost, function(err,results){
+    //        console.log('remove projects from my favorites');
+    //        if(err){console.log(err);}else{console.log(results);}
+    //    });
+    //},
     'click .offline-button': function(){
         return proxyDB.mimoaUsersFavoritesCollection.find({userID:Meteor.userId()}).forEach(function (project) {
             return Meteor.call('offlineAvailable', project, function(err, res){

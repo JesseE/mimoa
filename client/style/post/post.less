@@ -56,6 +56,7 @@
   h5{text-align:left;color: black;font-size:4vw;}
   h6{font-size:3vw;}
 }
+a{color:black; }
 a:hover{text-decoration: none;}
 .post-content__title-list{  float:left;list-style-type:none;  width:100%;  padding: 0;  /*border-bottom: 1px solid lightgrey;*/}
 .post-content__title-item{  display:inline-block;  width:29%;}
@@ -84,6 +85,8 @@ a:hover{text-decoration: none;}
   width: 100%;
   /* color: #7ED321; */
   margin-bottom: 25px;
+  z-index: 9999;
+  position: relative;
   /* height: 59px; */}
 .post-favorites{    height: 60px;
   /* border: 1px solid grey; */
@@ -100,8 +103,12 @@ p.distance-favorites{ background-color: #7ED321;  color: white;  position: absol
   margin: 0 auto 50px auto;
   width: 100%;
   border-top: 1px solid lightgray;}
-.post-favorites__listing-title{  float: left;  width:100%;  text-align:center;}
-.post--list-create{&:extend(.post--list);}
+.post-favorites__listing-title{  float: left;  width:100%;  text-align:center; top:30px;}
+.post--list-create{&:extend(.post-favorites__listing-calculate);}
+.post--list-create-tooltip{
+  border-top:1px solid lightgrey;
+  color:black;
+}
 .post--list{
   &:extend(.post);//height:100px;width:100%; margin:auto;float:none; box-shadow:none; border-bottom:1px solid lightgrey;
   height: 100px;
@@ -112,6 +119,7 @@ p.distance-favorites{ background-color: #7ED321;  color: white;  position: absol
 }
 .post-content--list{
   &:extend(.post-content);
+  background-color:transparent;
 }
 .post-content__thumb-image--list{
   &:extend(.post-content__thumb-image);width:35%;top:-50px;
@@ -119,7 +127,11 @@ p.distance-favorites{ background-color: #7ED321;  color: white;  position: absol
 .post-content__text--list{
   &:extend(.post-content__text); width:59%; top:0; margin:0; color:black;
   h4{font-size:14px;font-weight:400;}
-  p{font-size:12px;}
+  p{    width: 90%;font-size:12px;}
+}
+.post-content__text--list-noitems{
+  &:extend(.post-content__text--list);
+  width:100%;  text-align: center;  line-height: 10px;  margin-top: 15px;
 }
 .animated{    animation-duration: 400ms !important; -webkit-animation-duration:400ms !important;}
 .post-content__text-page{float: left;
@@ -136,11 +148,13 @@ p.distance-favorites{ background-color: #7ED321;  color: white;  position: absol
   padding-bottom: 30px;
   margin-bottom: 35px;}
 .post-container--input{display:none;}
-.new-list{display:none;    width: 90%;  float: right;}
-.form input{float:left}
+.new-list{display:block;    width: 90%;  float: right;}
+.form input{float:left; padding:5px;}
 .post--list-items{&:extend(.post--list);}
 .post-content__text--list-title{&:extend(.post-content__text--list);font-size: 33px;
   width: 100%;
   text-align: center;
-  top: 28px;}
+  top: 56px;}
+.post-list-text-title{&:extend(.post-content__text--list-title);top:30px;}
 .potrait{width:80px; height:80px; border-radius:100%;}
+.list-title{width:90%;}

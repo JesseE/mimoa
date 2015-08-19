@@ -1,12 +1,6 @@
 <template name="postPage">
             <div class="post-content--full-page animated fadeInLeft">
                {{>carousel}}
-                <div class="tooltip-post-page">
-                    <h4>added to:</h4>
-                    {{#each list}}
-                        <div class="tooltip-post-text" ><h4 data-name="{{name}}">{{name}}</h4></div>
-                    {{/each}}
-                </div>
                 <div class="post-content__text-page">
                     <p class="distance">
                         {{currentDistance}} m
@@ -15,7 +9,16 @@
                 <div class="add-to-favorite">
                     <div class="button__add-to-favorite"><i class="fa fa-heart"></i></div>
                 </div>
+                <div class="tooltip-post-page animated">
+                    <div class="tooltip__remove-page"><i class="fa fa-times"></i></div>
+                    <h4 class="tooltip-title">add to:</h4>
+                    {{#each list}}
+                        <div class="tooltip-post-text" ><h4 data-name="{{name}}">{{name}}</h4></div>
+                    {{/each}}
+                    <div class="tooltip-post-text post--list-create-tooltip"><h4>create new list</h4></div>
+                </div>
                 <div class="post-content__text--full-width">
+
                     <div class="post-content__title">
                         <h3>{{title}}</h3>
                         <p class="author">{{freetext8.[0]._}}</p>
@@ -97,5 +100,6 @@
                         </ul>
                     </div>
                 </div>
+
             </div>
 </template>

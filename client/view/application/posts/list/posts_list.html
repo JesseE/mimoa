@@ -26,24 +26,12 @@
                             </a>
                             <div class="favorite-icon"><i class="fa fa-heart"></i>
                                 <div class="tooltip-post animated">
-                                    <h4>added to:</h4>
-                                    {{#if list}}
+                                    <div class="tooltip__remove"><i class="fa fa-times"></i></div>
+                                    <h4 class="tooltip-title">add to:</h4>
                                         {{#each list}}
                                             <div class="tooltip-post-text" ><h4 data-name="{{name}}">{{name}}</h4></div>
                                         {{/each}}
-                                    {{/if}}
-                                    <form class="new-list">
-                                        <li class="back-button"><h4><i class="large mdi-navigation-chevron-left"></i></h4></li>
-                                        <input type="text" name="listNameInput">
-                                        <input type="submit">
-                                    </form>
-                                    <div class="post--list-create" data-position="{{currentDistance}}">
-                                        <div class="post-content--list">
-                                            <div class="post-content__text--list-title">
-                                                <h4>create new favorites list</h4>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        <div class="tooltip-post-text post--list-create-tooltip"><h4>create new list</h4></div>
                                 </div>
                             </div>
 

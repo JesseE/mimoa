@@ -14,22 +14,18 @@ mdg:geolocation
 percolate:paginated-subscription
 fortawesome:fontawesome
 accounts-password
-accounts-google
 accounts-ui-unstyled
 lepozepo:reactive-publish
 meteorhacks:fast-render
 iron:router
 sacha:spin
-rubaxa:sortable
 meteorhacks:subs-manager
 fastclick
 chriswessels:hammer
 okgrow:iron-router-autoscroll
 fezvrasta:bootstrap-material-design
-chrisben:imgcache
 meteorhacks:kadira
 natestrauser:animate-css
-jesty:polyline
 
 ground:db
 appcache

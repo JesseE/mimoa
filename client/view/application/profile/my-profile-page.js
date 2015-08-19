@@ -13,7 +13,7 @@ Template.myProfilePage.helpers({
         return Meteor.userId();
     },
     name:function(){
-        return foo.find({});
+        return titleList;
     },
     offline:function(){
         //$(".post--list").sort(sort_li).appendTo('.post-container');
