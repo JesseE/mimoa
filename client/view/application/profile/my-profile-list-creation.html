@@ -1,0 +1,30 @@
+<template name="profileListCreation">
+      {{>nav}}
+        <section class="profile animated fadeInUp">
+            <div class="profile__thumb">
+                <div class="profile__thumb-image">
+                    <img class="potrait" src="/images/jesse.jpeg" alt="user profile picture"/>
+                </div>
+            </div>
+            <article class="profile-info">
+                <h3 class="profile-username">{{currentUser.username}}</h3>
+            </article>
+            <article class="post-list--profile">
+                <div class="post-bar">
+                    <div class="post-favorites">
+                        <div class="icon-container">
+                            <i class="fa fa-heart"></i>
+                        </div>
+                        <div class="banner-text">
+                            <h3>favorites lists</h3>
+                            <p>these project are offline available</p>
+                        </div>
+                    </div>
+                </div>
+                <form class="new-list">
+                    <input type="text" name="listNameInput" placeholder="list name...">
+                    <input type="submit">
+                </form>
+            </article>
+        </section>
+</template>
