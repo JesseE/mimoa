@@ -14,10 +14,5 @@ Template.profileListCreation.events({
                 return Router.go('/profile/'+currentUserId);
             }
         });
-
-        //$('.new-list').removeClass('fadeInRight');
-        //$('.new-list').addClass('fadeOutLeft');
-        //$('.post-container').removeClass('fadeOutLeft');
-        //$('.post-container').addClass('fadeInRight');
     }
 });

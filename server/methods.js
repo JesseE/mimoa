@@ -22,7 +22,6 @@ Meteor.methods({
 
     },
     'saveDB':function(subHandle){
-        //return proxyDB.mimoaCollection.update()
     },
     'updateRating': function(selectedDoc, ratingValue){
         return proxyDB.mimoaCollection.update({ _id: selectedDoc }, { $set : { freeint1 : { 0 : { _ : ratingValue } } } });
@@ -75,12 +74,6 @@ Meteor.methods({
             },{upsert:true});
     },
     'addToMyFavorite': function(projectId, thisProject, currentUserId){
-        //proxyDB.mimoaUsersFavoritesCollection.update({userID:currentUserId, 'project.id':'thisProject.id'},
-        //    {
-        //        userID:currentUserId,
-        //        project:thisProject
-        //    }, {upsert:true});
-
     },
     'removeCuratorFromMyFavorite':function(thisCurator, thisUserID){
         return proxyDB.mimoaCuratorsCollection.remove({userID:thisUserID,'curator.userID':thisCurator.curator.userID});
@@ -93,5 +86,3 @@ Meteor.methods({
         return proxyDB.mimoaUsersCollection.update({userID:currentUserId},{userID:currentUserId,user:user},{upsert:true});
     }
 });
-
-//Meteor.AppCache.config({onlineOnly: ['/packages/']});

@@ -204,7 +204,8 @@ Router.map(function(){
         },
         data:function() {
             return proxyDB.mimoaUsersFavoritesCollection.find({userID:this.params.userID});
-        },
+    },
+
         fastRender: true
     });
     this.route('favoriteCuratorProfile', {

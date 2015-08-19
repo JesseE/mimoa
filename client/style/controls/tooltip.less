@@ -1,71 +1,8 @@
-.tooltip-post{
-  display: none;  width: 300px;  /* float: right; */  box-shadow: 1px 2px 5px lightgrey;  position: absolute;  right: 0px;  color: #7ED321;  background-color: white;  padding: 10px;  z-index: 9999;  height: 211px; overflow: auto;  top: -153px;
-}
-.tooltip-post-page{&:extend(.tooltip-post);
-  display: none;
-  width: 250px;
-  float: left;
-  left: -180px;
-  box-shadow: 1px 1px 1px lightgrey;
-  position: absolute;
-  color: #7ED321;
-  background-color: white;
-  padding: 10px;
-  z-index: 999999999999;
-  margin: 0 69%;
-  top: 195px;
-}
-.tooltip__remove {
-  float: right;
-  height: 30px;
-  font-size: 20px;
-  position: absolute;
-  top: -18px;
-  right: 21px;
-}
-.tooltip-adjust{
-  float: right;
-  position: relative;
-  font-size: 20px;
-  top: -67px;
-  /* margin-right: 35px; */
-  padding-top: 39px;
-  width: 10%;
-  height: 100px;
- // border-left: 1px solid lightgrey;
-}
-.tooltip-post-list{
-  &:extend(.tooltip-post);
-  /* border: none; */
-  /* display: none; */
-  width: 50px;
-  height: 100px;
-  /* float: right; */
-  box-shadow: none;
-  position: relative;
-  top: -15px;
-  color: #7ED321;
-  background-color: white;
-  padding: 10px;
-  z-index: 9999;
-  /* height: 211px; */
-  overflow: auto;
-  /* top: -153px; */
-  /* right: 65px; */
-  float: right;
-}
-.tooltip-post-text {
-  float: left;
-  width: 100%;
-  text-align: center;
-  /* height: 36px; */
-  /* position: relative; */
-}
-.tooltip-title{
-  color:black;
-
-}
-.tooltip__remove-page{
-  &:extend(.tooltip__remove);
-  top:15px;
-}
+.tooltip-post{  display: none;  width: 300px; box-shadow: 1px 2px 5px lightgrey;  position: absolute;  right: 0px;  color: #7ED321;  background-color: white;  padding: 10px;  z-index: 9999;  height: 211px; overflow: auto;  top: -153px;}
+.tooltip-post-page{&:extend(.tooltip-post);  display: none;  width: 250px;  float: left;  left: -180px;  box-shadow: 1px 1px 1px lightgrey;  position: absolute; color: #7ED321;  background-color: white;  padding: 10px;  z-index: 999999999999;  margin: 0 69%;  top: 195px;}
+.tooltip__remove {  float: right;  height: 30px;  font-size: 20px;  position: absolute;  top: -18px;  right: 21px;}
+.tooltip-adjust{  float: right;  position: relative;  font-size: 20px;  top: -67px;   padding-top: 39px;  width: 10%;  height: 100px;}
+.tooltip-post-list{  &:extend(.tooltip-post);  width: 50px; height: 100px;  box-shadow: none; position: relative;  top: -15px;  color: #7ED321;  background-color: white;  padding: 10px;  z-index: 9999; overflow: auto;  float: right;}
+.tooltip-post-text {  float: left;  width: 100%;  text-align: center;}
+.tooltip-title{  color:black;}
+.tooltip__remove-page{  &:extend(.tooltip__remove);  top:15px;}

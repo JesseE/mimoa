@@ -1,13 +1,10 @@
 Template.curatorsList.helpers({
-   curators: function() {
+    curators: function() {
        return proxyDB.mimoaUsersCollection.find({});
-   },
+    },
     emailaddres: function() {
         return Meteor.user().username;
-    }//,
-    //currentUser: function() {
-    //    return Meteor.userId();
-    //}
+    }
 });
 Template.curatorsList.events({
     'click .curator__follow-button': function() {
