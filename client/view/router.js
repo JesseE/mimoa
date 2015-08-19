@@ -1,15 +1,22 @@
+// current coordinates and apikey local vars
 var apiKey;
 var crd;
 var currentCoords;
-var subHandle;
 var currentLat;
 var currentLng;
+//used to handle subscribtions on the mainpage
+var subHandle;
+
 var paginationNumber = 15;
+//id to reference current user
 var currentUserId = Meteor.userId();
+//meteorhacks subscribtion manager
 var subs = new SubsManager();
 
+//global var I know ugly no other solution
 foo = new Meteor.Collection('myfavoritesoffline');
 foolist = new Meteor.Collection('myfavoritesofflinelist');
+//store data and method in GroundDB(localstorage)
 Ground.Collection(Meteor.users);
 GroundDB(foo);
 GroundDB(foolist);
@@ -35,7 +42,7 @@ Ground.methodResume([
     'offlineAvailable'
 ]);
 
-
+//this will be loaded each page, loadingpage, layoutempalte
 Router.configure({
     loadingTemplate: 'loading',
     layoutTemplate:'index',
@@ -50,10 +57,12 @@ Router.configure({
         Meteor.subscribe('myfavoritesoffline',currentUserId,currentLng,currentLat);
     }
 });
+//before router initial load load google maps and continue with the next function in the router
 Router.onBeforeAction(function() {
     GoogleMaps.load({v:'3', key:'AIzaSyCHm1lpUrl8t-6qHQ-16X39ZTNt1ocHmkM', libraries: 'geometry, directions'});
     this.next();
 });
+//remember what you scroll position on the main page when going to a detail page
 IronRouterAutoscroll.animationDuration = 100;
 Template.postsList.events({
     'click button.loadbutton':function(){
@@ -61,15 +70,18 @@ Template.postsList.events({
         subHandle.loadNextPage();
     }
 });
+//the different routes
+//wait on subscribtions dont return subscriptions to make in accessable offline
+//data returns the requeste data from the database
 Router.map(function(){
     this.route('introduction', {
         path:'/',
         template:'intro',
         waitOn: function () {
             if (Meteor.loggingIn()) {
-                //return Router.go('postsList');
             }
             if(Meteor.user()){
+                //sign new user in
                 var currentUserId = Meteor.userId();
                 var user = Meteor.user();
                 console.log( currentUserId, user);
@@ -101,7 +113,6 @@ Router.map(function(){
         },
         data: function(){
             var currentPostID = this.params.currentPostID;
-            //return proxyDB.mimoaCollection.find({$and:[{'title':{$regex:currentPostID, $options: "i"}},{'city':{$regex:currentPostID, $options: "i"}}]});
             return proxyDB.mimoaCollection.find({'title':{$regex:currentPostID, $options: "i"}});
         }
     });
@@ -111,12 +122,8 @@ Router.map(function(){
         waitOn:function(){
             var currentUserId = Meteor.userId();
             Meteor.subscribe('myfavoritesofflinelist',currentUserId);
-            //subHandle = Meteor.subscribeWithPagination('mimoacollection', hereBrowser.coords.latitude, hereBrowser.coords.longitude, paginationNumber);
             subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, paginationNumber);
         },
-        //onAfterAction:function(){
-        //    this.render('loading');
-        //},
         data: function(){
             var currentUserId = Meteor.userId();
             foolist.find({userID:currentUserId});
@@ -144,22 +151,10 @@ Router.map(function(){
             var currentUserId = this.params.userID;
             Meteor.subscribe('myfavoritesofflinelist',currentUserId);
             Meteor.subscribe('myfavoritesofflinelisting', currentUserId);
-            //subs.subscribe('myfavoritesofflinelisting', currentUserId, listName);
             Meteor.subscribe('myfavoritesofflinelistitems',currentUserId);
             Meteor.subscribe('myfavoritesoffline',currentUserId,currentLng,currentLat);
-            //Meteor.subscribe('myfavoritesofflinelisting', currentUserId, listName);
-            //subs.subscribe('myfavoritesofflinelisting', currentUserId, listName);
-            // Meteor.subscribe('myfavoritesofflinelistitems',currentUserId);
-            // Meteor.subscribe('myfavoritesoffline',currentUserId,currentLng,currentLat);
-            // subs.subscribe('myfavoritesoffline',currentUserId,currentLng,currentLat);
-            // Meteor.subscribe('mimoauserscollectionlist');
-            // Meteor.subscribe('mimoacuratorscollection', this.params.userID);
-            // Meteor.subscribe('mimoausersfavoritescollection', this.params.userID);
         },
         data: function(){
-           // proxyDB.mimoaUsersFavoritesCollection.find({userID:this.params.userID});
-           // foolist.find({userID:this.params.userID});
-           // return foo.find({'userID':this.params.userID});
             return foolist.find({userID:Meteor.userId()});
         },
         cache:true,
@@ -173,22 +168,10 @@ Router.map(function(){
             var currentUserId = this.params.userID;
             Meteor.subscribe('myfavoritesofflinelist',currentUserId);
             Meteor.subscribe('myfavoritesofflinelisting', currentUserId);
-            //subs.subscribe('myfavoritesofflinelisting', currentUserId, listName);
             Meteor.subscribe('myfavoritesofflinelistitems',currentUserId);
             Meteor.subscribe('myfavoritesoffline',currentUserId,currentLng,currentLat);
-            //Meteor.subscribe('myfavoritesofflinelisting', currentUserId, listName);
-            //subs.subscribe('myfavoritesofflinelisting', currentUserId, listName);
-            // Meteor.subscribe('myfavoritesofflinelistitems',currentUserId);
-            // Meteor.subscribe('myfavoritesoffline',currentUserId,currentLng,currentLat);
-            // subs.subscribe('myfavoritesoffline',currentUserId,currentLng,currentLat);
-            // Meteor.subscribe('mimoauserscollectionlist');
-            // Meteor.subscribe('mimoacuratorscollection', this.params.userID);
-            // Meteor.subscribe('mimoausersfavoritescollection', this.params.userID);
         },
         data: function(){
-            // proxyDB.mimoaUsersFavoritesCollection.find({userID:this.params.userID});
-            // foolist.find({userID:this.params.userID});
-            // return foo.find({'userID':this.params.userID});
             return foolist.find({userID:Meteor.userId()});
         },
         cache:true,
@@ -203,18 +186,11 @@ Router.map(function(){
             var listName = this.params.listName;
             Meteor.subscribe('myfavoritesofflinelist',currentUserId);
             Meteor.subscribe('myfavoritesofflinelisting', currentUserId, listName);
-            //subs.subscribe('myfavoritesofflinelisting', currentUserId, listName);
             Meteor.subscribe('myfavoritesofflinelistitems',currentUserId);
             Meteor.subscribe('myfavoritesoffline',currentUserId,currentLng,currentLat);
-            //subs.subscribe('myfavoritesoffline',currentUserId,currentLng,currentLat);
-            ////Meteor.subscribe('mimoauserscollectionlist');
-            ////Meteor.subscribe('mimoacuratorscollection', this.params.userID);
-            //// Meteor.subscribe('mimoausersfavoritescollection', this.params.userID);
         },
         data: function(){
-            // proxyDB.mimoaUsersFavoritesCollection.find({userID:this.params.userID});
             var listNameParams = this.params.listName;
-            //foolist.find({userID:this.params.userID,name:this.params.listNameParams});
             return foo.find({'userID':this.params.userID,name:listNameParams});
         },
         cache:true,
@@ -238,7 +214,6 @@ Router.map(function(){
             Meteor.subscribe('mimoausersfavoritescollection',this.params.userID);
         },
         data:function() {
-            //proxyDB.mimoaUsersCollection.find({"userID":{$ne: null}});
             return proxyDB.mimoaUsersFavoritesCollection.find({userID:this.params.userID});
         },
         fastRender: true
@@ -404,14 +379,7 @@ Router.map(function(){
             Meteor.subscribe('myfavoritesoffline',currentUserId,currentLng,currentLat);
             subs.subscribe('myfavoritesoffline',currentUserId,currentLng,currentLat);
             Meteor.subscribe('myfavoritesofflinelisting', currentUserId, listName);
-            subs.subscribe('myfavoritesofflinelisting', currentUserId, listName);
-            //Meteor.subscribe('myfavoritesofflinelistitems',currentUserId);
             Meteor.subscribe('myfavoritesoffline',currentUserId,currentLng,currentLat);
-            //subs.subscribe('mimoacuratorscollection', this.params.currentUser);
-            //subs.subscribe('mimoausersfavoritescollection', this.params.currentUser);
-            //Meteor.subscribe('mimoauserscollectionlist');
-            //Meteor.subscribe('mimoacuratorscollection', this.params.currentUser);
-            //Meteor.subscribe('mimoausersfavoritescollection', this.params.currentUser);
             return GoogleMaps.load({v:'3', key:'AIzaSyCHm1lpUrl8t-6qHQ-16X39ZTNt1ocHmkM', libraries: 'geometry, directions'});
         },
         data:function(){
@@ -436,7 +404,7 @@ Router.map(function(){
         fastRender: true
     });
 });
-
+//server side renderingen
 if(Meteor.isServer) {
     FastRender.route('postsList', {
         path:'/nearby/',
