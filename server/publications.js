@@ -2,6 +2,7 @@
  * Created by jesse on 18/02/15.
  */
 Meteor.reactivePublish('mimoacollection', function(currentLat,currentLng, limit){
+    console.log(currentLat,currentLng, limit);
     return proxyDB.mimoaCollection.find({coordinates:
         {$near:
             {$geometry:
@@ -58,3 +59,16 @@ Meteor.publish('mimoausersfavoritescollection', function(currentUserId, currentP
 Meteor.publish('mimoamyfavorites', function(curatorID){
     return proxyDB.mimoaMyFavoritesCollection.find(curatorID);
 });
+
+// how to do multiple queries in one publish
+// Meteor.publish('mimoacollection', function(title, currentLat, currentLng, limit){
+//      return [proxyDB.mimoaCollection.find({coordinates:
+//          {$near:
+//              {$geometry:
+//                  {type: "Point",coordinates:[currentLng, currentLat]}
+//              }
+//          }
+//      },{limit:limit}, {reactive:true}),
+//      proxyDB.mimoaCollection.find({title:title});
+// ]
+// })

@@ -24,6 +24,7 @@ var projectCoords;
 var projectsLength;
 var currentLat;
 var currentLng;
+var myCurrentLocationMarker;
 
 Meteor.startup(function(){
     function success(pos) {
@@ -74,11 +75,19 @@ Template.collectionRoute.helpers({
             localStorage["projectCoordsLengthA"] = JSON.stringify(projectContainer[projectsLength].location.A);
             localStorage["projectCoordsLengthF"] = JSON.stringify(projectContainer[projectsLength].location.F);
 
+            myCurrentLocation = new google.maps.LatLng(localStorage.getItem('currentSavedLat'), localStorage.getItem('currentSavedLng'));
+
+            myCurrentLocationMarker = new google.maps.Marker(myCurrentLocation);
+
+            myCurrentDestination = new google.maps.LatLng(JSON.parse(localStorage["projectCoordsLengthA"]),JSON.parse(localStorage["projectCoordsLengthF"]))
+
+            console.log( myCurrentLocationMarker );
+
             var request = {
-                origin: myCurrentLocation = new google.maps.LatLng(localStorage.getItem('currentSavedLat'), localStorage.getItem('currentSavedLng')),
+                origin:myCurrentLocation,
                 waypoints:projectContainer,
                 optimizeWaypoints: true,
-                destination: myCurrentDestination = new google.maps.LatLng(JSON.parse(localStorage["projectCoordsLengthA"]),JSON.parse(localStorage["projectCoordsLengthF"])),
+                destination: myCurrentDestination,
                 travelMode: google.maps.TravelMode.WALKING
             };
 
@@ -86,6 +95,10 @@ Template.collectionRoute.helpers({
                 if(status == google.maps.DirectionsStatus.OK){
                     directionsDisplay.setDirections(response);
                 }
+            });
+
+            google.maps.event.addListener(myCurrentLocation, 'dragend', function(evt) {
+                console.log(evt);
             });
 
             google.maps.event.addListener(directionsDisplay, 'directions_changed', function(evt) {
@@ -162,7 +175,6 @@ Template.collectionRoute.onCreated(function() {
                 }
                 total = total / 1000.0;
             }
-
             // Map initialization options
             return {
                 center: new google.maps.LatLng(localStorage.getItem('currentSavedLat'), localStorage.getItem('currentSavedLng')),

@@ -19,8 +19,7 @@
   width: 100%;margin-left:5px;
   top: -50px;
   h3{padding-bottom:5px;}
-  p.author{    font-size: 4.5vw;
-    color: gray;}
+  p.author{ font-size: 4.5vw;color: gray;}
 }
 .post-content--full-page{&:extend(.post-content); /*top: 24px;*/}
 .post-content{  position:relative;float:left;  top: -30px;  /*height: 75px;height:90px; */ width: 100%; margin:10px auto; background-color: white; border-bottom: none;/*border-bottom: 1px solid lightgrey;*/}
@@ -47,7 +46,9 @@
   }
 
 .post-content__summary{overflow:hidden;width:100%;}
-.post-content__thumb-image{ width: 100%;  float: left;  overflow: hidden;  background-color: #7ED321;  border: white;  margin: 5px;  /* border-radius: 100%; */  top: -16px;  position: relative;  left: -5px;}
+.post-content__thumb-image{ width: 100%;  float: left;  overflow: hidden;  background-color: #7ED321;  border: white;  margin: 5px;  /* border-radius: 100%; */  top: -16px;  position: relative;  left: -5px;
+  &:active{opacity:0.5;transition: all 300ms;}
+}
 .post-content__thumb-image--full-width{  width: 100%;}
 .post-content__text--full-width{
   &:before{background-color: grey;}

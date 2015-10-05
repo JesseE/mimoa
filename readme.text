@@ -1,0 +1,15 @@
+1 - run this project by downloading and installing meteor
+
+2 - then enter following input in the directory command line
+
+3 - do this by opening the terminal in the folder directory of the meteor project folder
+
+4 - then type:
+
+    meteor run
+
+5 - It will direct you to localhost so open your browser and type in the search bar:localhost:3000 if 3000 is  you localhost number
+
+6 - that's it!
+
+if there are problems accuring then mail me at jesse.eikema@gmail.com and then I will try to help you

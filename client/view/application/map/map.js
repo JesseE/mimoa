@@ -27,7 +27,7 @@ Meteor.startup(function(){
 });
 Template.projectsMap.helpers({
     mapOptions: function() {
-        subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, paginationNumber);
+
         if(GoogleMaps.loaded()) {
             // Map initialization options;
             //var mimoaIcon = {url:'/images/mimoaicon.png', size: new google.maps.Size(20,32)};
@@ -39,11 +39,11 @@ Template.projectsMap.helpers({
                 disableDefaultUI: true
             };
         }
-
     }
 });
 Template.projectsMap.onCreated(function(){
     GoogleMaps.ready('map', function (map, limit) {
+        subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, paginationNumber);
        // var mimoaIcon = {url:'/images/mimoaicon.png', size: new google.maps.Size(20,32)};
         proxyDB.mimoaCollection.find({}).forEach(function (project, marker, infowindow) {
             // Add a marker to the map once it's ready
@@ -76,32 +76,39 @@ Template.projectsMap.onCreated(function(){
         google.maps.event.addListener(myLocationMarker, 'dragend', function(evt) {
             currentLat = evt.latLng.lat().toFixed(3);
             currentLng = evt.latLng.lng().toFixed(3);
-            subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, 25);
+            localStorage.setItem('currentSavedLat', currentLat);
+            localStorage.setItem('currentSavedLng', currentLng);
+            //paginationNumber+=25;
+            //setupMarkers(currentLat,currentLng,paginationNumber);
+            //Meteor.subscribeWithPagination('mimoacollection', localStorage.getItem('currentSavedLat'), localStorage.getItem('currentSavedLng'), paginationNumber);
+            //subHandle.loadNextPage();
+            //paginationNumber+=25;
+            //subHandle = Meteor.subscribeWithPagination('mimoacollection', currentLat, currentLng, paginationNumber);
+            //return subHandle.loadNextPage();
         });
-        setupMarkers = function(){
-            proxyDB.mimoaCollection.find({}).forEach(function (project, marker, infowindow) {
-                // Add a marker to the map once it's ready
-                marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(project.lat, project.lon),
-                    icon: '',
-                    map: map.instance
-                    //labelContent: '<i class="fa fa-send fa-3x" style="color:rgba(153,102,102,0.8);"></i>'
-                });
-                projectDescription = "<div><a href=" + '/posts/' + project.id +"><h4>"+ project.title +"</h4></a><img src="+''+project.thumb[0]+"></div>";
+        setupMarkers = function(currentLat,currentLng,paginationNumber){
+                proxyDB.mimoaCollection.find({}).forEach(function (project, marker, infowindow) {
+                    // Add a marker to the map once it's ready
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(project.lat, project.lon),
+                        icon: mimoaIcon,
+                        map: map.instance
+                        //labelContent: '<i class="fa fa-send fa-3x" style="color:rgba(153,102,102,0.8);"></i>'
+                    });
+                    projectDescription = "<div><a href=" + '/posts/' + project.id +"><h4>"+ project.title +"</h4></a><img src="+''+project.thumb[0]+"></div>";
 
-                infowindow = new google.maps.InfoWindow({
-                    content: projectDescription
+                    infowindow = new google.maps.InfoWindow({
+                        content: projectDescription
+                    });
+                    google.maps.event.addListener(marker, 'click', function (evt) {
+                        if (infowindow.getMap() != null) {
+                            infowindow.close();
+                        }
+                        infowindow.open(map.instance, marker);
+                    });
                 });
-                google.maps.event.addListener(marker, 'click', function (evt) {
-                    if (infowindow.getMap() != null) {
-                        infowindow.close();
-                    }
-                    infowindow.open(map.instance, marker);
-                });
-            });
-        };
+            }
     });
-
 });
 Template.projectsMap.events({
     'click button.loadbutton':function(){
